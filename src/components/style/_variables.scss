@@ -1,0 +1,118 @@
+
+@function rem($pixels){
+  @return $pixels / $font-size-root + rem;
+}
+
+// ============================================================================
+// Colors 颜色
+// ============================================================================
+
+$black: #000 !default;
+$white: #fff !default;
+
+// Ligth Theme
+$dark: rgba(0, 0, 0, 0.87) !default; // Primary text
+$gray-dark: #373a3c !default;
+$gray: rgba(0, 0, 0, 0.54) !default;  // Secondary text
+$gray-light: rgba(0, 0, 0, 0.38) !default;  // Disabled text, hint text, and icons
+$gray-lighter: rgba(0, 0, 0, 0.12) !default;  // Dividers
+
+$brand: #4285f4 !default;
+
+$color-map: (
+  primary: $brand,
+  green: #4caf50,
+  red: #f44336,
+  blue: #2196f3,
+  yellow: #ffeb3b,
+  orange: #ff9800,
+  brown: #795548,
+  purple: #9c27b0,
+  pink: #e91e63
+) !default;
+
+
+// ============================================================================
+// Typogryphy 字体排版
+// ============================================================================
+$body-bg: rgba(245, 245, 245, 0.4) !default;
+$body-color: $dark !default;
+
+$font-family-sans-serif: "Segoe UI", "Lucida Grande", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif !default;
+$font-family-serif: "Times New Roman", Times, serif !default;
+$font-family-code: Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base: $font-family-sans-serif !default;
+
+$font-size-root: 16px !default;
+$font-size-xs: rem(10px) !default;
+$font-size-sm: rem(12px) !default;
+$font-size-md: rem(14px) !default;
+$font-size-base: 1rem !default;
+$font-size-lg: rem(20px) !default;
+
+$font-size-h1: rem(40px) !default;
+$font-size-h2: rem(32px) !default;
+$font-size-h3: rem(28px) !default;
+$font-size-h4: rem(24px) !default;
+$font-size-h5: rem(20px) !default;
+$font-size-h6: 1rem !default;
+
+$display1-size: rem(56px) !default;
+$display2-size: rem(72px) !default;
+$display3-size: rem(88px) !default;
+$display4-size: rem(96px) !default;
+
+$display-weight: 300 !default;
+
+$font-weight-heading: 400 !default;
+
+$line-height: 1.5 !default;
+
+
+// ============================================================================
+// Buttons 按钮
+// ============================================================================
+$btn-radius: rem(2px) !default;
+$btn-min-width: rem(88px) !default;
+$btn-height: rem(36px) !default;
+$btn-padding: 0 rem(16px) !default;
+$btn-margin: rem(8px) !default;
+$btn-font-size: $font-size-md !default;
+
+$btn-border-width: rem(1px) !default;
+
+$btn-hover-bg: rgba(158,158,158,0.2) !default;
+
+// ============================================================================
+// Dialog 弹出框/模态框
+// ============================================================================
+$dialog-content-padding: rem(24px) !default;
+$dialog-title-font-size: rem(20px) !default;
+$dialog-margin-bottom: rem(10px) !default;
+$dialog-action-padding: 0 rem(8px) !default;
+$dialog-action-min-height: rem(52px) !default;
+$dialog-radius: rem(2px) !default;
+
+$dialog-bar-font-size: rem(20px) !default;
+$dialog-bar-padding: 0 1rem !default;
+$dialog-bar-height: rem(64px) !default;
+$dialog-bar-bg: $brand !default;
+$dialog-bar-color: $white !default;
+
+
+// ============================================================================
+// Input 输入框
+// ============================================================================
+$input-height: rem(36px) !default;
+$input-border-color: $gray-lighter !default;
+
+$input-disabled-color: $gray-light !default;
+
+$input-hint-font-size: $font-size-sm !default;
+
+// ============================================================================
+// Z-index 层级
+// ============================================================================
+$zindex-dialog: 1050 !default;
+$zindex-overlay: 1040 !default;
+

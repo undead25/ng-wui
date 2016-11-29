@@ -1,0 +1,15 @@
+<div class="ui-dialog-container">
+  <div class="ui-dialog" [class.active]="open" [class.scroll]="scroll">
+    <div *ngIf="hasToolbar()" class="dialog-bar">{{_toolbarText}}</div>
+    <div class="dialog-content">
+      <div *ngIf="hasTitle()" #title class="dialog-title">{{_titleText}}</div>
+      <div #content>
+        <ng-content></ng-content>
+      </div>
+    </div>
+    <div class="dialog-actions">
+      <button *ngIf="!isAlert()" ui-button (click)="onCancel()">取消</button>
+      <button ui-button color="primary" (click)="onOk()">确定</button>
+    </div>
+  </div>
+</div>

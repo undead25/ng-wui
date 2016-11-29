@@ -1,0 +1,21 @@
+
+.ui-overlay {
+  position: fixed;
+  z-index: $zindex-overlay;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: $black;
+
+  &.fade {
+    transition: opacity .15s linear;
+
+    opacity: 0;
+  }
+
+  &.active {
+    opacity: .5;
+  }
+}

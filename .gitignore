@@ -1,0 +1,24 @@
+# Logs
+logs
+*.log
+
+# Mac #
+.DS_Store
+ehthumbs.db
+Thumbs.db
+
+# Node #
+/node_modules
+/bower_components
+npm-debug.log
+
+# 编译 #
+/dist
+/.awcache
+
+# 编辑器 #
+.idea
+.vscode
+
+# svn #
+.svn

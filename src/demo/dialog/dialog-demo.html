@@ -1,0 +1,51 @@
+
+<button ui-button raised color="primary" (click)="showModal()">Modal1</button>
+<button ui-button raised color="red" (click)="showModal2()">Modal2</button>
+<button ui-button raised color="green" (click)="showAlert()">Alert</button>
+
+<ui-dialog 
+  [open]="openModal"
+  (onCancelClose)="onCancel()"
+  (onOkClose)="onOk()"
+  toolbar="权限设置"
+  header="提示"
+  [scroll]="true"
+  esc="false"
+>
+  <div>借助现代化 Web 平台的力量，交付 app 式体验。高性能、离线化、零安装。</div>
+  <div>借助来自 Ionic 、 NativeScript 和 React Native 中的技术与思想，构建原生移动应用。</div>
+  <div>借助你已经在 Web 开发中学过的能力，结合访问原生操作系统 API 的能力，创造能在桌面环境下安装的应用，横跨 Mac 、 Windows 和 Linux 平台。</div>
+  <div> Angular 会把你的模板转换成代码，针对现代 JavaScript 虚拟机进行高度优化，轻松获得框架提供的高生产率，同时又能保留所有手写代码的优点。</div>
+  <div>在服务端渲染应用的首屏，像只有 HTML 和 CSS 的页面那样几乎瞬间展现，支持 node.js 、 .NET 、 PHP ，以及其它服务器，为通过 SEO 来优化站点铺平了道路。</div>
+  <div>Angular 应用通过新的组件路由（ Component Router ）模块实现快速加载，提供了自动拆分代码的功能，为用户单独加载它们请求的视图中需要的那部分代码。</div>
+  <div>借助现代化 Web 平台的力量，交付 app 式体验。高性能、离线化、零安装。</div>
+  <div>借助来自 Ionic 、 NativeScript 和 React Native 中的技术与思想，构建原生移动应用。</div>
+  <div>借助你已经在 Web 开发中学过的能力，结合访问原生操作系统 API 的能力，创造能在桌面环境下安装的应用，横跨 Mac 、 Windows 和 Linux 平台。</div>
+  <div> Angular 会把你的模板转换成代码，针对现代 JavaScript 虚拟机进行高度优化，轻松获得框架提供的高生产率，同时又能保留所有手写代码的优点。</div>
+  <div>在服务端渲染应用的首屏，像只有 HTML 和 CSS 的页面那样几乎瞬间展现，支持 node.js 、 .NET 、 PHP ，以及其它服务器，为通过 SEO 来优化站点铺平了道路。</div>
+  <div>Angular 应用通过新的组件路由（ Component Router ）模块实现快速加载，提供了自动拆分代码的功能，为用户单独加载它们请求的视图中需要的那部分代码。</div>
+  <div>借助现代化 Web 平台的力量，交付 app 式体验。高性能、离线化、零安装。</div>
+  <div>借助来自 Ionic 、 NativeScript 和 React Native 中的技术与思想，构建原生移动应用。</div>
+  <div>借助你已经在 Web 开发中学过的能力，结合访问原生操作系统 API 的能力，创造能在桌面环境下安装的应用，横跨 Mac 、 Windows 和 Linux 平台。</div>
+  <div> Angular 会把你的模板转换成代码，针对现代 JavaScript 虚拟机进行高度优化，轻松获得框架提供的高生产率，同时又能保留所有手写代码的优点。</div>
+  <div>在服务端渲染应用的首屏，像只有 HTML 和 CSS 的页面那样几乎瞬间展现，支持 node.js 、 .NET 、 PHP ，以及其它服务器，为通过 SEO 来优化站点铺平了道路。</div>
+  <div>Angular 应用通过新的组件路由（ Component Router ）模块实现快速加载，提供了自动拆分代码的功能，为用户单独加载它们请求的视图中需要的那部分代码。</div>
+</ui-dialog>
+
+<ui-dialog
+  [open]="openModal2"
+  (onCancelClose)="onCancel2()"
+  (onOkClose)="onOk2()"
+>
+  <div>这里是其他设置的内容</div>
+</ui-dialog>
+
+<ui-dialog
+  [open]="openAlert"
+  (onOkClose)="onAlertOkClose()"
+  esc="false"
+  alert="true"
+  header="温馨提示"
+>
+  {{dialogContent}}
+</ui-dialog>

@@ -1,0 +1,9 @@
+<span><ng-content></ng-content></span>
+<div
+  *ngIf="!isRippleDisabled()"
+  ui-ripple
+  class="ripple-container"
+  [ripple-trigger]="getRippleElement()"
+  [ripple-dark]="isRippleDark()"
+>
+</div>

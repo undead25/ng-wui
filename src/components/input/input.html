@@ -1,0 +1,66 @@
+<div class="input-container" [class.invalid]="error">
+  <input #input
+    *ngIf="inputType === 'input'"
+    [attr.id]="id"
+    [attr.name]="name"
+    [attr.type]="type"
+    [disabled]="disabled"
+    [attr.value]="_value"
+    [readonly]="readonly"
+    [required]="required"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    (change)="handleChange($event)"
+    (keyup)="handleKeyup($event)"
+    [(ngModel)]="value"
+  >
+  <textarea #input
+    *ngIf="inputType === 'textarea'"
+    [attr.cols]="cols"
+    [attr.rows]="rows"
+    [attr.id]="id"
+    [attr.name]="name"
+    [attr.type]="type"
+    [disabled]="disabled"
+    [attr.value]="_value"
+    [readonly]="readonly"
+    [required]="required"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    (change)="handleChange($event)"
+    (keyup)="handleKeyup($event)"
+    [(ngModel)]="value"
+    autosize
+  >
+  </textarea>
+  <div class="input-line"></div>
+  <div class="input-border" [class.disabled]="_disabled || _readonly"></div>
+  <label
+    *ngIf="_hasLabel"
+    [class.active]="isLabelActive()"
+    [class.input-required]="_required"
+    [for]="id"
+  >
+    {{labelText}}
+  </label>
+  
+  <div
+    *ngIf="_hasPlaceholder"
+    class="input-placeholder"
+    [class.active]="_isPlaceholderActive"
+  >
+    {{_placeholder}}
+  </div>
+  
+  <div *ngIf="help != '' && error == ''"
+    class="input-hint"
+  >
+    {{help}}
+  </div>
+  <div *ngIf="error != ''"
+    class="input-hint"
+  >
+    {{error}}
+  </div>
+  <ng-content></ng-content>
+</div>

@@ -1,0 +1,91 @@
+
+[ui-button] {
+  position: relative;
+
+  display: inline-block;
+  overflow: hidden;
+
+  min-width: $btn-min-width;
+  height: $btn-height;
+  padding: $btn-padding;
+
+  cursor: pointer;
+  transition: box-shadow .2s ease-out, background-color .2s, color, .2s;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+
+  color: $dark;
+  border: none;
+  border-radius: $btn-radius;
+  outline: none;
+  background-color: transparent;
+
+  font-family: inherit;
+  font-size: $btn-font-size;
+  line-height: $btn-height;
+
+  will-change: box-shadow, background-color;
+  
+  &:hover {
+    background-color: $btn-hover-bg;
+  }
+
+  // 禁用
+  &[disabled] {
+    color: $gray-light;
+    box-shadow: none;
+
+    &:hover {
+      cursor: default;
+
+      background-color: transparent;
+    }
+  }
+
+  // 多颜色
+  @each $color-name in map-keys($color-map) {
+    &.#{$color-name} {
+      color: map-get($color-map, $color-name);
+    }
+  }
+
+  // raised
+  &[raised] {
+    transition: box-shadow .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    transform: translate3d(0, 0, 0);
+
+    @include elevation(2);
+
+    &:active {
+      @include elevation(8);
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &[disabled] {
+      background-color: $gray-lighter;
+      box-shadow: none;
+    }
+
+    @each $color-name in map-keys($color-map) {
+      &.#{$color-name} {
+        color: $white;
+        background-color: map-get($color-map, $color-name);
+
+        &:hover {
+          background-color: darken(map-get($color-map, $color-name), 5%);
+        }
+
+        &[disabled] {
+          color: $gray-light;
+          background-color: $gray-lighter;
+        }
+      }
+    }
+  } 
+}
+

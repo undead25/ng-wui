@@ -1,0 +1,50 @@
+{
+  "name": "ng-wui",
+  "version": "0.0.1-alpha.10",
+  "description": "Angular 2 web ui components and directives with Google Material Design",
+  "scripts": {
+    "server:dev": "webpack-dev-server --config webpack/webpack.dev.js --progress --profile --watch --inline --port 3000",
+    "clean": "rimraf dist",
+    "build": "npm run clean && webpack --config webpack/webpack.prod.js --progress --profile --bail",
+    "build:server": "browser-sync start --server dist/ --files dist/*.html --port 8888"
+  },
+  "author": "undead25",
+  "license": "MIT",
+  "dependencies": {
+    "@angular/common": "^2.2.0",
+    "@angular/compiler": "^2.2.0",
+    "@angular/core": "^2.2.0",
+    "@angular/forms": "^2.2.0",
+    "@angular/http": "^2.2.0",
+    "@angular/platform-browser": "^2.2.0",
+    "@angular/platform-browser-dynamic": "^2.2.0",
+    "@angular/router": "^3.2.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.0.0-rc.3",
+    "zone.js": "^0.6.26"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.48",
+    "angular2-template-loader": "^0.6.0",
+    "autoprefixer": "^6.5.3",
+    "awesome-typescript-loader": "^2.2.4",
+    "browser-sync": "^2.18.2",
+    "compression-webpack-plugin": "^0.3.2",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "html-webpack-plugin": "^2.24.1",
+    "node-sass": "^3.11.3",
+    "postcss-loader": "^1.1.1",
+    "raw-loader": "^0.5.1",
+    "resolve-url-loader": "^1.6.0",
+    "rimraf": "^2.5.4",
+    "sass-loader": "^4.0.2",
+    "script-ext-html-webpack-plugin": "^1.3.2",
+    "style-loader": "^0.13.1",
+    "ts-helpers": "^1.1.2",
+    "typescript": "^2.0.10",
+    "webpack": "^2.1.0-beta.25",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-merge": "^0.17.0"
+  }
+}
