@@ -5,6 +5,7 @@
     [attr.name]="name"
     [attr.type]="type"
     [disabled]="disabled"
+    [autofocus]="autofocus"
     [attr.value]="_value"
     [readonly]="readonly"
     [required]="required"
@@ -22,6 +23,7 @@
     [attr.name]="name"
     [attr.type]="type"
     [disabled]="disabled"
+    [autofocus]="autofocus"
     [attr.value]="_value"
     [readonly]="readonly"
     [required]="required"
@@ -39,7 +41,7 @@
     *ngIf="_hasLabel"
     [class.active]="isLabelActive()"
     [class.input-required]="_required"
-    [for]="id"
+    [attr.for]="id"
   >
     {{labelText}}
   </label>

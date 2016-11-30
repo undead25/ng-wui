@@ -60,9 +60,7 @@ export class UIInput {
   @Input() help: string = '';
 
   @Input()
-  get placeholder(): string {
-    return this._placeholder;
-  }
+  get placeholder(): string { return this._placeholder; }
   set placeholder(value: string) {
     if (value) {
       this._placeholder = value;
@@ -71,17 +69,11 @@ export class UIInput {
   }
 
   @Input()
-  get value(): string {
-    return this._value;
-  }
-  set value(v: string) {
-    if (v !== this._value) this._value = v;
-  }
+  get value(): string { return this._value; }
+  set value(v: string) { if (v !== this._value) this._value = v; }
 
   @Input()
-  get label(): string {
-    return this.labelText;
-  }
+  get label(): string { return this.labelText; }
   set label(value: string) {
     if (value) {
       this.labelText = value;
@@ -90,28 +82,21 @@ export class UIInput {
   }
 
   @Input()
-  get required() {
-    return this._required;
-  }
-  set required(value: boolean) {
-    this._required = coerceBoolean(value);
-  }
+  get required() { return this._required; }
+  set required(value: boolean) { this._required = coerceBoolean(value); }
 
   @Input()
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = coerceBoolean(value);
-  }
+  get disabled() { return this._disabled; }
+  set disabled(value: boolean) { this._disabled = coerceBoolean(value); }
 
   @Input()
-  get readonly() {
-    return this._readonly;
-  }
-  set readonly(value) {
-    this._readonly = coerceBoolean(value);
-  }
+  get readonly() { return this._readonly; }
+  set readonly(value) { this._readonly = coerceBoolean(value); }
+
+  @Input()
+  get autofocus(): boolean { return this._autofocus; }
+  set autofocus(value) { this._autofocus = coerceBoolean(value); }
+
 
   // only textarea
   @Input() rows: number = null;
@@ -152,6 +137,7 @@ export class UIInput {
   handleKeyup(event: KeyboardEvent) {
     const _value = (<HTMLInputElement>event.target).value;
     _value.length > 0 ? this._isPlaceholderActive = true : this._isPlaceholderActive = false;
+    if (event.which == 27 || event.which == 13) (<HTMLInputElement>event.target).blur();
   }
 
   // 是否需要激活label
