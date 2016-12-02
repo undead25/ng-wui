@@ -23,30 +23,30 @@ import { coerceBoolean, setUid } from '../util';
 
 export class UIInput {
   // placeholder 属性值
-  private _placeholder: string = null;
+  public _placeholder: string = null;
   // value 属性值
-  private _value: string = null;
+  public _value: string = null;
   // label 文字
-  private labelText: string = null;
+  public labelText: string = null;
 
   // 是否只读
-  private _readonly: boolean = false;
+  public _readonly: boolean = false;
   // 是否禁用
-  private _disabled: boolean = false;
+  public _disabled: boolean = false;
   // 是否为必须项
-  private _required: boolean = false;
+  public _required: boolean = false;
   // 是否自动focus
-  private _autofocus: boolean = false;
+  public _autofocus: boolean = false;
   // 是否focus
-  private _focused: boolean = false;
+  public _focused: boolean = false;
   // 是否有label
-  private _hasLabel: boolean = false;
+  public _hasLabel: boolean = false;
   // 是否有placeholder
-  private _hasPlaceholder: boolean = false;
+  public _hasPlaceholder: boolean = false;
   // 是否激活placeholder, 激活即隐藏
-  private _isPlaceholderActive: boolean = false;
+  public _isPlaceholderActive: boolean = false;
 
-  private inputType: 'input' | 'textarea';
+  public inputType: 'input' | 'textarea';
   constructor(private elementRef: ElementRef, private renderer: Renderer) {
     this.inputType = elementRef.nativeElement.nodeName.toLowerCase() === 'ui-input' ? 'input' : 'textarea';
   }

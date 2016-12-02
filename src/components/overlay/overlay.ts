@@ -3,8 +3,8 @@ import { NgModule, ModuleWithProviders, Injectable, ElementRef } from '@angular/
 @Injectable()
 
 export class UIOverlay {
-  private eventHandlers = new Map<string, (e: Event) => void>();
-  private overlayElement: HTMLElement;
+  public eventHandlers = new Map<string, (e: Event) => void>();
+  public overlayElement: HTMLElement;
 
   constructor() {
     this.eventHandlers.set('click', (event: MouseEvent) => {

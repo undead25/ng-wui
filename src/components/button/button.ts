@@ -5,18 +5,15 @@ import { coerceBoolean } from '../util';
 
 @Component({
   selector: '[ui-button]',
-  templateUrl: 'button.html',
-  host: {
-    '[disabled]': 'disabled'
-  },
+  templateUrl: 'button.html'
 })
 export class UIButton {
   // 按钮颜色（背景色）
-  private _color: string;
+  public _color: string;
   // 是否禁用
-  private _disabled: boolean = false;
+  public _disabled: boolean = false;
   // 是否禁用ripple
-  private _rippleDisabled: boolean = false;
+  public _rippleDisabled: boolean = false;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 

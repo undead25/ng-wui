@@ -8,7 +8,6 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    // "noEmitHelpers": true,
     "strictNullChecks": false,
     "baseUrl": "./src/demo",
     "paths": {

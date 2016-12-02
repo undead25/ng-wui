@@ -9,10 +9,10 @@ export class UIRipple implements OnInit, OnDestroy, OnChanges {
   @Input('ripple-trigger') trigger: HTMLElement;
   @Input('ripple-dark') isDark: boolean;
 
-  private rippleElement: HTMLElement;
-  private triggerElement: HTMLElement;
-  private rippleDiv: HTMLElement;
-  private eventHandlers = new Map<string, (e: Event) => void>();
+  public rippleElement: HTMLElement;
+  public triggerElement: HTMLElement;
+  public rippleDiv: HTMLElement;
+  public eventHandlers = new Map<string, (e: Event) => void>();
   
   constructor(elementRef: ElementRef) {
     this.rippleElement = elementRef.nativeElement;

@@ -24,26 +24,26 @@ import { UIOverlay, OVERLAY_PROVIDERS } from '../overlay';
 export class UIDialog {
 
   // 是否已经打开
-  private _open: boolean = false;
+  public _open: boolean = false;
 
   // 是否有title
-  private _hasTitle: boolean = true;
+  public _hasTitle: boolean = true;
   // title文字内容
-  private _titleText: string;
+  public _titleText: string;
 
   // 是否有顶部toolbar (适用于modal)
-  private _hasToolbar: boolean = false;
+  public _hasToolbar: boolean = false;
   // toolbar文字内容
-  private _toolbarText: string;
+  public _toolbarText: string;
 
   // 是否内容可以scroll (适用于modal)
-  private _scroll: boolean = false;
+  public _scroll: boolean = false;
 
   // 是否启用esc键关闭
-  private _escHide: boolean = true;
+  public _escHide: boolean = true;
 
   // 是否为alert框
-  private _isAlert: boolean = false;
+  public _isAlert: boolean = false;
 
   // 点击取消按钮后回调
   @Output() onCancelClose: EventEmitter<any> = new EventEmitter();

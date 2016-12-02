@@ -1,7 +1,9 @@
 
 .input-container {
   position: relative;
+
   display: inline-block;
+
   width: 100%;
   margin: $input-height 0;
 
@@ -31,11 +33,12 @@
     border-bottom: 1px solid $input-border-color;
 
     &.disabled {
+      border-bottom-color: transparent; 
+      background-image: linear-gradient(to right, $gray-light 0%, $gray-light 33%, transparent 0%);
+      background-repeat: repeat-x;
+
       background-position: bottom -1px left 0;
       background-size: 4px 1px;
-      background-repeat: repeat-x;
-      background-image: linear-gradient(to right, $gray-light 0%, $gray-light 33%, transparent 0%);
-      border-bottom-color: transparent; 
     }
   }
 
@@ -43,7 +46,9 @@
     &:after {
       content: ' *';
       vertical-align: top;
+
       color: map-get($color-map, red);
+
       font-size: rem(13px);
     }
   }
@@ -75,7 +80,6 @@
     border: none;
     border-radius: 0;
     outline: none;
-
     background-color: transparent;
     box-shadow: none;
 
@@ -107,8 +111,9 @@
   }
 
   textarea {
-    resize: none;
     overflow: hidden;
+
+    resize: none;
   }
 
   // 标签文字
@@ -128,6 +133,7 @@
     color: $gray-light;
 
     font-size: $font-size-base;
+    font-weight: normal;
 
     &.active {
       transform: translateY(-100%) scale(.75);
@@ -137,9 +143,12 @@
   // 底部提示文字
   .input-hint {
     position: absolute;
-    font-size: $input-hint-font-size;
-    color: $gray;
+
     margin-top: 8px;
+
+    color: $gray;
+
+    font-size: $input-hint-font-size;
     line-height: 1;
   }
 
