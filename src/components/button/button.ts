@@ -4,8 +4,11 @@ import { UIRippleModule } from '../ripple';
 import { coerceBoolean } from '../util';
 
 @Component({
-  selector: '[ui-button]',
-  templateUrl: 'button.html'
+  selector: 'button[ui-button]',
+  templateUrl: 'button.html',
+  host: {
+    '[disabled]': 'disabled'
+  }
 })
 export class UIButton {
   // 按钮颜色（背景色）
