@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 export class InputDemo {
   constructor(){}
   @Input() error: string = '';
-
+  public model: string = '';
   handleBlur(event: FocusEvent) {
     const v = (<HTMLInputElement>event.target).value;
     
@@ -18,5 +18,6 @@ export class InputDemo {
     } else {
       this.error = ''
     }
+    console.log(this.model);
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ng-wui",
-  "version": "0.0.1-alpha.13",
+  "version": "0.0.1-alpha.14",
   "description": "Angular 2 web ui components and directives with Google Material Design",
   "scripts": {
     "server:dev": "webpack-dev-server --config webpack/webpack.dev.js --progress --profile --watch --inline --port 3001",
