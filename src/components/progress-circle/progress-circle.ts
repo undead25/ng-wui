@@ -1,4 +1,11 @@
-import { Component, Input, ElementRef, Renderer, NgModule, ModuleWithProviders } from '@angular/core';
+import {
+  Component,
+  Input,
+  ElementRef,
+  Renderer,
+  NgModule,
+  ModuleWithProviders
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { coerceBoolean } from '../util';
 
@@ -8,7 +15,7 @@ import { coerceBoolean } from '../util';
 })
 
 export class UIProgressCircle {
-  
+
 }
 
 @NgModule({

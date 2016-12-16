@@ -3,12 +3,15 @@ import { UIButtonModule } from './button';
 import { UIDialogModule } from './dialog';
 import { OVERLAY_PROVIDERS } from './overlay';
 import { UIInputModule } from './input';
+import { UIPaginationModule } from './pagination';
+
 import './style/style.scss';
 
 const MODULES = [
   UIButtonModule,
   UIDialogModule,
-  UIInputModule
+  UIInputModule,
+  UIPaginationModule
 ];
 
 @NgModule({

@@ -5,18 +5,18 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'input-demo.html'
 })
 export class InputDemo {
-  constructor(){}
   @Input() error: string = '';
   public model: string = '';
+  constructor() { }
   handleBlur(event: FocusEvent) {
     const v = (<HTMLInputElement>event.target).value;
-    
-    if (v == '') {
-      this.error = '请输入用户名'
+
+    if (v === '') {
+      this.error = '请输入用户名';
     } else if (v.length < 4) {
-      this.error = '至少大于4位'
+      this.error = '至少大于4位';
     } else {
-      this.error = ''
+      this.error = '';
     }
     console.log(this.model);
   }

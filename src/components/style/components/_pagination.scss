@@ -1,0 +1,9 @@
+.ui-pagination {
+  width: 100%;
+  margin: $pagination-margin;
+
+  .page-prev, .page-next {
+    font-family: "Simsun";
+    font-weight: bold;
+  }
+}

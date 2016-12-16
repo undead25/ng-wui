@@ -31,6 +31,13 @@ export class TextareaAutosize {
     this.resizeToFitContent();
   }
 
+  resizeToFitContent() {
+    let textarea = this._elementRef.nativeElement as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }
+
   private _cacheTextareaLineHeight(): void {
     let textarea = this._elementRef.nativeElement as HTMLTextAreaElement;
 
@@ -50,10 +57,4 @@ export class TextareaAutosize {
     textarea.parentNode.removeChild(textareaClone);
   }
 
-  resizeToFitContent() {
-    let textarea = this._elementRef.nativeElement as HTMLTextAreaElement;
-    textarea.style.height = 'auto';
-
-    textarea.style.height = `${textarea.scrollHeight}px`;
-  }
 }

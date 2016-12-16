@@ -1,4 +1,11 @@
-import { Component, Input, ElementRef, Renderer, NgModule, ModuleWithProviders } from '@angular/core';
+import {
+  Component,
+  Input,
+  ElementRef,
+  Renderer,
+  NgModule,
+  ModuleWithProviders
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UIRippleModule } from '../ripple';
 import { coerceBoolean } from '../util';
@@ -14,7 +21,7 @@ export class UIButton {
   // 按钮颜色（背景色）
   public _color: string;
   // 是否禁用
-  public _disabled: boolean = false;
+  public _disabled: boolean = null;
   // 是否禁用ripple
   public _rippleDisabled: boolean = false;
 
@@ -26,7 +33,7 @@ export class UIButton {
   }
   set disabled(value: boolean) {
     if (coerceBoolean(value) === this._disabled) return;
-    this._disabled = coerceBoolean(value);
+    this._disabled = coerceBoolean(value) ? true : null;
   }
 
   @Input()
@@ -49,7 +56,7 @@ export class UIButton {
 
   // 根据color属性值改变按钮颜色
   setButtonColor(value: string, isAdd: boolean) {
-    if (value != null && value != '') {
+    if (value != null && value !== '') {
       this.renderer.setElementClass(this.elementRef.nativeElement, `${value}`, isAdd);
     }
   }
@@ -72,10 +79,33 @@ export class UIButton {
   }
 }
 
+@Component({
+  selector: 'a[ui-button]',
+  templateUrl: 'button.html',
+  host: {
+    '[attr.disabled]': 'disabled',
+    '(click)': 'handleAnchorClick($event)'
+  },
+  inputs: ['color', 'disabled', 'rippleDisabled']
+})
+
+export class UIAnchorButton extends UIButton {
+  constructor(elementRef: ElementRef, renderer: Renderer) {
+    super(elementRef, renderer);
+  }
+
+  public handleAnchorClick(event: MouseEvent) {
+    // if (this._disabled) {
+    //   event.preventDefault();
+    //   event.stopImmediatePropagation();
+    // }
+  }
+}
+
 @NgModule({
   imports: [CommonModule, UIRippleModule],
-  exports: [UIButton],
-  declarations: [UIButton],
+  exports: [UIButton, UIAnchorButton],
+  declarations: [UIButton, UIAnchorButton],
   providers: [],
 })
 export class UIButtonModule {

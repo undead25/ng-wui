@@ -47,9 +47,6 @@ export class UIInput {
   public _isPlaceholderActive: boolean = false;
 
   public inputType: 'input' | 'textarea';
-  constructor(private elementRef: ElementRef, private renderer: Renderer) {
-    this.inputType = elementRef.nativeElement.nodeName.toLowerCase() === 'ui-input' ? 'input' : 'textarea';
-  }
 
   @Input() id: string = setUid('uiInput');
   @Input() name: string = null;
@@ -105,6 +102,10 @@ export class UIInput {
   @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
   @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
+  constructor(private elementRef: ElementRef, private renderer: Renderer) {
+    const _nodeName: string = elementRef.nativeElement.nodeName.toLowerCase();
+    this.inputType = _nodeName === 'ui-input' ? 'input' : 'textarea';
+  }
   // focus事件
   handleFocus(event: FocusEvent) {
     this._focused = true;
@@ -137,7 +138,8 @@ export class UIInput {
   handleKeyup(event: KeyboardEvent) {
     const _value = (<HTMLInputElement>event.target).value;
     _value.length > 0 ? this._isPlaceholderActive = true : this._isPlaceholderActive = false;
-    if (event.which == 27 || event.which == 13) (<HTMLInputElement>event.target).blur();
+    if ((event.which === 13 && this.inputType !== 'textarea') || event.which === 27)
+      (<HTMLInputElement>event.target).blur();
   }
 
   // 是否需要激活label

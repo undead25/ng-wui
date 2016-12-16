@@ -22,7 +22,7 @@ import { coerceBoolean, coerceNumber } from '../util';
 export class UIPagination {
   // 总记录数
   public _totalRecords: number = 0;
-  
+
   @Input()
   get totalRecords(): number {
     return this._totalRecords;
@@ -30,10 +30,10 @@ export class UIPagination {
   set totalRecords(value: number) {
     this._totalRecords = coerceNumber(value);
   }
-  
+
   // 
   @Input() pageSize: number = 0;
-  
+
 
   // getPage():number {
   //   return Math.floor

@@ -5,12 +5,9 @@ import {
   ElementRef,
   Renderer,
   NgModule,
-  HostListener,
   ModuleWithProviders,
   EventEmitter
 } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from "rxjs/Observable";
 import { CommonModule } from '@angular/common';
 import { coerceBoolean } from '../util';
 import { UIButtonModule } from '../button';
@@ -69,6 +66,10 @@ export class UIDialog {
     }
   }
 
+  set overlay(value) {
+    if (!coerceBoolean(value)) this._overlay.remove();
+  }
+
   @Input()
   set header(value: string) {
     if (value) {
@@ -107,7 +108,7 @@ export class UIDialog {
   get alert() {
     return this._isAlert;
   }
-  set alert(value:boolean) {
+  set alert(value: boolean) {
     if (coerceBoolean(value) === this._isAlert) return;
     this._isAlert = coerceBoolean(value);
   }
@@ -151,17 +152,16 @@ export class UIDialog {
   setDialogClose() {
     document.body.classList.remove('overflow');
     setTimeout(this._overlay.remove(), 1);
-    this._open = false;
   }
 
   // 绑定esc keydown事件
   ngAfterViewInit() {
     if (this._escHide) {
       this.renderer.listenGlobal('document', 'keydown', (event: KeyboardEvent) => {
-        if (event.which == 27) {
+        if (event.which === 27) {
           this.onCancel(event);
         }
-      })
+      });
     }
   }
 }

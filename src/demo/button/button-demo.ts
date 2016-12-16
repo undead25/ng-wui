@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: 'button-demo.html'
 })
 export class ButtonDemo {
-  
+
 }

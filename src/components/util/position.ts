@@ -1,4 +1,3 @@
-
 export function getOffset(el: HTMLElement) {
   const box = el.getBoundingClientRect();
   return {
