@@ -51,6 +51,8 @@ export class UIInput {
   @Input() id: string = setUid('uiInput');
   @Input() name: string = null;
   @Input() type: string = 'text';
+  @Input() maxlength: number = null;
+  @Input() tabindex: number = null;
   // 错误文字
   @Input() error: string = '';
   // 帮助文字

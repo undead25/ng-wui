@@ -8,8 +8,8 @@
       </div>
     </div>
     <div class="dialog-actions">
-      <button *ngIf="!isAlert()" ui-button (click)="onCancel()">取消</button>
-      <button ui-button color="primary" (click)="onOk()">确定</button>
+      <button *ngIf="!isAlert()" ui-button (click)="onCancel()">{{_cancelLabel}}</button>
+      <button ui-button color="primary" (click)="onOk()">{{_okLabel}}</button>
     </div>
   </div>
 </div>

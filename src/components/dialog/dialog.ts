@@ -28,6 +28,9 @@ export class UIDialog {
   // title文字内容
   public _titleText: string;
 
+  public _okLabel: string = '确定';
+  public _cancelLabel: string = '取消';
+
   // 是否有顶部toolbar (适用于modal)
   public _hasToolbar: boolean = false;
   // toolbar文字内容
@@ -66,7 +69,7 @@ export class UIDialog {
     }
   }
 
-  set overlay(value) {
+  set overlay(value: boolean) {
     if (!coerceBoolean(value)) this._overlay.remove();
   }
 
@@ -111,6 +114,11 @@ export class UIDialog {
   set alert(value: boolean) {
     if (coerceBoolean(value) === this._isAlert) return;
     this._isAlert = coerceBoolean(value);
+  }
+
+  @Input()
+  set okLabel(value: string) {
+    this._okLabel = value;
   }
 
   hasTitle() {
