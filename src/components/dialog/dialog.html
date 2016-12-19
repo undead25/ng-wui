@@ -1,4 +1,4 @@
-<div class="ui-dialog-container">
+<div class="ui-dialog-container" [class.active]="open">
   <div class="ui-dialog" [class.active]="open" [class.scroll]="scroll">
     <div *ngIf="hasToolbar()" class="dialog-bar">{{_toolbarText}}</div>
     <div class="dialog-content">

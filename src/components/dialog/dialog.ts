@@ -11,7 +11,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { coerceBoolean } from '../util';
 import { UIButtonModule } from '../button';
-import { UIOverlay, OVERLAY_PROVIDERS } from '../overlay';
 
 @Component({
   selector: 'ui-dialog',
@@ -50,11 +49,7 @@ export class UIDialog {
   // 点击确定按钮后回调
   @Output() onOkClose: EventEmitter<any> = new EventEmitter();
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer,
-    private _overlay: UIOverlay) { }
-
+  constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 
   @Input()
   get open() {
@@ -67,10 +62,6 @@ export class UIDialog {
     if (this._open) {
       this.setDialogOpen();
     }
-  }
-
-  set overlay(value: boolean) {
-    if (!coerceBoolean(value)) this._overlay.remove();
   }
 
   @Input()
@@ -152,14 +143,12 @@ export class UIDialog {
 
   // 显示弹出框
   setDialogOpen() {
-    this._overlay.create();
     document.body.classList.add('overflow');
   }
 
   // 关闭弹出框 
   setDialogClose() {
     document.body.classList.remove('overflow');
-    setTimeout(this._overlay.remove(), 1);
   }
 
   // 绑定esc keydown事件
@@ -184,7 +173,6 @@ export class UIDialogModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: UIDialogModule,
-      providers: [OVERLAY_PROVIDERS]
     };
   }
 }

@@ -11,7 +11,7 @@ import { Home } from './home/home';
 import { ButtonDemo } from './button/button-demo';
 import { DialogDemo } from './dialog/dialog-demo';
 import { InputDemo } from './input/input-demo';
-import { PaginationDemo } from './pagination/pagination-demo';
+// import { PaginationDemo } from './pagination/pagination-demo';
 
 @NgModule({
   imports: [
@@ -28,7 +28,7 @@ import { PaginationDemo } from './pagination/pagination-demo';
     ButtonDemo,
     DialogDemo,
     InputDemo,
-    PaginationDemo
+    // PaginationDemo
   ],
   bootstrap: [AppComponent]
 })

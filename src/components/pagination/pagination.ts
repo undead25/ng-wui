@@ -16,7 +16,7 @@ import { coerceBoolean, coerceNumber } from '../util';
 
 @Component({
   selector: 'ui-pagination',
-  templateUrl: 'pagination.html'
+  templateUrl: './pagination.html'
 })
 
 export class UIPagination {

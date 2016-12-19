@@ -23,15 +23,6 @@ export class DialogDemo {
   }
 
   onOk(event: Event) {
-    // const _confirm = confirm('是否确定');
-    // if (_confirm) {
-    //   this.openModal = false;
-    //   console.log('已再次确认！');
-    // } else {
-    //   // this.openModal = true;
-    //   console.log('已取消！');
-    // }
-
     this.openAlert = true;
 
     console.log('确定按钮回调！');

@@ -4,7 +4,7 @@ import { Home } from './home/home';
 import { ButtonDemo } from './button/button-demo';
 import { DialogDemo } from './dialog/dialog-demo';
 import { InputDemo } from './input/input-demo';
-import { PaginationDemo } from './pagination/pagination-demo';
+// import { PaginationDemo } from './pagination/pagination-demo';
 
 
 export const ROUTES: Routes = [
@@ -13,5 +13,5 @@ export const ROUTES: Routes = [
   { path: 'button', component: ButtonDemo },
   { path: 'dialog', component: DialogDemo },
   { path: 'input', component: InputDemo },
-  { path: 'pagination', component: PaginationDemo },
+  // { path: 'pagination', component: PaginationDemo },
 ];
