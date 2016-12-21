@@ -26,7 +26,7 @@ export class UIRipple implements OnInit, OnDestroy, OnChanges {
 
   constructor(elementRef: ElementRef) {
     this.rippleElement = elementRef.nativeElement;
-    this.eventHandlers.set('click', (event: MouseEvent) => {
+    this.eventHandlers.set('mousedown', (event: MouseEvent) => {
       this.handleClick(event);
     });
   }

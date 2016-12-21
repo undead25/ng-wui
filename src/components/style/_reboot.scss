@@ -52,6 +52,7 @@ ul, li, ol {
 
 input, textarea {
   outline: 0;
+  background: transparent;
 }
 
 p {
@@ -246,6 +247,26 @@ textarea {
 button,
 select {
   text-transform: none;
+}
+
+select {
+  padding: 4px;
+
+  border: none;
+  border-bottom: 1px solid $gray-lighter;
+  background: transparent;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABBElEQVRYR+2VwRGDIBBF2RJSQVpaK4h2kFSQlJBUENPBL8kS0sFmcMRBI4Ig4wVvovIfb2EldfBFB+erAlAMFAOjAWZmpdQZwCvn0WTmq1KqAwCdMwJUVdVpABFpATQ5IJi5JaKLiHwBnCYAzFwT0VsP5oAw4cP8DYB2AqBvckG4wv8ABogHEd33MrEWvggwQPS1SoXwhTsB9oAICV8FSIEIDfcCxEDMwm8AnmtHOqgVzyZ19onZex8Ata+fBAGEmIgJDyqBvQKXidjwzQBLJnQ7t45skHZ7UcElcJkw4yKyOTzKgAlM0Z5swILod7n5sfh2/NLzqBLEBLm+KQDFQDFwuIEfZvXZIbybSOoAAAAASUVORK5CYII=);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 12px 12px;
+
+  font-family: inherit;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-progress-appearance: none;
+  
+  &:active, &:focus {outline: 0;}
 }
 
 [type="checkbox"],

@@ -1,22 +1,27 @@
 <div class="ui-pagination">
-  <span>每页显示</span>
-    <select>
-      <option value="10">10</option>
-      <option value="20">20</option>
-      <option value="30">30</option>
-    </select>条记录</span>
-  <span>共计：XXX条</span>
+  <div>
+    <select (change)="onSelectChange($event)" *ngIf="_showSelect">
+      <option *ngFor="let item of _pageSizeOpts" [value]="item">{{item}}</option>
+    </select>
+    <span *ngIf="_showTotal" class="total">共<a>{{_totalRecords}}</a>条记录</span>
+  </div>
+  <div>
+    <a class="page-first" *ngIf="_showFirstLast" (click)="pageChange(1, $event)" [class.disabled]="_current === 1">首页</a>
+    <a class="page-prev" (click)="pageChange(_current - 1, $event)" [class.disabled]="_current === 1"><</a>
+
+    <span class="pagination-pages">
+      <a *ngFor="let item of pages" [class.active]="item == _current" (click)="pageChange(item, $event)">{{item}}</a>
+    </span>
+
+    <a class="page-next" (click)="pageChange(_current + 1, $event)" [class.disabled]="_current === getPageCount()">></a>
+    <a class="page-last" *ngIf="_showFirstLast" (click)="pageChange(getPageCount(), $event)" [class.disabled]="_current === getPageCount()">尾页</a>
+
+    <span class="jump" *ngIf="_showJump">
+      <span>跳转到</span>
+      <input type="text" (keyup)="handleKeyup($event)">
+      <span>页</span>
+      <a class="go" (click)="handleGo()">跳转</a>
+    </span>
+  </div>
   
-  <a class="page-first">首页</a>
-  <a class="page-prev"><</a>
-  <a class="page-active">1</a>
-  <a>2</a>
-  <a>3</a>
-  <a>4</a>
-  <a class="page-next">></a>
-  <a class="page-last">末页</a>
-  <span>跳转到：</span>
-  <input type="text">
-  <span>页</span>
-  <a>GO</a>
 </div>

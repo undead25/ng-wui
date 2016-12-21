@@ -1,0 +1,25 @@
+<p>Indeterminate</p>
+<ui-progress-circle></ui-progress-circle>
+<ui-progress-circle
+  size="80"
+  thickness="6"
+  color="green"
+>
+</ui-progress-circle>
+
+<ui-progress-circle
+  size="30"
+  thickness="2"
+  color="pink"
+>
+</ui-progress-circle>
+<br><br>
+<p>Determinate</p>
+<ui-progress-circle
+  size="60"
+  thickness="4"
+  color="orange"
+  [value]="complete"
+  mode="determinate"
+>
+</ui-progress-circle>

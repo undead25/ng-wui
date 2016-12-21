@@ -1,3 +1,27 @@
-<div style="width:800px; margin:20px auto;">
-  <ui-pagination></ui-pagination>
+<div style="width: 100%; background: #eaeef1; height: 400px;">
+  <div style="padding: 20px;">
+    <br><br>
+    <ui-pagination
+      total="99"
+      (onPageChanged)="pageChanged($event)"
+    >
+    </ui-pagination>
+    <ui-pagination
+      total="199"
+      visible="5"
+      showSelect="false"
+      (onPageChanged)="pageChanged($event)"
+    >
+    </ui-pagination>
+
+    <ui-pagination
+      total="30"
+      [pageSizeOpts]="[5, 10, 15]"
+      showTotal="false"
+      showJump="false"
+      showFirstLast="false"
+      (onPageChanged)="pageChanged($event)"
+    >
+    </ui-pagination>
+  </div>
 </div>

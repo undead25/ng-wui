@@ -1,7 +1,12 @@
-<div class="showbox">
-  <div class="loader">
-    <svg class="circular" viewBox="25 25 50 50">
-      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-    </svg>
-  </div>
+<div class="progress-circle" [style.width]="_size + 'px'" [style.height]="_size + 'px'">
+  <svg [attr.viewBox]="viewBox">
+    <circle
+      #circle
+      [attr.cx]="_size/2"
+      [attr.cy]="_size/2"
+      [attr.r]="(_size-_thickness)/2"
+      [attr.stroke-width]="_thickness"
+      [attr.stroke]="_stroke"
+    />
+  </svg>
 </div>

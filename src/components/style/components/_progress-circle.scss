@@ -1,0 +1,33 @@
+.progress-circle {
+  display: inline-block;
+
+  animation: progress-circle-rotate 2s linear infinite;
+  
+
+  circle {
+    transition: all 1.5s ease-in-out;
+
+    stroke: $brand;
+    stroke-linecap: round;
+    stroke-miterlimit: 20;
+    fill: none;
+
+    @each $color-name in map-keys($color-map) {
+      &.#{$color-name} {
+        stroke: map-get($color-map, $color-name);
+      }
+    }
+  }
+}
+
+.determinate .progress-circle {
+  animation: none;
+
+  circle {
+    transition: all .3s linear;
+  }
+}
+
+@keyframes progress-circle-rotate {
+  100% {transform: rotate(360deg)}
+}

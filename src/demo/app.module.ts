@@ -11,7 +11,8 @@ import { Home } from './home/home';
 import { ButtonDemo } from './button/button-demo';
 import { DialogDemo } from './dialog/dialog-demo';
 import { InputDemo } from './input/input-demo';
-// import { PaginationDemo } from './pagination/pagination-demo';
+import { ProgressCircleDemo } from './progress-circle/progress-circle-demo';
+import { PaginationDemo } from './pagination/pagination-demo';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import { InputDemo } from './input/input-demo';
     ButtonDemo,
     DialogDemo,
     InputDemo,
-    // PaginationDemo
+    ProgressCircleDemo,
+    PaginationDemo
   ],
   bootstrap: [AppComponent]
 })

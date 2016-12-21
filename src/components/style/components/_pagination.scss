@@ -1,9 +1,102 @@
 .ui-pagination {
+  display: flex;
   width: 100%;
-  margin: $pagination-margin;
+  margin: $pagination-margin 0;
+  padding: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: $font-size-md;
+
+  span {display: inline-block;}
+  
+  a {
+    display: inline-block;
+
+    width: rem(30px);
+
+    text-align: center;
+
+    color: inherit;
+    border-radius: 4px;
+
+    line-height: rem(30px);
+
+    &.disabled {
+      cursor: default;
+
+      color: $gray-light;
+    }
+  }
 
   .page-prev, .page-next {
+    color: $brand;
+
     font-family: "Simsun";
     font-weight: bold;
   }
+
+  .page-first, .page-last {
+    color: $brand;
+  }
+
+  .pagination-pages a {
+    margin: 0 2px;
+
+    &:hover {
+      background-color:rgba(0, 0, 0, 0.08);
+    }
+
+    &.active {
+      cursor: default;
+
+      color: #fff;
+      background-color: $brand;
+    }
+  }
+
+  input {
+    width: rem(30px);
+    height: rem(30px);
+    margin: 0 6px;
+    padding: 2px;
+
+    transition: border .25s ease-in;
+    text-align: center;
+
+    border: none;
+    border-bottom: 1px solid $gray-lighter;
+
+    font-family: inherit;
+    font-size: $font-size-sm;
+
+    &:focus {
+      border-bottom-color: $brand;
+    }
+  }
+
+  select {
+    width: 44px;
+    margin-right: 16px;
+  }
+
+  .jump {
+    margin-left: 32px;
+  }
+
+  .go {
+    width: 40px;
+    margin: 0 8px;
+
+    color: #fff;
+    background-color: $gray-lighter;
+    background-color: $brand;
+
+    font-size: $font-size-sm;
+
+    &:hover, &:active, &:focus {
+      background-color: darken($brand, 5);
+    }
+  }
+  .total a {cursor: default;}
 }
