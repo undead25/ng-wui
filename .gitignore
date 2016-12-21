@@ -14,7 +14,7 @@ npm-debug.log
 
 # 编译 #
 /dist
-/.awcache
+/build
 
 # 编辑器 #
 .idea
