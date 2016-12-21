@@ -1,8 +1,8 @@
 .ui-pagination {
   display: flex;
   width: 100%;
-  margin: $pagination-margin 0;
-  padding: 12px 24px;
+  margin: $pagination-margin;
+  padding: $pagination-padding;
   align-items: center;
   justify-content: space-between;
 
@@ -13,14 +13,14 @@
   a {
     display: inline-block;
 
-    width: rem(30px);
+    width: $pagination-link-size;
 
     text-align: center;
 
     color: inherit;
     border-radius: 4px;
 
-    line-height: rem(30px);
+    line-height: $pagination-link-size;
 
     &.disabled {
       cursor: default;
@@ -56,9 +56,9 @@
   }
 
   input {
-    width: rem(30px);
-    height: rem(30px);
-    margin: 0 6px;
+    width: $pagination-link-size;
+    height: $pagination-link-size;
+    margin: 0 4px;
     padding: 2px;
 
     transition: border .25s ease-in;
@@ -76,17 +76,17 @@
   }
 
   select {
-    width: 44px;
-    margin-right: 16px;
+    width: $pagination-select-width;
+    margin-right: 1rem;
   }
 
   .jump {
-    margin-left: 32px;
+    margin-left: 2rem;
   }
 
   .go {
-    width: 40px;
-    margin: 0 8px;
+    width: $pagination-go-width;
+    margin: 0 .5rem;
 
     color: #fff;
     background-color: $gray-lighter;

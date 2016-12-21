@@ -120,4 +120,10 @@ $zindex-overlay: 1040 !default;
 // ============================================================================
 // Pagination 分页
 // ============================================================================
-$pagination-margin: rem(8px) !default;
+$pagination-margin: rem(8px) 0 !default;
+$pagination-padding: rem(12px) rem(24px) !default;
+$pagination-link-size: rem(30px) !default;
+$pagination-select-width: rem(44px) !default;
+$pagination-go-width: rem(40px) !default;
+
+

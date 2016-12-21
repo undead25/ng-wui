@@ -90,25 +90,27 @@ export class UIPagination {
     this.pages = [];
 
     const totalPages = this.getPageCount();
-    if (this.visiblePages > totalPages) this.visiblePages = totalPages;
+    let visiblePages = this.visiblePages;
+
+    if (visiblePages > totalPages) visiblePages = totalPages;
 
     // 半数，用于显示当前页前后页数
-    const half = Math.floor(this.visiblePages / 2);
+    const half = Math.floor(visiblePages / 2);
 
     // 起始边界
-    let start = this._current - half + 1 - this.visiblePages % 2;
+    let start = this._current - half + 1 - visiblePages % 2;
     let end = this._current + half;
 
     // 边界起始页小于1
     if (start < 1) {
       start = 1;
-      end = this.visiblePages;
+      end = visiblePages;
     }
 
     // 边界末页大于总页数
     if (end > totalPages) {
       end = totalPages;
-      start = 1 + totalPages - this.visiblePages;
+      start = 1 + totalPages - visiblePages;
     }
 
     for (let i = start; i <= end; i++) {
