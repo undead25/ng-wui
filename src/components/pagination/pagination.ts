@@ -47,7 +47,10 @@ export class UIPagination {
     return this._totalRecords;
   }
   set total(value: number) {
-    if (value) this._totalRecords = coerceNumber(value);
+    if (value) {
+      this._totalRecords = coerceNumber(value);
+      this.updatePageLinks();
+    }
   }
 
   @Input()
@@ -130,7 +133,9 @@ export class UIPagination {
   pageChange(page: number, event?: MouseEvent) {
     if (event) event.preventDefault();
 
-    if (page > 0 && page <= this.getPageCount() && page !== this._current) {
+    if (event.type === 'click' && page === this._current) return;
+
+    if (page > 0 && page <= this.getPageCount()) {
       this._current = page;
       this.updatePageLinks();
 
@@ -181,8 +186,7 @@ export class UIPagination {
     const target = <HTMLInputElement>event.target;
     let value = coerceNumber(target.value);
     this._pageSize = value;
-    this._current = 1;
-    this.updatePageLinks();
+    this.pageChange(1, event);
   }
 
   ngOnInit() {
