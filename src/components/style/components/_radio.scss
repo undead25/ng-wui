@@ -1,0 +1,88 @@
+.ui-radio {
+  position: relative;
+
+  display: inline-block;
+
+  > label {
+    display: flex;
+
+    cursor: pointer;
+
+    justify-content: center;
+    align-items: center;
+
+    &.disabled {
+      cursor: default;
+
+      color: $checkbox-disabled-color;
+
+      svg {fill: $checkbox-disabled-color;}
+    }
+
+    &.reverse {
+      flex-direction: row-reverse;
+
+      svg {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+
+  .svg-wrapper {
+    @include square($checkbox-size);
+  }
+
+  .active .unchecked {
+    transform: scale(0);
+
+    opacity: 0;
+  }
+
+  .active .checked {
+    transform: scale(1);
+  }
+
+  svg {
+    position: absolute;
+    left: 0;
+
+    user-select: none;
+    transition: all .45s $ease-out-func;
+
+    fill: $gray;
+    @include square($checkbox-size);
+
+    &.unchecked {
+      transform: scale(1);
+
+      opacity: 1;
+    }
+
+    &.checked {
+      transform: scale(0);
+      transform-origin: 50% 50% 0px;
+
+      opacity: 1;
+
+      fill: $brand;
+    }
+  }
+
+  input[type="radio"] {
+    display: none;
+
+    opacity: 0;
+  }
+
+  .radio-label {
+    margin: $checkbox-label-margin;
+  }
+
+  @each $color-name in map-keys($color-map) {
+    &.#{$color-name} svg.checked {
+      fill: map-get($color-map, $color-name);
+    }
+  }
+}
+

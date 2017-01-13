@@ -1,0 +1,8 @@
+<div class="ui-tooltip"
+  #tooltip
+  [style.transform-origin]="transformOrigin"
+  [@state]="_visibility"
+  (@state.done)="animationDone($event)"
+>
+  {{message}}
+</div>

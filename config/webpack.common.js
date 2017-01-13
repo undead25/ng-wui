@@ -107,6 +107,9 @@ module.exports = {
     // https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
     new ForkCheckerPlugin(),
 
-    new ExtractTextPlugin('style.css')
+    // 打包css文件为1个文件
+    // version: 2.0.0-beta.4 (适用于webpack2，API使用方式有改动，参考下方链接)
+    // https://github.com/webpack/extract-text-webpack-plugin
+    new ExtractTextPlugin('[name].[contenthash].css')
   ]
 }

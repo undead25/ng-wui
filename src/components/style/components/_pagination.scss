@@ -55,23 +55,15 @@
     }
   }
 
-  input {
+  .input-container {
     width: $pagination-link-size;
     height: $pagination-link-size;
     margin: 0 4px;
-    padding: 2px;
 
-    transition: border .25s ease-in;
     text-align: center;
-
-    border: none;
-    border-bottom: 1px solid $gray-lighter;
-
-    font-family: inherit;
-    font-size: $font-size-sm;
-
-    &:focus {
-      border-bottom-color: $brand;
+    input {
+      font-size: $font-size-sm;
+      text-align: center;
     }
   }
 
@@ -87,15 +79,19 @@
   .go {
     width: $pagination-go-width;
     margin: 0 .5rem;
+    padding: 2px 0;
 
-    color: #fff;
-    background-color: $gray-lighter;
-    background-color: $brand;
+    color: $brand;
+
+    border: 1px solid $brand;
 
     font-size: $font-size-sm;
+    line-height: inherit;
+    transition: all .2s ease-in;
 
     &:hover, &:active, &:focus {
       background-color: darken($brand, 5);
+      color: #fff;
     }
   }
   .total a {cursor: default;}

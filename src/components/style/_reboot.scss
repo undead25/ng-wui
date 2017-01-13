@@ -264,7 +264,8 @@ select {
 
   -webkit-appearance: none;
   -moz-appearance: none;
-  -ms-progress-appearance: none;
+
+  &::-ms-expand { display: none; }
   
   &:active, &:focus {outline: 0;}
 }

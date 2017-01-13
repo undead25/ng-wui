@@ -1,52 +1,24 @@
+<button ui-button raised color="primary" (click)="onAlert()">ALERT</button>
+<button ui-button raised color="green" (click)="onModal()">MODAL</button>
 
-<button ui-button raised color="primary" (click)="showModal()">Modal1</button>
-<button ui-button raised color="red" (click)="showModal2()">Modal2</button>
-<button ui-button raised color="green" (click)="showAlert()">Alert</button>
 
-<ui-dialog 
-  [open]="openModal"
-  (onCancelClose)="onCancel()"
-  (onOkClose)="onOk()"
-  toolbar="权限设置"
-  header="提示"
-  [scroll]="true"
-  esc="false"
->
-  <div>借助现代化 Web 平台的力量，交付 app 式体验。高性能、离线化、零安装。</div>
-  <div>借助来自 Ionic 、 NativeScript 和 React Native 中的技术与思想，构建原生移动应用。</div>
-  <div>借助你已经在 Web 开发中学过的能力，结合访问原生操作系统 API 的能力，创造能在桌面环境下安装的应用，横跨 Mac 、 Windows 和 Linux 平台。</div>
-  <div> Angular 会把你的模板转换成代码，针对现代 JavaScript 虚拟机进行高度优化，轻松获得框架提供的高生产率，同时又能保留所有手写代码的优点。</div>
-  <div>在服务端渲染应用的首屏，像只有 HTML 和 CSS 的页面那样几乎瞬间展现，支持 node.js 、 .NET 、 PHP ，以及其它服务器，为通过 SEO 来优化站点铺平了道路。</div>
-  <div>Angular 应用通过新的组件路由（ Component Router ）模块实现快速加载，提供了自动拆分代码的功能，为用户单独加载它们请求的视图中需要的那部分代码。</div>
-  <div>借助现代化 Web 平台的力量，交付 app 式体验。高性能、离线化、零安装。</div>
-  <div>借助来自 Ionic 、 NativeScript 和 React Native 中的技术与思想，构建原生移动应用。</div>
-  <div>借助你已经在 Web 开发中学过的能力，结合访问原生操作系统 API 的能力，创造能在桌面环境下安装的应用，横跨 Mac 、 Windows 和 Linux 平台。</div>
-  <div> Angular 会把你的模板转换成代码，针对现代 JavaScript 虚拟机进行高度优化，轻松获得框架提供的高生产率，同时又能保留所有手写代码的优点。</div>
-  <div>在服务端渲染应用的首屏，像只有 HTML 和 CSS 的页面那样几乎瞬间展现，支持 node.js 、 .NET 、 PHP ，以及其它服务器，为通过 SEO 来优化站点铺平了道路。</div>
-  <div>Angular 应用通过新的组件路由（ Component Router ）模块实现快速加载，提供了自动拆分代码的功能，为用户单独加载它们请求的视图中需要的那部分代码。</div>
-  <div>借助现代化 Web 平台的力量，交付 app 式体验。高性能、离线化、零安装。</div>
-  <div>借助来自 Ionic 、 NativeScript 和 React Native 中的技术与思想，构建原生移动应用。</div>
-  <div>借助你已经在 Web 开发中学过的能力，结合访问原生操作系统 API 的能力，创造能在桌面环境下安装的应用，横跨 Mac 、 Windows 和 Linux 平台。</div>
-  <div> Angular 会把你的模板转换成代码，针对现代 JavaScript 虚拟机进行高度优化，轻松获得框架提供的高生产率，同时又能保留所有手写代码的优点。</div>
-  <div>在服务端渲染应用的首屏，像只有 HTML 和 CSS 的页面那样几乎瞬间展现，支持 node.js 、 .NET 、 PHP ，以及其它服务器，为通过 SEO 来优化站点铺平了道路。</div>
-  <div>Angular 应用通过新的组件路由（ Component Router ）模块实现快速加载，提供了自动拆分代码的功能，为用户单独加载它们请求的视图中需要的那部分代码。</div>
+<ui-dialog [open]="openAlert" (onOkClose)="onAlertOkClose()" alert="true" header="TIPS!" backdropClose="false">
+  {{alertContent}}
 </ui-dialog>
 
-<ui-dialog
-  [open]="openModal2"
-  (onCancelClose)="onCancel2()"
-  (onOkClose)="onOk2()"
->
-  <div>这里是其他设置的内容</div>
-</ui-dialog>
-
-<ui-dialog
-  [open]="openAlert"
-  (onOkClose)="onAlertOkClose()"
-  esc="false"
-  alert="true"
-  header="Tips!"
-  okLabel="Confirm"
->
-  {{dialogContent}}
+<ui-dialog [open]="openModal" (onOkClose)="onModalOkClose()" (onCancelClose)="onModalCancel()" scroll="true" toolbar="模态框" isOkDisabled="true">
+  <p>Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。</p>
+  <p>该框架包括一系列库，有些是核心库，有些是可选库。</p>
+  <p>我们是这样写 Angular 应用的：用 Angular 扩展语法编写 HTML 模板， 用组件类管理这些模板，用服务添加应用逻辑， 用模块打包发布组件与服务。</p>
+  <p>然后，我们通过引导根模块来启动该应用。 Angular 在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。</p>
+  <p>当然，这只是冰山一角。后面我们将学习更多的细节。不过，目前我们还是先关注全景图吧。</p>
+  <p>每个 Angular 应用至少有一个模块（根模块），习惯上命名为AppModule。</p>
+  <p>根模块在一些小型应用中可能是唯一的模块，大多数应用会有很多特性模块，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。</p>
+  <p>Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。</p>
+  <p>该框架包括一系列库，有些是核心库，有些是可选库。</p>
+  <p>我们是这样写 Angular 应用的：用 Angular 扩展语法编写 HTML 模板， 用组件类管理这些模板，用服务添加应用逻辑， 用模块打包发布组件与服务。</p>
+  <p>然后，我们通过引导根模块来启动该应用。 Angular 在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。</p>
+  <p>当然，这只是冰山一角。后面我们将学习更多的细节。不过，目前我们还是先关注全景图吧。</p>
+  <p>每个 Angular 应用至少有一个模块（根模块），习惯上命名为AppModule。</p>
+  <p>根模块在一些小型应用中可能是唯一的模块，大多数应用会有很多特性模块，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。</p>
 </ui-dialog>

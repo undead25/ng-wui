@@ -28,7 +28,10 @@ $color-map: (
   orange: #ff9800,
   brown: #795548,
   purple: #9c27b0,
-  pink: #e91e63
+  pink: #e91e63,
+  cyan: #00bcd4,
+  teal: #009688,
+  indigo: #3f51b5
 ) !default;
 
 
@@ -83,6 +86,8 @@ $btn-border-width: rem(1px) !default;
 
 $btn-hover-bg: rgba(158,158,158,0.2) !default;
 
+$btn-disabled-color: rgba(0, 0, 0, .26);
+
 // ============================================================================
 // Dialog 弹出框/模态框
 // ============================================================================
@@ -124,6 +129,36 @@ $pagination-margin: rem(8px) 0 !default;
 $pagination-padding: rem(12px) rem(24px) !default;
 $pagination-link-size: rem(30px) !default;
 $pagination-select-width: rem(44px) !default;
-$pagination-go-width: rem(40px) !default;
+$pagination-go-width: rem(44px) !default;
 
 
+// ============================================================================
+// Checkbox 复选框
+// ============================================================================
+$checkbox-size: rem(24px) !default;
+$checkbox-border-color: $gray;
+$checkbox-disabled-color: rgba(0, 0, 0, .26) !default;
+$checkbox-label-margin: 0 .5rem !default;
+
+// ============================================================================
+// Animation 动画
+// ============================================================================
+$ease-out-func: cubic-bezier(0.23, 1, 0.32, 1) !default;
+$ease-in-out-func: cubic-bezier(0.445, 0.05, 0.55, 0.95) !default;
+
+$deceleration-curve: cubic-bezier(0.0, 0.0, 0.2, 1) !default; // ease-out
+$acceleration-curve: cubic-bezier(0.4, 0.0, 1, 1) !default; // ease-in
+$standard-curve: cubic-bezier(0.4, 0.0, 0.2, 1) !default; // ease-in-out
+$sharp-curve: cubic-bezier(0.4, 0.0, 0.6, 1) !default; // ease-in-out
+
+// ============================================================================
+// Tooltip 工具提示
+// ============================================================================
+$tooltip-padding: 0 rem(8px) !default;
+$tooltip-height: rem(22px) !default;
+$tooltip-margin: rem(14px) !default;
+$tooltip-bg: rgba(#616161, 0.9) !default;
+
+$tooltip-mobile-padding: 1rem !default;
+$tooltip-mobile-height: 2rem !default;
+$tooltip-mobile-margin: rem(24px) !default;

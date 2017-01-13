@@ -9,7 +9,6 @@ import {
   OnInit,
   SimpleChange
 } from '@angular/core';
-import { getOffset } from '../util';
 
 @Directive({
   selector: '[ui-ripple]'
@@ -18,6 +17,7 @@ import { getOffset } from '../util';
 export class UIRipple implements OnInit, OnDestroy, OnChanges {
   @Input('ripple-trigger') trigger: HTMLElement;
   @Input('ripple-dark') isDark: boolean;
+  @Input('ripple-type') type: string;
 
   public rippleElement: HTMLElement;
   public triggerElement: HTMLElement;
@@ -76,15 +76,18 @@ export class UIRipple implements OnInit, OnDestroy, OnChanges {
     this.rippleElement.appendChild(rippleDiv);
 
     const size = Math.max(this.triggerElement.offsetWidth, this.triggerElement.offsetHeight);
-    const rippleTop = getOffset(rippleDiv).top;
-    const rippleLeft = getOffset(rippleDiv).left;
+    const rippleTop = this.triggerElement.offsetTop;
+    const rippleLeft = this.triggerElement.offsetLeft;
+
     const rippleY = event.pageY - rippleTop - size / 2;
     const rippleX = event.pageX - rippleLeft - size / 2;
 
-    rippleDiv.style.width = `${size}px`;
-    rippleDiv.style.height = `${size}px`;
-    rippleDiv.style.top = `${rippleY}px`;
-    rippleDiv.style.left = `${rippleX}px`;
+    if (this.type !== 'circle') {
+      rippleDiv.style.width = `${size}px`;
+      rippleDiv.style.height = `${size}px`;
+      rippleDiv.style.top = `${rippleY}px`;
+      rippleDiv.style.left = `${rippleX}px`;
+    }
 
     if (this.isDark) rippleDiv.classList.add(`ripple-dark`);
     rippleDiv.classList.add('active');
@@ -92,8 +95,8 @@ export class UIRipple implements OnInit, OnDestroy, OnChanges {
   }
 
   // 移除ripple
-  private rippleRemove(rippleDiv: Element) {
-    // 注意transitionend有多个属性
+  private rippleRemove(rippleDiv: HTMLElement) {
+    // 注意transitionend有多个属性问题
     rippleDiv.addEventListener('transitionend', (event: TransitionEvent) => {
       if (rippleDiv && event.propertyName === 'opacity')
         rippleDiv.parentNode.removeChild(rippleDiv);

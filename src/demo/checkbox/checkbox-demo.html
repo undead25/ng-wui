@@ -1,0 +1,19 @@
+<h4>状态</h4>
+<ui-checkbox value="葡萄牙">葡萄牙</ui-checkbox>
+<ui-checkbox value="瑞典" checked="true">瑞典</ui-checkbox>
+<ui-checkbox value="英国" disabled="true">英国</ui-checkbox>
+<ui-checkbox value="泰国" disabled="true" checked="true">泰国</ui-checkbox>
+
+<h4>ngModel</h4>
+<ui-checkbox id="china" value="中国" name="countries" [(ngModel)]="selectedCountries">中国</ui-checkbox>
+<ui-checkbox color="cyan" value="法国" name="countries" [(ngModel)]="selectedCountries">法国</ui-checkbox>
+<ui-checkbox color="blue" value="俄罗斯" name="countries" [(ngModel)]="selectedCountries">俄罗斯</ui-checkbox>
+<ui-checkbox color="green" value="巴西" name="countries" [(ngModel)]="selectedCountries">巴西</ui-checkbox>
+<ui-checkbox color="red" value="西班牙" name="countries" [(ngModel)]="selectedCountries">西班牙</ui-checkbox>
+<p>你选择的国家有：<span *ngFor="let item of selectedCountries" style="margin: 0 5px;">{{item}}</span></p>
+
+<h4>Lable位置</h4>
+<ui-checkbox align="right">美国</ui-checkbox>
+
+<h4>禁用水波纹</h4>
+<ui-checkbox rippleDisabled="true">希腊</ui-checkbox>

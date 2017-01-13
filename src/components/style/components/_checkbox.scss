@@ -1,0 +1,92 @@
+.ui-checkbox {
+  position: relative;
+
+  display: inline-block;
+
+  > label {
+    display: flex;
+
+    height: $checkbox-size;
+
+    cursor: pointer;
+
+    align-items: center;
+    justify-content: center;
+
+    &.active .unchecked {
+      transition: opacity .65s $ease-out-func .15s;
+
+      opacity: 0;
+    }
+
+    &.active .checked {
+      transition: opacity 0s $ease-out-func, transform .8s $ease-out-func;
+      transform: scale(1);
+
+      opacity: 1;
+    }
+
+    &.reverse {
+      flex-direction: row-reverse;
+
+      svg {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    &.disabled {
+      cursor: default;
+
+      color: $checkbox-disabled-color;
+
+      svg {fill: $checkbox-disabled-color;}
+    }
+  }
+
+  .svg-wrapper {
+    @include square($checkbox-size);
+  }
+
+  svg {
+    position: absolute;
+    left: 0;
+
+    fill: $gray;
+    @include square($checkbox-size);
+
+    &.unchecked {
+      transition: opacity 1s $ease-out-func .2s;
+
+      opacity: 1;
+    }
+
+    &.checked {
+      user-select: none;
+
+      transition: opacity .45s $ease-out-func, transform 0s $ease-out-func .45s;
+      transform: scale(0);
+
+      opacity: 0;
+
+      fill: $brand;
+    }
+  }
+
+  input[type="checkbox"] {
+    display: none;
+
+    opacity: 0;
+  }
+
+  .checkbox-label {
+    margin: $checkbox-label-margin;
+  }
+
+  @each $color-name in map-keys($color-map) {
+    &.#{$color-name} svg.checked {
+      fill: map-get($color-map, $color-name);
+    }
+  }
+}
+

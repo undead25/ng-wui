@@ -11,9 +11,9 @@
     "suppressImplicitAnyIndexErrors": true,
     "outDir": "build"
   },
-  "include": [
-    "src/components/**/*.ts"
-  ],
+  // "include": [
+  //   "src/components/**/*.ts"
+  // ],
   "exclude": [
     "node_modules"
   ],

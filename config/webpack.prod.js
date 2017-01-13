@@ -31,6 +31,11 @@ module.exports = webpackMerge(commonConfig, {
       'process.env': {
         'ENV': JSON.stringify(ENV)
       }
+    }),
+    // 文件压缩(html/css)
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
     })
   ]
 })

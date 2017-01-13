@@ -13,6 +13,9 @@ import { DialogDemo } from './dialog/dialog-demo';
 import { InputDemo } from './input/input-demo';
 import { ProgressCircleDemo } from './progress-circle/progress-circle-demo';
 import { PaginationDemo } from './pagination/pagination-demo';
+import { CheckboxDemo } from './checkbox/checkbox-demo';
+import { RadioDemo } from './radio/radio-demo';
+import { TooltipDemo } from './tooltip/tooltip-demo';
 
 @NgModule({
   imports: [
@@ -30,7 +33,10 @@ import { PaginationDemo } from './pagination/pagination-demo';
     DialogDemo,
     InputDemo,
     ProgressCircleDemo,
-    PaginationDemo
+    PaginationDemo,
+    CheckboxDemo,
+    RadioDemo,
+    TooltipDemo
   ],
   bootstrap: [AppComponent]
 })

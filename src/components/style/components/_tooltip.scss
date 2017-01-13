@@ -1,0 +1,24 @@
+.ui-tooltip {
+  position: absolute;
+  top:0;
+  left: 0;
+
+  display: flex;
+
+  height: $tooltip-height;
+  margin: $tooltip-margin;
+
+  padding: $tooltip-padding;
+
+  user-select: none;
+  pointer-events: none;
+
+  color: $white;
+  border-radius: 2px;
+  background-color: $tooltip-bg;
+
+  font-size: $font-size-sm;
+
+  align-items: center;
+  @include text-ellipsis;
+}

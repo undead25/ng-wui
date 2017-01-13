@@ -8,11 +8,14 @@ import { Component } from '@angular/core';
     <div style="width: 1000px; margin: 0 auto;">
       
       <ul>
-        <li><a routerLink="/button" [attr.data]="isLoading">按钮</a></li>
+        <li><a routerLink="/button">按钮</a></li>
         <li><a routerLink="/dialog">弹出框</a></li>
         <li><a routerLink="/input">输入框</a></li>
         <li><a routerLink="/pagination">分页</a></li>
         <li><a routerLink="/progress-circle">圆形进度条</a></li>
+        <li><a routerLink="/checkbox">复选框</a></li>
+        <li><a routerLink="/radio">单选框</a></li>
+        <li><a routerLink="/tooltip">工具提示</a></li>
       </ul>
       <router-outlet></router-outlet>
     </div>

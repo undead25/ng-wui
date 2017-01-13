@@ -1,0 +1,24 @@
+<ui-radio name="sex" value="male" [(ngModel)]="binding">男</ui-radio>
+<ui-radio name="sex" value="female" [(ngModel)]="binding">女</ui-radio>
+<ui-radio disabled="true">中国</ui-radio>
+<ui-radio disabled="true" checked="true">广州</ui-radio>
+<br>
+<p>你选择的是：{{binding}}</p>
+
+<ui-radio name="cities" [(ngModel)]="cities" value="广州">广州</ui-radio>
+<ui-radio name="cities" [(ngModel)]="cities" value="上海">上海</ui-radio>
+<ui-radio name="cities" [(ngModel)]="cities" value="北京">北京</ui-radio>
+<br>
+<p>你选择的是：{{cities}}</p>
+
+<h4>颜色</h4>
+<ui-radio checked="true" color="primary">天河区</ui-radio>
+<ui-radio checked="true" color="red">越秀区</ui-radio>
+<ui-radio checked="true" color="green">荔湾区</ui-radio>
+<ui-radio checked="true" color="orange">白云区</ui-radio>
+<ui-radio checked="true" color="cyan">萝岗区</ui-radio>
+<ui-radio checked="true" color="yellow">黄埔区</ui-radio>
+
+<h4>Reverse</h4>
+<ui-radio checked="true" color="indigo" align="right">番禺区</ui-radio>
+

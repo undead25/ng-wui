@@ -19,6 +19,10 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].chunk.js' // 按需加载的chunk文件名称
   },
 
+  performance: {
+    hints: false
+  },
+
   // webpack 开发服务器配置
   // https://webpack.js.org/configuration/dev-server/
   devServer: {
@@ -29,7 +33,6 @@ module.exports = webpackMerge(commonConfig, {
       poll: 1000
     },
     contentBase: helpers.root('src'),
-    watchContentBase: true,
-    outputPath: helpers.root('dist')
+    watchContentBase: true
   }
 })

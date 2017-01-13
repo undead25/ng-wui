@@ -6,7 +6,9 @@ import {
   Renderer,
   NgModule,
   ModuleWithProviders,
-  EventEmitter
+  EventEmitter,
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { coerceBoolean } from '../util';
@@ -17,13 +19,13 @@ import { UIButtonModule } from '../button';
   templateUrl: './dialog.html'
 })
 
-export class UIDialog {
+export class UIDialog implements AfterViewInit {
 
   // 是否已经打开
   public _open: boolean = false;
 
   // 是否有title
-  public _hasTitle: boolean = true;
+  public _hasTitle: boolean;
   // title文字内容
   public _titleText: string;
 
@@ -35,7 +37,7 @@ export class UIDialog {
   // toolbar文字内容
   public _toolbarText: string;
 
-  // 是否内容可以scroll (适用于modal)
+  // 是否内容可以scroll
   public _scroll: boolean = false;
 
   // 是否启用esc键关闭
@@ -44,11 +46,16 @@ export class UIDialog {
   // 是否为alert框
   public _isAlert: boolean = false;
 
+  public _backdropClose: boolean = true;
+
+  public _isOkDisabled: boolean = false;
+
   // 点击取消按钮后回调
   @Output() onCancelClose: EventEmitter<any> = new EventEmitter();
   // 点击确定按钮后回调
   @Output() onOkClose: EventEmitter<any> = new EventEmitter();
 
+  @ViewChild('container') containerViewChild: ElementRef;
   constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 
   @Input()
@@ -65,6 +72,9 @@ export class UIDialog {
   }
 
   @Input()
+  get header() {
+    return this._titleText;
+  }
   set header(value: string) {
     if (value) {
       this._hasTitle = true;
@@ -108,8 +118,20 @@ export class UIDialog {
   }
 
   @Input()
+  set backdropClose(value: boolean) {
+    if (coerceBoolean(value) === this._backdropClose) return;
+    this._backdropClose = coerceBoolean(value);
+  }
+
+  @Input()
   set okLabel(value: string) {
     this._okLabel = value;
+  }
+
+  @Input()
+  set isOkDisabled(value: boolean) {
+    if (coerceBoolean(value) === this._isOkDisabled) return;
+    this._isOkDisabled = coerceBoolean(value);
   }
 
   hasTitle() {
@@ -127,6 +149,7 @@ export class UIDialog {
   // 点击取消按钮，且绑定esc键事件
   onCancel(e?: Event) {
     if (e) e.stopPropagation();
+
     if (this._open) {
       this.setDialogClose();
       this.onCancelClose.emit();
@@ -134,7 +157,7 @@ export class UIDialog {
   }
 
   // 点击确定按钮
-  onOk() {
+  public onOk() {
     if (this._open) {
       this.setDialogClose();
       this.onOkClose.emit();
@@ -149,6 +172,13 @@ export class UIDialog {
   // 关闭弹出框 
   setDialogClose() {
     document.body.classList.remove('overflow');
+  }
+
+  onBackdropClick(event: MouseEvent): void {
+    if (!this._backdropClose) return;
+    if(event.target === this.containerViewChild.nativeElement) {
+      this._isAlert ? this.onOk() : this.onCancel();
+    }
   }
 
   // 绑定esc keydown事件

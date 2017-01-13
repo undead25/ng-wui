@@ -8,7 +8,7 @@ Angular2 组件
 | --- | --- | --- |
 | button 按钮 | 可用 | - |
 | cards 卡片 | 未开始 | - |
-| checkbox 复选框 | 进行中 | - |
+| checkbox 复选框 | 可用 | - |
 | data-table 数据表格 | 未开始 | - |
 | datepicker 日期选择 | 未开始 | - |
 | dialog 提示框 | 可用 | - |

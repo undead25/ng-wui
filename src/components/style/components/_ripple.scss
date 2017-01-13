@@ -25,7 +25,7 @@
   border-radius: 50%;
 
   &.active {
-    transform: scale(2);
+    transform: scale(2.4);
 
     opacity: 0;
   }
@@ -33,4 +33,30 @@
   &.ripple-dark {
     background-color: rgba(0, 0, 0, .2);
   }
+}
+
+%circle-ripple {
+  overflow: visible;
+
+  .ripple {
+    @include square(24px);
+    top: 50%;
+    margin-top: -12px;
+  }
+}
+
+%circle-ripple-position {
+  right: 0;
+  left: auto;
+}
+
+.ui-checkbox .ripple-container, .ui-radio .ripple-container {
+  @extend %circle-ripple;
+}
+
+.ui-checkbox .reverse + .ripple-container .ripple {
+  @extend %circle-ripple-position;
+}
+.ui-radio .reverse + .ripple-container .ripple {
+  @extend %circle-ripple-position;
 }

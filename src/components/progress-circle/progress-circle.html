@@ -1,4 +1,4 @@
-<div class="progress-circle" [style.width]="_size + 'px'" [style.height]="_size + 'px'">
+<!--<div class="progress-circle" [style.width]="_size + 'px'" [style.height]="_size + 'px'">
   <svg [attr.viewBox]="viewBox">
     <circle
       #circle
@@ -8,5 +8,11 @@
       [attr.stroke-width]="_thickness"
       [attr.stroke]="_stroke"
     />
+    <path #circle fill="none" [attr.stroke-width]="_thickness"></path>
+  </svg>
+</div>-->
+<div class="progress-circle">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+    <path></path>
   </svg>
 </div>

@@ -5,47 +5,30 @@ import { Component } from '@angular/core';
 })
 
 export class DialogDemo {
-  private openModal: boolean = false;
-  private openModal2: boolean = false;
-  private openAlert: boolean = false;
+  public openAlert: boolean = false;
+  public openModal: boolean = false;
 
-  private dialogContent: string;
-  constructor() {
+  public alertContent: string;
+
+  public onAlert() {
+    this.openAlert = true;
+    this.alertContent = '提示';
   }
 
-  showModal() {
+  public onModal() {
     this.openModal = true;
   }
 
-  onCancel(event: Event) {
-    this.openModal = false;
-    console.log('取消按钮回调！');
-  }
-
-  onOk(event: Event) {
-    this.openAlert = true;
-
-    console.log('确定按钮回调！');
-  }
-
-  showModal2() {
-    this.openModal2 = true;
-  }
-
-  onCancel2(event: Event) {
-    this.openModal2 = false;
-  }
-
-  onOk2(event: Event) {
-    this.openModal2 = false;
-  }
-
-  showAlert() {
-    this.openAlert = true;
-    this.dialogContent = '用户名或密码错误！';
-  }
-
-  onAlertOkClose() {
+  public onAlertOkClose() {
     this.openAlert = false;
+    this.alertContent = '';
+  }
+
+  public onModalOkClose() {
+    this.openModal = false;
+  }
+
+  public onModalCancel() {
+    this.openModal = false;
   }
 }

@@ -1,33 +1,80 @@
 .progress-circle {
-  display: inline-block;
+  // display: inline-block;
 
-  animation: progress-circle-rotate 2s linear infinite;
+  // animation: indeterminate-rotate 2.9s linear infinite;
   
 
-  circle {
-    transition: all 1.5s ease-in-out;
+  // circle {
+  //   // transition: all 1.5s ease-in-out;
+  //   stroke: $brand;
+  //   stroke-linecap: round;
+  //   stroke-miterlimit: 20;
+  //   fill: none;
 
+  //   @each $color-name in map-keys($color-map) {
+  //     &.#{$color-name} {
+  //       stroke: map-get($color-map, $color-name);
+  //     }
+  //   }
+  // }
+  width: 100px;
+  height: 100px;
+
+  overflow: hidden;
+
+  svg {
+    height: 100%;
+    width: 100%;
+    transform-origin: center;
+
+    animation-duration: 5.25s,
+                        5.25*0.55s;
+    animation-name: md-progress-circle-sporadic-rotate,
+                    md-progress-circle-linear-rotate;
+    animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1),
+                               linear;
+    animation-iteration-count: infinite;
+    transition: none;
+  }
+
+  path {
+    fill: transparent;
     stroke: $brand;
-    stroke-linecap: round;
-    stroke-miterlimit: 20;
-    fill: none;
-
-    @each $color-name in map-keys($color-map) {
-      &.#{$color-name} {
-        stroke: map-get($color-map, $color-name);
-      }
-    }
+    // Stroke width of 10px defines stroke as 10% of the viewBox.
+    stroke-width: 6px;
   }
+
+
 }
 
-.determinate .progress-circle {
-  animation: none;
+// .determinate .progress-circle {
+//   animation: none;
 
-  circle {
-    transition: all .3s linear;
-  }
-}
+//   circle {
+//     transition: all .3s linear;
+//   }
+// }
 
 @keyframes progress-circle-rotate {
   100% {transform: rotate(360deg)}
+}
+
+@keyframes indeterminate-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes md-progress-circle-linear-rotate {
+  0%       { transform: rotate(0deg); }
+  100%     { transform: rotate(360deg); }
+}
+@keyframes md-progress-circle-sporadic-rotate {
+  12.5%    { transform: rotate( 135deg); }
+  25%      { transform: rotate( 270deg); }
+  37.5%    { transform: rotate( 405deg); }
+  50%      { transform: rotate( 540deg); }
+  62.5%    { transform: rotate( 675deg); }
+  75%      { transform: rotate( 810deg); }
+  87.5%    { transform: rotate( 945deg); }
+  100%     { transform: rotate(1080deg); }
 }

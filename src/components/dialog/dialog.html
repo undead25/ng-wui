@@ -1,15 +1,15 @@
-<div class="ui-dialog-container" [class.active]="open">
-  <div class="ui-dialog" [class.active]="open" [class.scroll]="scroll">
+<div class="ui-dialog-container" #container [class.active]="open" (click)="onBackdropClick($event)">
+  <div class="ui-dialog" [class.active]="open" [class.scroll]="scroll" [class.alert]="isAlert()">
     <div *ngIf="hasToolbar()" class="dialog-bar">{{_toolbarText}}</div>
     <div class="dialog-content">
-      <div *ngIf="hasTitle()" #title class="dialog-title">{{_titleText}}</div>
-      <div #content>
+      <div *ngIf="hasTitle()" class="dialog-title">{{_titleText}}</div>
+      <div>
         <ng-content></ng-content>
       </div>
     </div>
     <div class="dialog-actions">
       <button *ngIf="!isAlert()" ui-button (click)="onCancel()">{{_cancelLabel}}</button>
-      <button ui-button color="primary" (click)="onOk()">{{_okLabel}}</button>
+      <button ui-button color="primary" (click)="onOk()" [disabled]="_isOkDisabled">{{_okLabel}}</button>
     </div>
   </div>
 </div>

@@ -10,8 +10,6 @@
 
   display: flex;
   visibility: hidden;
-  // overflow-x: hidden;
-  // overflow-y: scroll;
 
   color: $dark;
 
@@ -27,7 +25,7 @@
   position: relative;
 
   display: flex;
-  overflow: auto;
+  // overflow: auto;
   flex-direction: column;
 
   min-width: rem(300px);
@@ -75,7 +73,7 @@
 
   // 内容
   .dialog-content {
-    overflow: auto;
+    // overflow: auto;
 
     padding: $dialog-content-padding;
 
@@ -97,19 +95,27 @@
 
     min-height: $dialog-action-min-height;
     padding: $dialog-action-padding;
-
+    border-top: 1px solid $gray-lighter;
     background-color: $white;
 
     align-items: center;
     justify-content: flex-end;
 
-    &[ui-button] {
-      margin-left: $dialog-action-padding;
+    [ui-button] {
+      margin-left: rem(8px);
     }
   }
 
-  &.scroll .dialog-actions {
-    border-top: 1px solid $gray-lighter;
+  &.scroll {
+    overflow: auto;
+    
+    .dialog-content {
+      overflow: auto;
+    }
+  }
+
+  &.alert .dialog-actions {
+    border: none;
   }
 }
 

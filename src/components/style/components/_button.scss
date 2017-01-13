@@ -32,7 +32,7 @@
   }
 
   // 禁用
-  &[disabled] {
+  &:disabled {
     color: $gray-light;
     box-shadow: none;
 
@@ -47,6 +47,10 @@
   @each $color-name in map-keys($color-map) {
     &.#{$color-name} {
       color: map-get($color-map, $color-name);
+
+      &:disabled {
+        color: $btn-disabled-color;
+      }
     }
   }
 
@@ -66,7 +70,7 @@
       background-color: transparent;
     }
 
-    &[disabled] {
+    &:disabled {
       background-color: $gray-lighter;
       box-shadow: none;
     }
@@ -80,8 +84,8 @@
           background-color: darken(map-get($color-map, $color-name), 5%);
         }
 
-        &[disabled] {
-          color: $gray-light;
+        &:disabled {
+          color: $btn-disabled-color;
           background-color: $gray-lighter;
         }
       }
