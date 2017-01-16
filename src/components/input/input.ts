@@ -13,15 +13,24 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { TextareaAutosize } from './autosize';
 import { coerceBoolean, setUid } from '../util';
 
+export const INPUT_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => UIInput),
+  multi: true
+};
+
 @Component({
   selector: 'ui-input, ui-textarea',
-  templateUrl: 'input.html'
+  templateUrl: 'input.html',
+  providers: [INPUT_VALUE_ACCESSOR]
 })
 
-export class UIInput {
+export class UIInput implements ControlValueAccessor, AfterContentInit {
+
   // placeholder 属性值
   public _placeholder: string = null;
   // value 属性值
@@ -48,6 +57,7 @@ export class UIInput {
 
   public inputType: 'input' | 'textarea';
 
+
   @Input() id: string = setUid('uiInput');
   @Input() name: string = null;
   @Input() type: string = 'text';
@@ -69,7 +79,11 @@ export class UIInput {
 
   @Input()
   get value(): string { return this._value; }
-  set value(v: string) { if (v !== this._value) this._value = v; }
+  set value(v: string) {
+    if (v !== this._value)
+      this._value = v;
+      this.onValueChange(v);
+  }
 
   @Input()
   get label(): string { return this.labelText; }
@@ -108,6 +122,19 @@ export class UIInput {
     const _nodeName: string = elementRef.nativeElement.nodeName.toLowerCase();
     this.inputType = _nodeName === 'ui-input' ? 'input' : 'textarea';
   }
+
+  public writeValue(value: any): void {
+    this._value = value;
+  }
+
+  public registerOnChange(fn: Function): void {
+    this.onValueChange = fn;
+  }
+
+  public registerOnTouched(fn: Function): void {
+    this.onValueTouched = fn;
+  }
+
   // focus事件
   handleFocus(event: FocusEvent) {
     this._focused = true;
@@ -122,6 +149,7 @@ export class UIInput {
   handleBlur(event: FocusEvent) {
     const _value = (<HTMLInputElement>event.target).value;
     this._focused = false;
+    this.onValueTouched();
     if (this._hasLabel && this._hasPlaceholder) {
       this._isPlaceholderActive = true;
     } else if (_value.length === 0) {
@@ -134,6 +162,7 @@ export class UIInput {
   // change事件
   handleChange(event: Event) {
     this._value = (<HTMLInputElement>event.target).value;
+    this.onValueTouched();
   }
 
   // keyup事件
@@ -153,6 +182,8 @@ export class UIInput {
   ngAfterContentInit() {
     if (this._hasLabel && this._hasPlaceholder) this._isPlaceholderActive = true;
   }
+  private onValueChange: Function = () => { };
+  private onValueTouched: Function = () => { };
 }
 
 @NgModule({

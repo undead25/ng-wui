@@ -1,19 +1,24 @@
-  <ui-input type="text" label="Simple"></ui-input>
-  <ui-input placeholder="Hint Text" type="password"></ui-input>
-  <ui-input type="text" placeholder="请输入姓名" label="姓名"></ui-input>
-  <ui-input type="text" value="Default Value"></ui-input>
-  <ui-input type="text" disabled value="Disabled"></ui-input>
-  <ui-input type="text" readonly value="Readonly"></ui-input>
-  <ui-input help="帮助文字信息" label="ID" id="abc" autofocus maxlength="4"></ui-input>
-  <ui-input
-    required
-    label="姓名" 
-    [error]="error"
-    (onBlur)="handleBlur($event)"
-    ngDefaultControl
-    help="帮助文字信息"
-    [(ngModel)]="model"
-  ></ui-input>
-  <ui-textarea label="Textarea">
+<ui-input type="text" label="Simple"></ui-input>
+<ui-input placeholder="Hint Text" type="password"></ui-input>
+<ui-input type="text" placeholder="请输入姓名" label="姓名"></ui-input>
+<ui-input type="text" value="Default Value"></ui-input>
+<ui-input type="text" disabled value="Disabled"></ui-input>
+<ui-input type="text" readonly value="Readonly"></ui-input>
+<ui-input help="帮助文字信息" label="ID" id="abc" maxlength="4"></ui-input>
+<ui-input
+  required
+  label="ngModel" 
+  [error]="error"
+  (onBlur)="handleBlur($event)"
+  help="帮助文字信息"
+  [(ngModel)]="model"
+></ui-input>
+<ui-textarea label="Textarea"></ui-textarea>
 
-  </ui-textarea>
+<h3>动态表单</h3>
+<form [formGroup]="form">
+  <ui-input label="formGroup1" formControlName="name" required [error]="error"></ui-input>
+  <ui-input label="formGroup2" formControlName="sex" required [error]="error"></ui-input>
+  <button [disabled]="!isValid" ui-button raised color="primary" type="button">确定</button>
+  <button ui-button raised type="button" (click)="onReset()">清空</button>
+</form>
