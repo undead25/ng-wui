@@ -1,24 +1,6 @@
-<button ui-button raised color="primary" (click)="onAlert()">ALERT</button>
-<button ui-button raised color="green" (click)="onModal()">MODAL</button>
-
-
-<ui-dialog [open]="openAlert" (onOkClose)="onAlertOkClose()" alert="true" header="TIPS!" backdropClose="false">
-  {{alertContent}}
-</ui-dialog>
-
-<ui-dialog [open]="openModal" (onOkClose)="onModalOkClose()" (onCancelClose)="onModalCancel()" scroll="true" toolbar="模态框" isOkDisabled="true">
-  <p>Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。</p>
-  <p>该框架包括一系列库，有些是核心库，有些是可选库。</p>
-  <p>我们是这样写 Angular 应用的：用 Angular 扩展语法编写 HTML 模板， 用组件类管理这些模板，用服务添加应用逻辑， 用模块打包发布组件与服务。</p>
-  <p>然后，我们通过引导根模块来启动该应用。 Angular 在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。</p>
-  <p>当然，这只是冰山一角。后面我们将学习更多的细节。不过，目前我们还是先关注全景图吧。</p>
-  <p>每个 Angular 应用至少有一个模块（根模块），习惯上命名为AppModule。</p>
-  <p>根模块在一些小型应用中可能是唯一的模块，大多数应用会有很多特性模块，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。</p>
-  <p>Angular 是一个用 HTML 和 JavaScript 或者一个可以编译成 JavaScript 的语言（例如 Dart 或者 TypeScript ），来构建客户端应用的框架。</p>
-  <p>该框架包括一系列库，有些是核心库，有些是可选库。</p>
-  <p>我们是这样写 Angular 应用的：用 Angular 扩展语法编写 HTML 模板， 用组件类管理这些模板，用服务添加应用逻辑， 用模块打包发布组件与服务。</p>
-  <p>然后，我们通过引导根模块来启动该应用。 Angular 在浏览器中接管、展现应用的内容，并根据我们提供的操作指令响应用户的交互。</p>
-  <p>当然，这只是冰山一角。后面我们将学习更多的细节。不过，目前我们还是先关注全景图吧。</p>
-  <p>每个 Angular 应用至少有一个模块（根模块），习惯上命名为AppModule。</p>
-  <p>根模块在一些小型应用中可能是唯一的模块，大多数应用会有很多特性模块，每个模块都是一个内聚的代码块专注于某个应用领域、工作流或紧密相关的功能。</p>
-</ui-dialog>
+<button ui-button raised color="primary" (click)="handleAlert()">Alert</button>
+<button ui-button raised color="green" (click)="handleConfirm()">Confirm</button>
+<button ui-button raised color="pink" (click)="handleMulti()">Multi</button>
+<button ui-button raised color="orange" (click)="handleModal()">Modal</button>
+<p></p>
+<p>回调：{{message}}</p>

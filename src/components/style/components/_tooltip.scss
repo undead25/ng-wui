@@ -5,10 +5,12 @@
 
   display: flex;
 
-  height: $tooltip-height;
+  min-height: $tooltip-height;
   margin: $tooltip-margin;
 
   padding: $tooltip-padding;
+
+  max-width: 240px;
 
   user-select: none;
   pointer-events: none;
@@ -20,5 +22,5 @@
   font-size: $font-size-sm;
 
   align-items: center;
-  @include text-ellipsis;
+  // @include text-ellipsis;
 }

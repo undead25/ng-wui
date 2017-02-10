@@ -98,8 +98,7 @@ export class UIPagination implements OnInit {
   }
 
   /**
-   * @method getPageCount()
-   * @description 获取总页数
+   * 获取总页数
    * @return { number } 总页数
    */
   getPageCount() {
@@ -107,8 +106,7 @@ export class UIPagination implements OnInit {
   }
 
   /**
-   * @method updatePageLinks()
-   * @description 更新显示的页码
+   * 更新显示的页码
    * @return { number[] } 页码数组
    */
   updatePageLinks() {
@@ -146,8 +144,7 @@ export class UIPagination implements OnInit {
   }
 
   /**
-   * @method pageChange()
-   * @description 点击页码后更新显示的页码
+   * 点击页码后更新显示的页码
    * @param { number } page: 点击的页码
    * @param { MouseEvent } event?: 鼠标事件
    * @return { Obejct } page: 当前页面页码, pageSize: 每页记录数, totalRecords: 总记录数
@@ -176,7 +173,6 @@ export class UIPagination implements OnInit {
   }
 
   /**
-   * @method handleKeyup()
    * @description
    *  - 1. 处理需要跳转页面的输入页码不能大于总页码
    *  - 2. 处理 ENTER键 直接跳转对应页面
@@ -195,8 +191,7 @@ export class UIPagination implements OnInit {
   }
 
   /**
-   * @method handleGo()
-   * @description 点击跳转按钮，跳转对应页面
+   * 点击跳转按钮，跳转对应页面
    */
   handleGo() {
     if (this.inputValue) this.pageChange(this.inputValue);
@@ -215,8 +210,7 @@ export class UIPagination implements OnInit {
   }
 
   /**
-   * @method onSelectChange()
-   * @description 选择对应value后改变每页记录数，并更新页码，当前页回到第一页
+   * 选择对应value后改变每页记录数，并更新页码，当前页回到第一页
    * @param { MouseEvent } event: 鼠标事件，获取用户选择的值
    */
   onSelectChange(event: MouseEvent) {

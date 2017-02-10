@@ -1,0 +1,6 @@
+<ui-dialog [config]="config" [disableOkBtn]="!form.valid">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ui-input label="用户名" formControlName="username"></ui-input>
+    <ui-input label="密码" type="password" formControlName="password"></ui-input>
+  </form>
+</ui-dialog>

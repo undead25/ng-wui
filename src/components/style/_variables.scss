@@ -154,7 +154,7 @@ $sharp-curve: cubic-bezier(0.4, 0.0, 0.6, 1) !default; // ease-in-out
 // ============================================================================
 // Tooltip 工具提示
 // ============================================================================
-$tooltip-padding: 0 rem(8px) !default;
+$tooltip-padding: rem(8px) !default;
 $tooltip-height: rem(22px) !default;
 $tooltip-margin: rem(14px) !default;
 $tooltip-bg: rgba(#616161, 0.9) !default;

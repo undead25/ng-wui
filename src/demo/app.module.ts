@@ -9,7 +9,7 @@ import { UIModule } from '../components';
 import { AppComponent } from './app.component';
 import { Home } from './home/home';
 import { ButtonDemo } from './button/button-demo';
-import { DialogDemo } from './dialog/dialog-demo';
+import { DialogDemo, DemoModal } from './dialog/dialog-demo';
 import { InputDemo } from './input/input-demo';
 import { ProgressCircleDemo } from './progress-circle/progress-circle-demo';
 import { PaginationDemo } from './pagination/pagination-demo';
@@ -30,7 +30,7 @@ import { TooltipDemo } from './tooltip/tooltip-demo';
     AppComponent,
     Home,
     ButtonDemo,
-    DialogDemo,
+    DialogDemo, DemoModal,
     InputDemo,
     ProgressCircleDemo,
     PaginationDemo,
@@ -38,6 +38,7 @@ import { TooltipDemo } from './tooltip/tooltip-demo';
     RadioDemo,
     TooltipDemo
   ],
+  entryComponents: [DemoModal],
   bootstrap: [AppComponent]
 })
 

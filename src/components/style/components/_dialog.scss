@@ -3,51 +3,36 @@
   position: fixed;
   z-index: $zindex-dialog;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
-  background-color: rgba(33, 33, 33, 0.48);
+  bottom: 0;
+  left: 0;
 
   display: flex;
-  visibility: hidden;
+
+  pointer-events: none;
 
   color: $dark;
 
   justify-content: center;
   align-items: center;
-
-  &.active {
-    visibility: visible;
-  }
 }
 
 .ui-dialog {
   position: relative;
 
   display: flex;
-  // overflow: auto;
+  overflow: hidden;
   flex-direction: column;
 
   min-width: rem(300px);
   max-width: 80%;
   max-height: 80%;
 
-  transition: transform .35s ease-in-out, visibility .35s ease-in-out, opacity .35s ease-in-out;
-  transform: scale(0.2);
+  pointer-events: auto;
 
-  opacity: 0;
   border-radius: $dialog-radius;
 
   @include elevation(24);
-
-  // dialog 激活后
-  &.active {
-    visibility: visible;
-
-    transform: scale(1);
-
-    opacity: 1;
-  }
 
   .dialog-bar {
     display: flex;
@@ -59,6 +44,8 @@
     margin: 0;
     padding: $dialog-bar-padding;
 
+    letter-spacing: rem(1px);
+
     color: $dialog-bar-color;
     border-top-left-radius: $dialog-radius;
     border-top-right-radius: $dialog-radius;
@@ -66,7 +53,6 @@
 
     font-size: $dialog-bar-font-size;
     font-weight: 300;
-    letter-spacing: rem(1px);
 
     align-items: center;
   }
@@ -74,7 +60,6 @@
   // 内容
   .dialog-content {
     // overflow: auto;
-
     padding: $dialog-content-padding;
 
     background-color: $white;
@@ -95,7 +80,8 @@
 
     min-height: $dialog-action-min-height;
     padding: $dialog-action-padding;
-    border-top: 1px solid $gray-lighter;
+    // border-top: 1px solid $gray-lighter;
+
     background-color: $white;
 
     align-items: center;
@@ -112,10 +98,6 @@
     .dialog-content {
       overflow: auto;
     }
-  }
-
-  &.alert .dialog-actions {
-    border: none;
   }
 }
 

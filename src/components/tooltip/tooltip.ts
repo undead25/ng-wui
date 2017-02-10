@@ -23,8 +23,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { Overlay } from '../overlay';
-import { getOuterWidth, getOuterHeight } from '../util';
+import { Overlay, OverlayRef } from '../overlay';
+import { getOffset, getOuterWidth, getOuterHeight } from '../util';
 import 'rxjs/add/operator/first';
 
 @Directive({
@@ -42,7 +42,8 @@ export class UITooltip implements OnDestroy {
 
   public overlayElement: HTMLElement;
   public tooltipElement: HTMLElement;
-
+  
+  private overlayRef: OverlayRef;
   private tooltip: TooltipComponent;
   private tooltipFactory: ComponentFactory<TooltipComponent>;
   private componentRef: ComponentRef<TooltipComponent>;
@@ -73,7 +74,7 @@ export class UITooltip implements OnDestroy {
   }
 
   /**
-   * @description 显示提示框
+   * 显示工具提示
    */
   public show() {
     if (!this._message || !this._message.trim()) return;
@@ -84,9 +85,9 @@ export class UITooltip implements OnDestroy {
   }
 
   /**
-   * @description 隐藏提示框
+   * 隐藏工具提示
    */
-  public hide() {
+  public hide(): void {
     if (!this.tooltip) return;
     this.tooltip._visibility = 'hidden';
     this.tooltip.afterHide().subscribe(() => {
@@ -95,11 +96,12 @@ export class UITooltip implements OnDestroy {
   }
 
   /**
-   * @description 创建提示框
+   * 创建工具提示
+   * @private 
    */
-  private create() {
-    this.overlayElement = this.overlay.create();
-
+  private create(): void {
+    this.overlayRef = this.overlay.create();
+    this.overlayElement = this.overlayRef.createOverlay();
     this.componentRef = this.viewContainerRef.createComponent(this.tooltipFactory);
     this.overlayElement.appendChild((this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement);
 
@@ -112,29 +114,34 @@ export class UITooltip implements OnDestroy {
     });
   }
 
+  /**
+   * 销毁工具提示
+   * @private 
+   */
   private dispose() {
     this.componentRef.destroy();
-    this.overlay.remove();
+    this.overlayRef.removeOverlay();
     this.overlayElement = null;
     this.tooltip = null;
   }
 
   /**
-   * @description 根据触发元素位置设置提示框位置
+   * 根据触发元素位置设置提示框位置
    * @param {HTMLElement} tooltip 工具提示
+   * @private 
    */
   private getPosition(tooltip: HTMLElement) {
     const _target = this.elementRef.nativeElement;
     const _tooltip = tooltip;
 
-    const targetTop = _target.offsetTop;
-    const targetLeft = _target.offsetLeft;
+    const targetTop = getOffset(_target).top;
+    const targetLeft = getOffset(_target).left;
 
-    const targetWidth = getOuterWidth(_target);
-    const targetHeight = getOuterHeight(_target);
+    const targetWidth = _target.offsetWidth;
+    const targetHeight = _target.offsetHeight;
 
-    const tooltipWidth = getOuterWidth(_tooltip, true);
-    const tooltipHeight = getOuterHeight(_tooltip, true);
+    const tooltipWidth = getOuterWidth(_tooltip, true);;
+    const tooltipHeight = getOuterHeight(_tooltip, true);;
 
     let top: number;
     let left: number;
@@ -156,14 +163,13 @@ export class UITooltip implements OnDestroy {
         this.tooltip.transformOrigin = 'bottom';
         break;
       default:
-        top = targetTop + targetHeight;
         left = targetLeft + (targetWidth - tooltipWidth) / 2;
+        top = targetTop + targetHeight;
     }
 
     _tooltip.style.top = `${top}px`;
     _tooltip.style.left = `${left}px`;
   }
-
 }
 
 @Component({
@@ -191,7 +197,7 @@ export class TooltipComponent {
   @ViewChild('tooltip') containerViewChild: ElementRef;
 
   /**
-   * @description 在消失动画结束后提供可观察对象
+   * 在消失动画结束后提供可观察对象
    * @returns {Observable<void>}
    */
   public afterHide(): Observable<void> {
@@ -199,7 +205,7 @@ export class TooltipComponent {
   }
 
   /**
-   * @description 消失动画结束后
+   * 消失动画结束后
    * @param {AnimationTransitionEvent} event
    * @returns {void}
    */

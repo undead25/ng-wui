@@ -1,15 +1,23 @@
-<div class="ui-dialog-container" #container [class.active]="open" (click)="onBackdropClick($event)">
-  <div class="ui-dialog" [class.active]="open" [class.scroll]="scroll" [class.alert]="isAlert()">
-    <div *ngIf="hasToolbar()" class="dialog-bar">{{_toolbarText}}</div>
+<div class="ui-dialog-container">
+  <div
+    class="ui-dialog"
+    [class.alert]="_config.isAlert"
+    [@state]="visibility"
+    (@state.done)="animationDone($event)"
+  >
+    <div *ngIf="_config.isModal" class="dialog-bar">{{_config.toolbarText}}</div>
     <div class="dialog-content">
-      <div *ngIf="hasTitle()" class="dialog-title">{{_titleText}}</div>
-      <div>
+      <div *ngIf="_config.titleText" class="dialog-title">{{_config.titleText}}</div>
+      <ng-container *ngIf="!_config.isModal">
+        {{_config.message}}
+      </ng-container>
+      <div *ngIf="_config.isModal">
         <ng-content></ng-content>
       </div>
     </div>
     <div class="dialog-actions">
-      <button *ngIf="!isAlert()" ui-button (click)="onCancel()">{{_cancelLabel}}</button>
-      <button ui-button color="primary" (click)="onOk()" [disabled]="_isOkDisabled">{{_okLabel}}</button>
+      <button *ngIf="!_config.isAlert" ui-button (click)="handleCancel()">{{_config.cancelLabel}}</button>
+      <button ui-button color="primary" (click)="handleOk()" [disabled]="_config.disableOkBtn">{{_config.okLabel}}</button>
     </div>
   </div>
 </div>
