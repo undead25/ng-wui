@@ -39,19 +39,26 @@ module.exports = {
       // 处理sass
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: 'css-loader!postcss-loader!sass-loader'
-        })
+        exclude: [helpers.root('src', 'components/style')],
+        use: ['raw-loader', 'postcss-loader', 'sass-loader']
       },
+      
+      // {
+      //   test: /\.scss$|\.sass$/,
+      //   include: [helpers.root('src')],
+      //   use: ExtractTextPlugin.extract({
+      //     use: ['css-loader', 'postcss-loader', 'sass-loader'],
+      //     fallback: 'style-loader'
+      //   })
+      // },
       // 处理css
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: 'css-loader'
-        })
-      },
+      // {
+      //   test: /\.css$/,
+      //   use: ExtractTextPlugin.extract({
+      //     fallback: 'style-loader',
+      //     use: 'css-loader'
+      //   })
+      // },
       // 处理html
       {
         test: /\.html$/,

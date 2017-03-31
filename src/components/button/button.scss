@@ -1,3 +1,6 @@
+@import '../style/variables';
+@import '../style/mixins';
+@import '../ripple/ripple';
 
 [ui-button] {
   position: relative;
@@ -32,7 +35,7 @@
   }
 
   // 禁用
-  &:disabled {
+  &[disabled] {
     color: $gray-light;
     box-shadow: none;
 
@@ -48,7 +51,7 @@
     &.#{$color-name} {
       color: map-get($color-map, $color-name);
 
-      &:disabled {
+      &[disabled] {
         color: $btn-disabled-color;
       }
     }
@@ -70,7 +73,7 @@
       background-color: transparent;
     }
 
-    &:disabled {
+    &[disabled] {
       background-color: $gray-lighter;
       box-shadow: none;
     }
@@ -84,7 +87,7 @@
           background-color: darken(map-get($color-map, $color-name), 5%);
         }
 
-        &:disabled {
+        &[disabled] {
           color: $btn-disabled-color;
           background-color: $gray-lighter;
         }

@@ -10,7 +10,7 @@ import { UIRadioModule } from './radio';
 import { UITooltipModule } from './tooltip';
 import { UISelectModule } from './select';
 
-import './style/style.scss';
+// import './style/style.scss';
 
 const MODULES = [
   UIButtonModule,

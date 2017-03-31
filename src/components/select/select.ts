@@ -19,11 +19,11 @@ import { Subscription } from 'rxjs/Subscription';
 import { UISelectOption } from './option';
 import { Overlay, OverlayRef } from '../overlay';
 import { coerceBoolean } from '../util';
-import './select.scss';
 
 @Component({
   selector: 'ui-select',
-  templateUrl: 'select.html'
+  templateUrl: 'select.html',
+  styleUrls: ['./select.scss']
 })
 export class UISelect implements AfterContentInit {
   public isPanelOpen: boolean = false;

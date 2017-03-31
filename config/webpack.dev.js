@@ -21,6 +21,16 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].chunk.js' // 按需加载的chunk文件名称
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+        include: [helpers.root('src', 'components/style')]
+      },
+    ]
+  },
+
   plugins: [
     new FriendlyErrorsWebpackPlugin()
   ],

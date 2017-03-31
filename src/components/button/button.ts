@@ -1,17 +1,6 @@
-import {
-  Component,
-  Input,
-  ElementRef,
-  Renderer,
-  NgModule,
-  ModuleWithProviders
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UIRippleModule } from '../ripple';
-import { coerceBoolean } from '../util';
+import { Component, Input, ElementRef, Renderer, ViewEncapsulation } from '@angular/core';
 
 /**
- * 按钮组件
  * @export
  * @class UIButton
  */
@@ -20,83 +9,101 @@ import { coerceBoolean } from '../util';
   templateUrl: 'button.html',
   host: {
     '[disabled]': 'disabled'
-  }
+  },
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./button.scss']
 })
+
 export class UIButton {
-  /** 背景色 */
-  public _color: string;
-  /** 是否禁用按钮 */
-  public _disabled: boolean = null;
-  /** 是否禁用ripple */
-  public _rippleDisabled: boolean = false;
+  /** The Button's background */
+  private _color: string;
+
+  /** Whether the button is disabled */
+  private _disabled: boolean = null;
+
+  /** Whether use ripple effect */
+  private _rippleDisabled: boolean = false;
+
 
   /**
-   * 按钮组件构造函数
+   * Creates an instance of UIButton.
    * @param {ElementRef} elementRef
    * @param {Renderer} renderer
    */
   constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 
   /**
-   * disabled 入参，改变按钮禁用状态
+   * `disabled` Whether the button is disabled
    * @readonly
    */
   @Input()
-  get disabled() {
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    if (coerceBoolean(value) === this._disabled) return;
-    this._disabled = coerceBoolean(value) ? true : null;
-  }
+  get disabled() { return this._disabled; }
+  set disabled(value: boolean) { this._disabled = value; }
 
   /**
-   * color 入参，改变按钮背景色
+   * `color` The Button's background
+   * it can be `primary`, `green`, `red`, `blue`, `yellow`, `orange`
+   * `brown`, `purple`, `pink`, `cyan`, `teal`, `indigo`
    * @readonly
    */
   @Input()
-  get color() {
-    return this._color;
-  }
+  get color() { return this._color; }
   set color(value: string) {
     this.setButtonColor(value, true);
     this._color = value;
   }
 
+  /**
+   * `rippleDisabled` Whether use ripple effect
+   * @readonly
+   */
   @Input()
-  get rippleDisabled() {
-    return this._rippleDisabled;
-  }
-  set rippleDisabled(value: boolean) {
-    if (coerceBoolean(value) === this._rippleDisabled) return;
-    this._rippleDisabled = coerceBoolean(value);
+  get rippleDisabled() { return this._rippleDisabled; }
+  set rippleDisabled(value: boolean) { this._rippleDisabled = value; }
+
+  /**
+   * Return element to ripple so that ripple knows which button to use effect
+   * @returns {HTMLElement}
+   */
+  public getRippleElement(): HTMLElement {
+    return this.elementRef.nativeElement;
   }
 
-  // 根据color属性值改变按钮颜色
-  setButtonColor(value: string, isAdd: boolean) {
+  /**
+   * Setting whether ripple effect's background is dark or not
+   * @returns {boolean}
+   */
+  public isRippleDark(): boolean {
+    const el: HTMLElement = this.elementRef.nativeElement;
+    return (el.hasAttribute('raised') && el.hasAttribute('color')) ? false : true;
+  }
+
+  /**
+   * Setting whether to use ripple effect
+   * @returns  {boolean}
+   */
+  public isRippleDisabled(): boolean {
+    return this._rippleDisabled || this._disabled;
+  }
+
+  /**
+   * Change the background of button according to properties color
+   * @param {string} value - color name
+   * @param {boolean} isAdd - new class to tag
+   */
+  private setButtonColor(value: string, isAdd: boolean) {
     if (value !== null && value !== '') {
       this.renderer.setElementClass(this.elementRef.nativeElement, `${value}`, isAdd);
     }
   }
-
-  // 给ripple提供HTMLElement
-  getRippleElement() {
-    return this.elementRef.nativeElement;
-  }
-
-  // 给ripple提供背景色（深色还是浅色）
-  isRippleDark() {
-    const el = this.elementRef.nativeElement;
-    if (!el.hasAttribute('raised')) return true;
-    if (el.hasAttribute('raised') && !el.hasAttribute('color')) return true;
-  }
-
-  // 设置是否禁用ripple
-  isRippleDisabled() {
-    return this._rippleDisabled || this._disabled;
-  }
 }
 
+
+/**
+ * @export
+ * @class UIAnchorButton
+ * @extends {UIButton}
+ */
 @Component({
   selector: 'a[ui-button]',
   templateUrl: 'button.html',
@@ -104,34 +111,27 @@ export class UIButton {
     '[attr.disabled]': 'disabled',
     '(click)': 'handleAnchorClick($event)'
   },
-  inputs: ['color', 'disabled', 'rippleDisabled']
+  encapsulation: ViewEncapsulation.None
 })
 
 export class UIAnchorButton extends UIButton {
+  /**
+   * Creates an instance of UIAnchorButton.
+   * @param {ElementRef} elementRef
+   * @param {Renderer} renderer
+   */
   constructor(elementRef: ElementRef, renderer: Renderer) {
     super(elementRef, renderer);
   }
 
-  public handleAnchorClick(event: MouseEvent) {
-    // if (this._disabled) {
-    //   event.preventDefault();
-    //   event.stopImmediatePropagation();
-    // }
+  /**
+   * Do nothing if the button is disabled
+   * @param {MouseEvent} event
+   */
+  public handleAnchorClick(event: MouseEvent): void {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
   }
 }
-
-@NgModule({
-  imports: [CommonModule, UIRippleModule],
-  exports: [UIButton, UIAnchorButton],
-  declarations: [UIButton, UIAnchorButton],
-  providers: [],
-})
-export class UIButtonModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: UIButtonModule,
-      providers: []
-    };
-  }
-}
-

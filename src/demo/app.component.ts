@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app',
   styles: ['li {display: inline-block; padding: 10px; margin-bottom: 20px;}'],

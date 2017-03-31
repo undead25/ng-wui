@@ -18,6 +18,8 @@ import { RadioDemo } from './radio/radio-demo';
 import { TooltipDemo } from './tooltip/tooltip-demo';
 import { SelectDemo } from './select/select-demo';
 
+import '../components/style/style.scss';
+
 @NgModule({
   imports: [
     BrowserModule,

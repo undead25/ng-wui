@@ -138,14 +138,16 @@ export class UIDialog implements AfterViewInit {
   constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 
   /**
-   * 关闭弹框 
+   * 关闭弹框
    */
   public close(): void {
     this.visibility = 'hidden';
     this.closed.next();
     this.dialogElement = this.elementRef.nativeElement;
-    if (this.dialogElement && this.dialogElement.parentNode !== null)
+    if (this.dialogElement && this.dialogElement.parentNode !== null) {
       this.dialogElement.parentNode.removeChild(this.dialogElement);
+      document.removeEventListener('keydown');
+    }
   }
 
   /**
@@ -204,10 +206,8 @@ export class UIDialog implements AfterViewInit {
     const focusElement = (document.activeElement) as HTMLElement;
     focusElement.blur();
     if (this._config.escClose) {
-      this.renderer.listenGlobal('document', 'keydown', (event: KeyboardEvent) => {
-        if (event.which === 27) {
-          this.handleCancel();
-        }
+      document.addEventListener('keydown', (event: KeyboardEvent) => {
+        if (event.which === 27) this.handleCancel();
       });
     }
   }
