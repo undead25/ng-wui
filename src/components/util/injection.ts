@@ -2,6 +2,7 @@ import {
   ApplicationRef,
   ComponentFactoryResolver,
   ComponentRef,
+  ViewContainerRef,
   Injectable,
   Injector,
   EmbeddedViewRef,
@@ -9,7 +10,7 @@ import {
 } from '@angular/core';
 
 /**
- * 动态插入组件到一个已知的位置，用于tooltip和dialog组件
+ * 动态插入组件、模板到一个已知的位置
  * @export
  * @class InjectionService
  */

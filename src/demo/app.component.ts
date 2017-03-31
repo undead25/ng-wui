@@ -16,6 +16,7 @@ import { Component } from '@angular/core';
         <li><a routerLink="/checkbox">复选框</a></li>
         <li><a routerLink="/radio">单选框</a></li>
         <li><a routerLink="/tooltip">工具提示</a></li>
+        <li><a routerLink="/select">选择框</a></li>
       </ul>
       <router-outlet></router-outlet>
     </div>

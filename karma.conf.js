@@ -23,8 +23,8 @@ module.exports = function (config) {
 
     remapCoverageReporter: {
       'text-summary': null,
-      json: './coverage/coverage.json',
-      html: './coverage/html'
+      json: './.coverage/coverage.json',
+      html: './.coverage/html'
     },
 
     webpackMiddleware: {

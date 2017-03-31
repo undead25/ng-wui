@@ -10,6 +10,11 @@ import { CommonModule } from '@angular/common';
 import { UIRippleModule } from '../ripple';
 import { coerceBoolean } from '../util';
 
+/**
+ * 按钮组件
+ * @export
+ * @class UIButton
+ */
 @Component({
   selector: 'button[ui-button]',
   templateUrl: 'button.html',
@@ -18,15 +23,24 @@ import { coerceBoolean } from '../util';
   }
 })
 export class UIButton {
-  // 按钮颜色（背景色）
+  /** 背景色 */
   public _color: string;
-  // 是否禁用
+  /** 是否禁用按钮 */
   public _disabled: boolean = null;
-  // 是否禁用ripple
+  /** 是否禁用ripple */
   public _rippleDisabled: boolean = false;
 
+  /**
+   * 按钮组件构造函数
+   * @param {ElementRef} elementRef
+   * @param {Renderer} renderer
+   */
   constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 
+  /**
+   * disabled 入参，改变按钮禁用状态
+   * @readonly
+   */
   @Input()
   get disabled() {
     return this._disabled;
@@ -36,6 +50,10 @@ export class UIButton {
     this._disabled = coerceBoolean(value) ? true : null;
   }
 
+  /**
+   * color 入参，改变按钮背景色
+   * @readonly
+   */
   @Input()
   get color() {
     return this._color;
@@ -56,7 +74,7 @@ export class UIButton {
 
   // 根据color属性值改变按钮颜色
   setButtonColor(value: string, isAdd: boolean) {
-    if (value != null && value !== '') {
+    if (value !== null && value !== '') {
       this.renderer.setElementClass(this.elementRef.nativeElement, `${value}`, isAdd);
     }
   }

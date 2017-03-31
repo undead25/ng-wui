@@ -8,8 +8,15 @@ import {
   Injectable,
   ComponentRef,
   Renderer,
-  trigger, state, style, transition, animate, AnimationTransitionEvent
 } from '@angular/core';
+import {
+  animate,
+  trigger,
+  state,
+  style,
+  transition,
+  AnimationEvent,
+} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { merge, InjectionService, coerceBoolean } from '../util';
@@ -64,7 +71,7 @@ export class UIDialogService {
     // 合并配置参数
     config = merge(new DialogConfig(), config);
     let overlayRef = this.overlay.create(true);
-    this.componentRef = this.injection.appendComponent(component, { config: config }, overlayRef.createOverlay(true));
+    this.componentRef = this.injection.appendComponent(component, { config: config }, overlayRef.createOverlay(true, true));
     let componentInstance = this.componentRef.instance;
     config.isModal ? this.dialogComponent = componentInstance.dialogComponent : this.dialogComponent = componentInstance;
     this.dialogComponent.afterClosed().subscribe(() => {
@@ -143,10 +150,10 @@ export class UIDialog implements AfterViewInit {
 
   /**
    * 消失动画结束后
-   * @param {AnimationTransitionEvent} event
+   * @param {AnimationEvent} event
    * @returns {void}
    */
-  public animationDone(event: AnimationTransitionEvent): void {
+  public animationDone(event: AnimationEvent): void {
     if (event.toState === 'hidden' && this.visibility !== 'visible')
       this.close();
   }

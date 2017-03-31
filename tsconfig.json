@@ -16,6 +16,7 @@
   "exclude": [
     "node_modules"
   ],
+  // https://github.com/s-panferov/awesome-typescript-loader#loader-options
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
     "useWebpackText": true

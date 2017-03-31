@@ -2,12 +2,6 @@ import {
   Directive,
   Component,
   ViewChild,
-  trigger,
-  style,
-  state,
-  transition,
-  animate,
-  AnimationTransitionEvent,
   Input,
   ElementRef,
   NgModule,
@@ -20,6 +14,14 @@ import {
   ComponentRef,
   OnDestroy
 } from '@angular/core';
+import {
+  animate,
+  trigger,
+  state,
+  style,
+  transition,
+  AnimationEvent,
+} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -101,7 +103,7 @@ export class UITooltip implements OnDestroy {
    */
   private create(): void {
     this.overlayRef = this.overlay.create();
-    this.overlayElement = this.overlayRef.createOverlay();
+    this.overlayElement = this.overlayRef.createOverlay(false);
     this.componentRef = this.viewContainerRef.createComponent(this.tooltipFactory);
     this.overlayElement.appendChild((this.componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement);
 
@@ -206,10 +208,10 @@ export class TooltipComponent {
 
   /**
    * 消失动画结束后
-   * @param {AnimationTransitionEvent} event
+   * @param {AnimationEvent} event
    * @returns {void}
    */
-  public animationDone(event: AnimationTransitionEvent): void {
+  public animationDone(event: AnimationEvent): void {
     if (event.toState === 'hidden' && this._visibility !== 'visible')
       return this.onHide.next();
   }

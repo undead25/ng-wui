@@ -9,16 +9,13 @@
     "lib": ["es2015", "dom"],
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "build"
+    "outDir": ".build"
   },
-  // "include": [
-  //   "src/components/**/*.ts"
-  // ],
   "exclude": [
     "node_modules"
   ],
   "angularCompilerOptions": {
-    "genDir": "aot",
+    "genDir": ".aot",
     "skipMetadataEmit": true,
     "debug": false
   }

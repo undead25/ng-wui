@@ -16,6 +16,7 @@ import { PaginationDemo } from './pagination/pagination-demo';
 import { CheckboxDemo } from './checkbox/checkbox-demo';
 import { RadioDemo } from './radio/radio-demo';
 import { TooltipDemo } from './tooltip/tooltip-demo';
+import { SelectDemo } from './select/select-demo';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { TooltipDemo } from './tooltip/tooltip-demo';
     PaginationDemo,
     CheckboxDemo,
     RadioDemo,
-    TooltipDemo
+    TooltipDemo,
+    SelectDemo
   ],
   entryComponents: [DemoModal],
   bootstrap: [AppComponent]

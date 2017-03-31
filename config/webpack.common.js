@@ -3,8 +3,8 @@ const webpack = require('webpack');
 const helpers = require('./helpers');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin'); 
+const { CheckerPlugin } = require('awesome-typescript-loader');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 
 module.exports = {
   // 入口
@@ -48,7 +48,7 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
-          fallbackLoader:'style-loader',
+          fallbackLoader: 'style-loader',
           loader: 'css-loader'
         })
       },
@@ -98,14 +98,14 @@ module.exports = {
     // https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin, https://github.com/angular/angular/issues/11580
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      /angular(\\|\/)core(\\|\/)@angular/,
       helpers.root('src') // src目录
     ),
 
     // 让ts检查用独立的进程，提高webpack打包速度
     // 一个用于把 TypeScript 代码转译成 ES5 的加载器，它会由 tsconfig.json 文件提供指导
     // https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-    new ForkCheckerPlugin(),
+    new CheckerPlugin(),
 
     // 打包css文件为1个文件
     // version: 2.0.0-beta.4 (适用于webpack2，API使用方式有改动，参考下方链接)

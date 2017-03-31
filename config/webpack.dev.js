@@ -4,6 +4,8 @@ const webpackMerge = require('webpack-merge');  // https://github.com/survivejs/
 const ExtractTextPlugin = require('extract-text-webpack-plugin');  // https://github.com/webpack/extract-text-webpack-plugin
 const commonConfig = require('./webpack.common.js');
 const helpers = require('./helpers');
+// https://github.com/geowarin/friendly-errors-webpack-plugin
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 
 module.exports = webpackMerge(commonConfig, {
@@ -19,9 +21,9 @@ module.exports = webpackMerge(commonConfig, {
     chunkFilename: '[id].chunk.js' // 按需加载的chunk文件名称
   },
 
-  performance: {
-    hints: false
-  },
+  plugins: [
+    new FriendlyErrorsWebpackPlugin()
+  ],
 
   // webpack 开发服务器配置
   // https://webpack.js.org/configuration/dev-server/

@@ -109,6 +109,7 @@ $dialog-bar-color: $white !default;
 // Input 输入框
 // ============================================================================
 $input-height: rem(36px) !default;
+$input-padding: rem(6px) 0 !default;
 $input-border-color: $gray-lighter !default;
 
 $input-disabled-color: $gray-light !default;
@@ -162,3 +163,11 @@ $tooltip-bg: rgba(#616161, 0.9) !default;
 $tooltip-mobile-padding: 1rem !default;
 $tooltip-mobile-height: 2rem !default;
 $tooltip-mobile-margin: rem(24px) !default;
+
+
+// ============================================================================
+// Select 选择框
+// ============================================================================
+$select-option-height: 3rem !default;
+$select-option-padding: 0 1rem !default;
+

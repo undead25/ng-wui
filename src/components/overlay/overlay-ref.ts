@@ -11,21 +11,19 @@ export class OverlayRef {
   constructor(private ngZone: NgZone) {
   }
 
-  public createOverlay(hasBackDrop?: boolean) {
+  public createOverlay(hasBackDrop:boolean, darkBackdrop?: boolean) {
     let container = document.createElement('div');
     container.classList.add('ui-overlay-container');
     document.body.appendChild(container);
 
-    if (hasBackDrop) {
-      container.appendChild(this.createBackdrop());
-    }
+    hasBackDrop && (container.appendChild(this.createBackdrop(darkBackdrop)));
 
     this.overlayElement = container;
     return this.overlayElement;
   }
 
-  public removeOverlay(hasBackDrop?: boolean) {
-    if (hasBackDrop) {
+  public removeOverlay(hasDarkBackdrop?: boolean) {
+    if (hasDarkBackdrop) {
       this.removeBackdrop();
       this.afterBackdropRemoved().subscribe(() => {
         this.removeEl();
@@ -35,10 +33,10 @@ export class OverlayRef {
     }
   }
 
-  public createBackdrop(): HTMLElement {
+  public createBackdrop(darkBackdrop?: boolean): HTMLElement {
     this.backdropElement = document.createElement('div');
     this.backdropElement.classList.add('ui-overlay-backdrop');
-    setTimeout(() => this.backdropElement.classList.add('active'), 1);
+    darkBackdrop && (setTimeout(() => this.backdropElement.classList.add('active'), 1));
     this.backdropElement.addEventListener('click', () => this._backdropClick.next());
     return this.backdropElement;
   }

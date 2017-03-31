@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { coerceNumber } from '../util';
-
+import './progress-circle.scss';
 
 // 1度弧度
 const DEGREE_IN_RADIANS = Math.PI / 180;

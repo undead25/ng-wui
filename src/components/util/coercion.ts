@@ -1,6 +1,6 @@
 // 转换为boolean
 export function coerceBoolean(value: any): boolean {
-  return value != null && `${value}` !== 'false';
+  return value !== null && `${value}` !== 'false';
 }
 
 // 转换为number

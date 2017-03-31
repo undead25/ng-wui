@@ -16,7 +16,8 @@ npm-debug.log
 
 # 编译 #
 /dist
-/build
+.build
+.aot
 
 # 编辑器 #
 .idea
@@ -26,8 +27,5 @@ npm-debug.log
 # SVN #
 .svn
 
-# AOT #
-/aot
-
 # Coverage 测试覆盖率 #
-/coverage
+.coverage

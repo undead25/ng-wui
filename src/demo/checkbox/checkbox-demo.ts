@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
 })
 
 export class CheckboxDemo {
-  public selectedCountries: string[] = [];
+  public selectedCountries: string[] = ['中国'];
 }
