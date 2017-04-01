@@ -1,4 +1,47 @@
-import { Component, Input, ElementRef, Renderer, ViewEncapsulation } from '@angular/core';
+import { Component, Directive, Input, ElementRef, Renderer, ViewEncapsulation } from '@angular/core';
+import { coerceBoolean } from '../util';
+
+/**
+ * Directive Raised Button
+ * @export
+ * @class UIRaisedButton
+ */
+@Directive({
+  selector: 'button[ui-button] [raised], a[ui-button] [raised]',
+  host: {
+    '[class.btn-raised]': 'true'
+  }
+})
+export class UIRaisedButton { }
+
+
+/**
+ * Directive Icon Button
+ * @export
+ * @class UIIconButton
+ */
+@Directive({
+  selector: 'button[ui-button] [icon], a[ui-button] [icon]',
+  host: {
+    '[class.btn-icon]': 'true'
+  }
+})
+export class UIIconButton { }
+
+
+/**
+ * Directive Floating Action Button
+ * @export
+ * @class UIFabButton
+ */
+@Directive({
+  selector: 'button[ui-button] [fab], a[ui-button] [fab]',
+  host: {
+    '[class.btn-fab]': 'true'
+  }
+})
+export class UIFabButton { }
+
 
 /**
  * @export
@@ -8,7 +51,8 @@ import { Component, Input, ElementRef, Renderer, ViewEncapsulation } from '@angu
   selector: 'button[ui-button]',
   templateUrl: 'button.html',
   host: {
-    '[disabled]': 'disabled'
+    '[disabled]': 'disabled',
+    '[class.ui-button]': 'true'
   },
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./button.scss']
@@ -38,7 +82,7 @@ export class UIButton {
    */
   @Input()
   get disabled() { return this._disabled; }
-  set disabled(value: boolean) { this._disabled = value; }
+  set disabled(value: boolean) { this._disabled = coerceBoolean(value); }
 
   /**
    * `color` The Button's background
@@ -59,7 +103,7 @@ export class UIButton {
    */
   @Input()
   get rippleDisabled() { return this._rippleDisabled; }
-  set rippleDisabled(value: boolean) { this._rippleDisabled = value; }
+  set rippleDisabled(value: boolean) { this._rippleDisabled = coerceBoolean(value); }
 
   /**
    * Return element to ripple so that ripple knows which button to use effect
@@ -75,7 +119,8 @@ export class UIButton {
    */
   public isRippleDark(): boolean {
     const el: HTMLElement = this.elementRef.nativeElement;
-    return (el.hasAttribute('raised') && el.hasAttribute('color')) ? false : true;
+    const isDarkType: boolean = el.hasAttribute('raised') || el.hasAttribute('fab');
+    return ( isDarkType && el.hasAttribute('color')) ? false : true;
   }
 
   /**
@@ -84,6 +129,10 @@ export class UIButton {
    */
   public isRippleDisabled(): boolean {
     return this._rippleDisabled || this._disabled;
+  }
+
+  public isRoundBtn(): boolean {
+    return this.getRippleElement().hasAttribute('icon');
   }
 
   /**
@@ -108,6 +157,7 @@ export class UIButton {
   selector: 'a[ui-button]',
   templateUrl: 'button.html',
   host: {
+    '[class.ui-button]': 'true',
     '[attr.disabled]': 'disabled',
     '(click)': 'handleAnchorClick($event)'
   },

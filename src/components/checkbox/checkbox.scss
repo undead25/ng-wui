@@ -1,3 +1,7 @@
+@import '../style/variables';
+@import '../style/mixins';
+@import '../ripple/ripple';
+
 .ui-checkbox {
   position: relative;
 

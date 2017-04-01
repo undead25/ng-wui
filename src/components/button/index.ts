@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UIRippleModule } from '../ripple';
-import { UIButton, UIAnchorButton } from './button';
+import { UIButton, UIAnchorButton, UIRaisedButton, UIIconButton, UIFabButton } from './button';
 
 /**
  * @export
@@ -9,8 +9,8 @@ import { UIButton, UIAnchorButton } from './button';
  */
 @NgModule({
   imports: [CommonModule, UIRippleModule],
-  exports: [UIButton, UIAnchorButton],
-  declarations: [UIButton, UIAnchorButton]
+  exports: [UIButton, UIAnchorButton, UIRaisedButton, UIIconButton, UIFabButton],
+  declarations: [UIButton, UIAnchorButton, UIRaisedButton, UIIconButton, UIFabButton]
 })
 
 export class UIButtonModule { }

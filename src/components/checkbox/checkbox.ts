@@ -7,7 +7,8 @@ import {
   NgModule,
   ModuleWithProviders,
   EventEmitter,
-  forwardRef
+  forwardRef,
+  ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -23,7 +24,9 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'ui-checkbox',
   templateUrl: 'checkbox.html',
-  providers: [CHECKBOX_VALUE_ACCESSOR]
+  providers: [CHECKBOX_VALUE_ACCESSOR],
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./checkbox.scss']
 })
 
 export class UICheckbox implements ControlValueAccessor {

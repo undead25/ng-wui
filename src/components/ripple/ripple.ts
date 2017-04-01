@@ -17,7 +17,7 @@ import {
 export class UIRipple implements OnInit, OnDestroy, OnChanges {
   @Input('ripple-trigger') trigger: HTMLElement;
   @Input('ripple-dark') isDark: boolean;
-  @Input('ripple-type') type: string;
+  @Input('ripple-round') isRoundRipple: boolean;
 
   public rippleElement: HTMLElement;
   public triggerElement: HTMLElement;
@@ -82,7 +82,7 @@ export class UIRipple implements OnInit, OnDestroy, OnChanges {
     const rippleY = event.pageY - rippleTop - size / 2;
     const rippleX = event.pageX - rippleLeft - size / 2;
 
-    if (this.type !== 'circle') {
+    if (!this.isRoundRipple) {
       rippleDiv.style.width = `${size}px`;
       rippleDiv.style.height = `${size}px`;
       rippleDiv.style.top = `${rippleY}px`;
@@ -98,7 +98,7 @@ export class UIRipple implements OnInit, OnDestroy, OnChanges {
   private rippleRemove(rippleDiv: HTMLElement) {
     // 注意transitionend有多个属性问题
     rippleDiv.addEventListener('transitionend', (event: TransitionEvent) => {
-      if (rippleDiv && event.propertyName === 'opacity')
+      if (rippleDiv && event.propertyName === 'transform')
         rippleDiv.parentNode.removeChild(rippleDiv);
     });
   }

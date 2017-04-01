@@ -1,9 +1,11 @@
-<span><ng-content></ng-content></span>
+<ng-content></ng-content>
 <div
   *ngIf="!isRippleDisabled()"
   ui-ripple
   class="ripple-container"
+  [class.ripple-circle]="isRoundBtn()"
   [ripple-trigger]="getRippleElement()"
   [ripple-dark]="isRippleDark()"
+  [ripple-round]="isRoundBtn()"
 >
 </div>
