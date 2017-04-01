@@ -44,6 +44,7 @@ module.exports = webpackMerge(commonConfig, {
       aggregateTimeout: 300,
       poll: 1000
     },
+    inline: false,
     contentBase: helpers.root('src'),
     watchContentBase: true
   }

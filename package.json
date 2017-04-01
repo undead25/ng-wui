@@ -3,7 +3,7 @@
   "version": "0.0.1-alpha.31",
   "description": "Angular 2 web ui components and directives with Google Material Design",
   "scripts": {
-    "server:dev": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --inline --port 3001",
+    "server:dev": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch --port 3001",
     "clean": "rimraf dist",
     "start": "npm run server:dev",
     "build": "npm run clean && webpack --config config/webpack.prod.js --progress --profile --bail",

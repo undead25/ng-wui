@@ -44,6 +44,20 @@ export class UIFabButton { }
 
 
 /**
+ * Directive Outline Button
+ * @export
+ * @class UIOutlineButton
+ */
+@Directive({
+  selector: 'button[ui-button] [outline], a[ui-button] [outline]',
+  host: {
+    '[class.btn-outline]': 'true'
+  }
+})
+export class UIOutlineButton { }
+
+
+/**
  * @export
  * @class UIButton
  */
@@ -78,7 +92,6 @@ export class UIButton {
 
   /**
    * `disabled` Whether the button is disabled
-   * @readonly
    */
   @Input()
   get disabled() { return this._disabled; }
@@ -86,9 +99,8 @@ export class UIButton {
 
   /**
    * `color` The Button's background
-   * it can be `primary`, `green`, `red`, `blue`, `yellow`, `orange`
+   * it can be `primary`, `green`, `red`, `blue`, `orange`
    * `brown`, `purple`, `pink`, `cyan`, `teal`, `indigo`
-   * @readonly
    */
   @Input()
   get color() { return this._color; }
@@ -99,7 +111,6 @@ export class UIButton {
 
   /**
    * `rippleDisabled` Whether use ripple effect
-   * @readonly
    */
   @Input()
   get rippleDisabled() { return this._rippleDisabled; }
@@ -119,8 +130,8 @@ export class UIButton {
    */
   public isRippleDark(): boolean {
     const el: HTMLElement = this.elementRef.nativeElement;
-    const isDarkType: boolean = el.hasAttribute('raised') || el.hasAttribute('fab');
-    return ( isDarkType && el.hasAttribute('color')) ? false : true;
+    const isDarkType: boolean = el.hasAttribute('raised') || el.hasAttribute('fab') || el.hasAttribute('outline');
+    return (isDarkType && el.hasAttribute('color')) ? false : true;
   }
 
   /**

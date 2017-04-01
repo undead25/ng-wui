@@ -1,118 +1,162 @@
-import {
-  NgModule,
-  ModuleWithProviders,
-  Directive,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChange
-} from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 
+/**
+ * Directive Ripple
+ * @export
+ * @class UIRipple
+ * @implements {OnDestroy}
+ * @implements {OnChanges}
+ */
 @Directive({
   selector: '[ui-ripple]'
 })
 
-export class UIRipple implements OnInit, OnDestroy, OnChanges {
-  @Input('ripple-trigger') trigger: HTMLElement;
-  @Input('ripple-dark') isDark: boolean;
-  @Input('ripple-round') isRoundRipple: boolean;
+export class UIRipple implements OnDestroy, OnChanges {
 
-  public rippleElement: HTMLElement;
-  public triggerElement: HTMLElement;
-  public rippleDiv: HTMLElement;
-  public eventHandlers = new Map<string, (e: Event) => void>();
+  /** Which element bind ripple effect */
+  @Input('trigger') trigger: HTMLElement;
 
+  /** Whether use dark ripple effect */
+  @Input('isDark') isDark: boolean;
+
+  /** Whether use round ripple effect */
+  @Input('isRoundRipple') isRoundRipple: boolean;
+
+  /** Ripple's container HTMLElement */
+  private rippleContainer: HTMLElement;
+
+  /** Which element bind ripple effect, it can be a button */
+  private triggerElement: HTMLElement;
+
+  /** Ripple's DOM which will be appended */
+  private rippleElement: HTMLElement;
+
+  /** Whether mouse is down or not */
+  private isMouseDown: boolean = false;
+
+  /** Maps of events to be delegated */
+  private eventHandlers = new Map<string, (e: Event) => void>();
+
+  /**
+   * Creates an instance of UIRipple.
+   * @param {ElementRef} elementRef
+   * @memberOf UIRipple
+   */
   constructor(elementRef: ElementRef) {
-    this.rippleElement = elementRef.nativeElement;
-    this.eventHandlers.set('mousedown', (event: MouseEvent) => {
-      this.handleClick(event);
-    });
+    this.rippleContainer = elementRef.nativeElement;
+    this.eventHandlers.set('mousedown', this.handleMouseDown.bind(this));
+    this.eventHandlers.set('mouseup', this.handleMouseUp.bind(this));
+    this.eventHandlers.set('mouseleave', this.handleMouseLeave.bind(this));
   }
 
-  ngOnInit() {
-    if (!this.trigger) this.setTriggerElement(this.rippleElement);
+  /**
+   * When component destroyed, set trigger element to be null
+   */
+  public ngOnDestroy(): void {
+    this.setTriggerElement(null);
   }
 
-  ngOnDestroy() {
-    this.rippleDestroy();
-  }
-
-  ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
-    const changedInputs = Object.keys(changes);
-    if (changedInputs.indexOf('trigger') !== -1) {
+  /**
+   * Detect input properties changes, set trigger element
+   */
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['trigger'] && this.trigger) {
       this.setTriggerElement(this.trigger);
     }
   }
 
-  // 销毁ripple
-  public rippleDestroy() {
-    this.setTriggerElement(null);
-  }
-
-  // 设置需要triggleElement的事件绑定或者移除
-  private setTriggerElement(newTrigger: HTMLElement) {
-    if (this.triggerElement !== newTrigger) {
-      if (this.triggerElement) {
-        this.eventHandlers.forEach((eventHandler, eventName) => {
-          this.triggerElement.removeEventListener(eventName, eventHandler);
-        });
-      }
-      this.triggerElement = newTrigger;
-      if (this.triggerElement) {
-        this.eventHandlers.forEach((eventHandler, eventName) => {
-          this.triggerElement.addEventListener(eventName, eventHandler);
-        });
-      }
+  /**
+   * Bind event to element who wants ripple effect
+   * @private
+   * @param {HTMLElement} element - Which element bind ripple effect
+   */
+  private setTriggerElement(element: HTMLElement): void {
+    // first remove all event listener of trigger element
+    if (this.triggerElement) {
+      this.eventHandlers.forEach((eventHandler, eventName) => this.triggerElement.removeEventListener(eventName, eventHandler));
     }
+    // then add event listener of trigger element
+    if (element) {
+      this.eventHandlers.forEach((eventHandler, eventName) => element.addEventListener(eventName, eventHandler));
+    }
+    // at last set trigger element to be param element
+    this.triggerElement = element;
   }
 
-  // 鼠标点击事件
-  private handleClick(event: MouseEvent) {
-    // 创建ripple HTML 并根据点击目标设置其位置和大小
-    const rippleDiv = document.createElement('div');
-    rippleDiv.classList.add('ripple');
-    this.rippleElement.appendChild(rippleDiv);
 
-    const size = Math.max(this.triggerElement.offsetWidth, this.triggerElement.offsetHeight);
-    const rippleTop = this.triggerElement.offsetTop;
-    const rippleLeft = this.triggerElement.offsetLeft;
+  /**
+   * Create ripple and appended to DOM
+   * @private
+   * @param {number} pageX - element event's pageX
+   * @param {number} pageY - element event's pageY
+   */
+  private cerateRipple(pageX: number, pageY: number) {
+    const rippleElement = document.createElement('div');
+    rippleElement.classList.add('ripple');
+    this.rippleContainer.appendChild(rippleElement);
+    this.rippleElement = rippleElement;
 
-    const rippleY = event.pageY - rippleTop - size / 2;
-    const rippleX = event.pageX - rippleLeft - size / 2;
-
+    // get ripple size and ripple position according to the trigger element
+    // circle ripple has no need to set size and position
     if (!this.isRoundRipple) {
-      rippleDiv.style.width = `${size}px`;
-      rippleDiv.style.height = `${size}px`;
-      rippleDiv.style.top = `${rippleY}px`;
-      rippleDiv.style.left = `${rippleX}px`;
+      const rippleSize = Math.max(this.triggerElement.offsetWidth, this.triggerElement.offsetHeight);
+      const ripplePositionTop = this.triggerElement.offsetTop;
+      const ripplePositionLeft = this.triggerElement.offsetLeft;
+
+      const rippleY = pageY - ripplePositionTop - rippleSize / 2;
+      const rippleX = pageX - ripplePositionLeft - rippleSize / 2;
+
+      rippleElement.style.width = `${rippleSize}px`;
+      rippleElement.style.height = `${rippleSize}px`;
+      rippleElement.style.top = `${rippleY}px`;
+      rippleElement.style.left = `${rippleX}px`;
     }
 
-    if (this.isDark) rippleDiv.classList.add(`ripple-dark`);
-    rippleDiv.classList.add('active');
-    this.rippleRemove(rippleDiv);
+    // set dark ripple effect
+    this.isDark && rippleElement.classList.add(`ripple-dark`);
+    // activate ripple animation
+    rippleElement.classList.add('active');
   }
 
-  // 移除ripple
-  private rippleRemove(rippleDiv: HTMLElement) {
-    // 注意transitionend有多个属性问题
-    rippleDiv.addEventListener('transitionend', (event: TransitionEvent) => {
-      if (rippleDiv && event.propertyName === 'transform')
-        rippleDiv.parentNode.removeChild(rippleDiv);
-    });
+  /**
+   * Listener mousedown event
+   * @private
+   * @param {MouseEvent} event
+   */
+  private handleMouseDown(event: MouseEvent): void {
+    this.isMouseDown = true;
+    this.cerateRipple(event.pageX, event.pageY);
   }
-}
 
-@NgModule({
-  exports: [UIRipple],
-  declarations: [UIRipple],
-})
-export class UIRippleModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: UIRippleModule,
-      providers: []
-    };
+  /**
+   * Listener mouseup event
+   * @private
+   * @param {MouseEvent} event
+   */
+  private handleMouseUp(event: MouseEvent): void {
+    this.isMouseDown = false;
+    this.triggerElement && this.rippleRemove();
+  }
+
+  /**
+  * Listener mouseleave event
+  * @private
+  * @param {MouseEvent} event
+  */
+  private handleMouseLeave(event: MouseEvent) {
+    this.isMouseDown && this.handleMouseUp(event);
+  }
+
+  /**
+   * Remove ripple from DOM
+   * @private
+   */
+  private rippleRemove(): void {
+    // transitionend has multi propertyName, so choose one to activate dom remove action
+    if (this.rippleElement) {
+      this.rippleElement.addEventListener('transitionend', (event: TransitionEvent) => {
+        event.propertyName === 'transform' && this.rippleElement.parentNode.removeChild(this.rippleElement);
+      });
+    }
   }
 }
