@@ -12,7 +12,8 @@ import {
   ComponentFactoryResolver,
   NgZone,
   ComponentRef,
-  OnDestroy
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   animate,
@@ -44,7 +45,7 @@ export class UITooltip implements OnDestroy {
 
   public overlayElement: HTMLElement;
   public tooltipElement: HTMLElement;
-  
+
   private overlayRef: OverlayRef;
   private tooltip: TooltipComponent;
   private tooltipFactory: ComponentFactory<TooltipComponent>;
@@ -99,7 +100,7 @@ export class UITooltip implements OnDestroy {
 
   /**
    * 创建工具提示
-   * @private 
+   * @private
    */
   private create(): void {
     this.overlayRef = this.overlay.create();
@@ -118,7 +119,7 @@ export class UITooltip implements OnDestroy {
 
   /**
    * 销毁工具提示
-   * @private 
+   * @private
    */
   private dispose() {
     this.componentRef.destroy();
@@ -130,7 +131,7 @@ export class UITooltip implements OnDestroy {
   /**
    * 根据触发元素位置设置提示框位置
    * @param {HTMLElement} tooltip 工具提示
-   * @private 
+   * @private
    */
   private getPosition(tooltip: HTMLElement) {
     const _target = this.elementRef.nativeElement;
@@ -142,8 +143,8 @@ export class UITooltip implements OnDestroy {
     const targetWidth = _target.offsetWidth;
     const targetHeight = _target.offsetHeight;
 
-    const tooltipWidth = getOuterWidth(_tooltip, true);;
-    const tooltipHeight = getOuterHeight(_tooltip, true);;
+    const tooltipWidth = getOuterWidth(_tooltip, true);
+    const tooltipHeight = getOuterHeight(_tooltip, true);
 
     let top: number;
     let left: number;
@@ -177,6 +178,8 @@ export class UITooltip implements OnDestroy {
 @Component({
   selector: 'ui-tooltip',
   templateUrl: 'tooltip.html',
+  styleUrls: ['./tooltip.scss'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('state', [
       state('void', style({ transform: 'scale(0)' })),

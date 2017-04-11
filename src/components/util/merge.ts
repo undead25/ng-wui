@@ -4,20 +4,20 @@
  * @param {Object} source - 源对象，该对象的属性会被附加到target对象上
  * @param {boolean} isKeepTarget 是否保留目标对象中与源对象中属性名相同的属性
  * @returns {Object} - 返回target对象
- * 
- * @example 
+ *
+ * @example
  * ```javascript
- * 
+ *
  *  const target:Object = { name: 'target', sex: 1 };
  *  const source:Object = { name: 'source', age: 17 };
  *  merge(target, source);
- *  console.log(target); 
+ *  console.log(target);
  *  // 输出：{ name: 'source', sex: 1, age: 17 }
- * 
+ *
  *  merge(target, source, true);
  *  console.log(target);
  *  // 输出：{ name: 'target', sex: 1, age: 17 }
- * 
+ *
  * ```
  */
 export function merge(target: any, source: any, isKeepTarget?: boolean): any {

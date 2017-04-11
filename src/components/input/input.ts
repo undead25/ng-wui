@@ -9,7 +9,8 @@ import {
   NgModule,
   ModuleWithProviders,
   forwardRef,
-  Renderer
+  Renderer,
+  ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +27,9 @@ export const INPUT_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'ui-input, ui-textarea',
   templateUrl: 'input.html',
-  providers: [INPUT_VALUE_ACCESSOR]
+  providers: [INPUT_VALUE_ACCESSOR],
+  styleUrls: ['./input.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class UIInput implements ControlValueAccessor, AfterContentInit {
@@ -186,15 +189,3 @@ export class UIInput implements ControlValueAccessor, AfterContentInit {
   private onValueTouched: Function = () => { };
 }
 
-@NgModule({
-  imports: [CommonModule, FormsModule],
-  exports: [UIInput, TextareaAutosize],
-  declarations: [UIInput, TextareaAutosize]
-})
-export class UIInputModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: UIInputModule
-    };
-  }
-}

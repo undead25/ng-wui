@@ -1,81 +1,85 @@
 @import '../style/variables';
+
+.ui-progress-circle {
+  display: inline-block;
+  position: relative;
+  pointer-events: none;
+  will-change: transform, opacity;
+
+  &.indeterminate {
+    .progress-circle {
+      animation: spinner-rotate 1.9s linear infinite;
+      transform: rotate(0deg) translateZ(0);
+    }
+    .circle-path {
+      stroke-dasharray: 2, 200;
+      animation: spinner-dash 1.425s ease-in-out infinite;
+    }
+  }
+
+  @each $color-name in map-keys($color-map) {
+    &.#{$color-name} .circle-path {
+      stroke: map-get($color-map, $color-name);
+    }
+  }
+}
+
 .progress-circle {
-  // display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: rotate(270deg) translateZ(0);
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
 
-  // animation: indeterminate-rotate 2.9s linear infinite;
-  
+.circle-path {
+  fill: none;
+  stroke-dashoffset: 0;
+  stroke-miterlimit: 10;
+  transition: $swift-ease-out;
+  stroke: $brand;
+}
 
-  // circle {
-  //   // transition: all 1.5s ease-in-out;
-  //   stroke: $brand;
-  //   stroke-linecap: round;
-  //   stroke-miterlimit: 20;
-  //   fill: none;
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg) translateZ(0);
+  }
+}
 
-  //   @each $color-name in map-keys($color-map) {
-  //     &.#{$color-name} {
-  //       stroke: map-get($color-map, $color-name);
-  //     }
-  //   }
-  // }
-  width: 100px;
-  height: 100px;
-
-  overflow: hidden;
-
-  svg {
-    height: 100%;
-    width: 100%;
-    transform-origin: center;
-
-    animation-duration: 5.25s,
-                        5.25*0.55s;
-    animation-name: md-progress-circle-sporadic-rotate,
-                    md-progress-circle-linear-rotate;
-    animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1),
-                               linear;
-    animation-iteration-count: infinite;
-    transition: none;
+@keyframes spinner-initial-rotate {
+  0% {
+    opacity: 0;
+    transform: rotate(-90deg) translateZ(0);
   }
 
-  path {
-    fill: transparent;
-    stroke: $brand;
-    // Stroke width of 10px defines stroke as 10% of the viewBox.
-    stroke-width: 6px;
+  20% {
+    opacity: 1;
   }
 
-
+  100% {
+    transform: rotate(270deg) translateZ(0);
+  }
 }
 
-// .determinate .progress-circle {
-//   animation: none;
+@keyframes spinner-dash {
+  0% {
+    stroke-dasharray: 2, 200;
+    stroke-dashoffset: 0;
+  }
 
-//   circle {
-//     transition: all .3s linear;
-//   }
-// }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
 
-@keyframes progress-circle-rotate {
-  100% {transform: rotate(360deg)}
-}
-
-@keyframes indeterminate-rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes md-progress-circle-linear-rotate {
-  0%       { transform: rotate(0deg); }
-  100%     { transform: rotate(360deg); }
-}
-@keyframes md-progress-circle-sporadic-rotate {
-  12.5%    { transform: rotate( 135deg); }
-  25%      { transform: rotate( 270deg); }
-  37.5%    { transform: rotate( 405deg); }
-  50%      { transform: rotate( 540deg); }
-  62.5%    { transform: rotate( 675deg); }
-  75%      { transform: rotate( 810deg); }
-  87.5%    { transform: rotate( 945deg); }
-  100%     { transform: rotate(1080deg); }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
 }

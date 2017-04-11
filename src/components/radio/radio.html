@@ -1,34 +1,35 @@
-<div class="ui-radio">
-  <label
-    [class.active]="_checked"
-    [class.reverse]="align === 'right'"
-    [class.disabled]="disabled"
+<label
+  [class.active]="_checked"
+  [class.reverse]="labelAlign === 'right'"
+  [class.disabled]="disabled"
+  [attr.for]="inputID"
+>
+  <input #input type="radio"
+    [id]="inputID"
+    [checked]="checked"
+    [disabled]="disabled"
+    [name]="name"
+    (change)="_onChange($event)"
+    (click)="_onClick($event)"
   >
-    <input #input type="radio"
-      [checked]="checked"
-      [disabled]="disabled"
-      [name]="name"
-      (change)="_onChange($event)"
-    >
-    <div #svg class="svg-wrapper">
-      <svg viewBox="0 0 24 24" class="unchecked">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-      </svg>
-      <svg viewBox="0 0 24 24" class="checked">
-        <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-      </svg>
-    </div>
-    <div class="radio-label">
-      <ng-content></ng-content>
-    </div>
-  </label>
-  <div
-    *ngIf="!rippleDisabled && !disabled"
-    ui-ripple
-    class="ripple-container"
-    [trigger]="getRippleElement()"
-    isDark="true"
-    isRoundRipple="true"
-  >
+  <div #svg class="svg-wrapper">
+    <svg viewBox="0 0 24 24" class="unchecked">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+    </svg>
+    <svg viewBox="0 0 24 24" class="checked">
+      <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+    </svg>
   </div>
+  <div class="radio-label">
+    <ng-content></ng-content>
+  </div>
+</label>
+<div
+  *ngIf="!rippleDisabled && !disabled"
+  ui-ripple
+  class="ripple-container"
+  [trigger]="getRippleElement()"
+  isDark="true"
+  isRoundRipple="true"
+>
 </div>

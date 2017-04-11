@@ -1,141 +1,190 @@
-import {
-  Component,
-  Input,
-  Output,
-  ElementRef,
-  Renderer,
-  NgModule,
-  ModuleWithProviders,
-  EventEmitter,
-  forwardRef,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, Input, Output, ElementRef, Renderer, EventEmitter, forwardRef, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { coerceBoolean, setUid } from '../util';
-import { UIRippleModule } from '../ripple';
 
+/** Register ControlValueAccessor to support [(ngModel)] and ngControl */
 export const CHECKBOX_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => UICheckbox),
   multi: true
 };
 
+/**
+ * @export
+ * @class UICheckbox
+ * @implements {ControlValueAccessor}
+ */
 @Component({
   selector: 'ui-checkbox',
   templateUrl: 'checkbox.html',
   providers: [CHECKBOX_VALUE_ACCESSOR],
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./checkbox.scss']
+  styleUrls: ['./checkbox.scss'],
+  host: {
+    '[attr.id]': 'id',
+    '[class.ui-checkbox]': 'true'
+  }
 })
 
 export class UICheckbox implements ControlValueAccessor {
-  @Input() name: string;
-  @Input() id: string = `${setUid('checkbox')}`;
+  /** The input checkbox's id attribute */
+  @Input() id: string = setUid('ui-checkbox');
+
+  /** The input checkbox's name attribute */
+  @Input() name: string = null;
+
+  /** The input checkbox's disabled attribute */
   @Input() disabled: boolean;
+
+  /** The input checkbox's value attribute */
   @Input() value: any;
-  @Input() align: string;
+
+  /** Label be `left` or `right` */
+  @Input() labelAlign: string;
+
+  /** Whether to disable ripple effect */
   @Input() rippleDisabled: boolean = false;
 
+  /** Emit onChange event if checkbox's value has been changed */
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-  // 是否选中
-  public _checked: boolean = false;
-  public model: any;
+  /** Whether the radio is checked or not  */
+  private _checked: boolean = false;
 
+  /** model value for ngModel */
+  private model: Array<any>;
+
+  /**
+   * Creates an instance of UICheckbox.
+   * @param {ElementRef} elementRef
+   * @param {Renderer} renderer
+   */
   constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 
+  /**
+   * ID of input checkbox
+   */
+  @Input() get checkboxID(): string { return `checkbox-${this.id}`; }
+
+  /**
+   * Whether the checkbox is checked or not
+   */
+  @Input()
+  set checked(value: boolean) { this._checked !== coerceBoolean(value) && (this._checked = coerceBoolean(value)); }
+
+  /**
+   * `color` The color of radio
+   * it can be `primary`, `green`, `red`, `blue`, `orange`
+   * `brown`, `purple`, `pink`, `cyan`, `teal`, `indigo`
+   */
+  @Input()
+  set color(value: string) { value && this.setCheckboxColor(value, true); }
+
+  /**
+   * If value changed, update model and checked status
+   * parts of ControlValueAccessor
+   * @param {*} model - [ngModel]
+   */
   public writeValue(model: any): void {
     this.model = model;
     this._checked = this.findValueIndex(this.value) !== -1;
   }
 
-  public registerOnChange(fn: Function): void {
+  /**
+   * Register a callback if model value changes
+   * parts of ControlValueAccessor
+   * @param {(value: any) => {}} fn
+   */
+  public registerOnChange(fn: (value: any) => {}): void {
     this.onModelChange = fn;
   }
 
-  public registerOnTouched(fn: Function): void {
+  /**
+   * Register a callback if model value touched
+   * parts of ControlValueAccessor
+   * @param {(value: any) => {}} fn
+   */
+  public registerOnTouched(fn: () => {}): void {
     this.onModelTouched = fn;
   }
 
-  // checkbox状态变化
-  public _onChange(event: Event) {
+  /**
+   * Radio input change event
+   * @param {Event} event
+   */
+  public _onChange(event: Event): void {
     this._checked = (<HTMLInputElement>event.target).checked;
     this.updateModel();
   }
 
-
-  private onModelChange: Function = () => { };
-  private onModelTouched: Function = () => { };
-
-  get checkboxId(): string {
-    return `checkbox-${this.id}`;
+  /**
+   * Handle radio click
+   * @param {Event} event
+   */
+  public _onClick(event: Event):void {
+    event.stopPropagation(); // stop propagation, because it is an input
+    this.onModelTouched(); // it has been touched
   }
 
-  @Input()
-  set checked(value: boolean) {
-    this._checked = coerceBoolean(value);
-  }
+  /** Callback via registerOnTouched */
+  private onModelTouched: () => any = () => { };
 
-  @Input()
-  set color(value: string) {
-    if (value) this.setCheckboxColor(value, true);
-  }
+  /** Callback via registerOnChange */
+  private onModelChange: (value: any) => any = (value: any) => { };
 
-  // 给ripple提供HTMLElement
-  private getRippleElement() {
-    return this.elementRef.nativeElement;
-  }
-
-  // 更新数据
-  private updateModel() {
-    if (this.model)
-      this._checked ? this.addValue(this.value) : this.removeValue(this.value);
+  /**
+   * Update selected value in model
+   * @private
+   */
+  private updateModel(): void {
+    this.model && this._checked ? this.addValue(this.value) : this.removeValue(this.value);
     this.onModelChange(this.model);
     this.onChange.emit(this._checked);
   }
 
-  // 根据color属性值改变按钮颜色
-  private setCheckboxColor(value: string, isAdd: boolean) {
-    this.renderer.setElementClass(this.elementRef.nativeElement, `${value}`, isAdd);
-  }
-
-  private addValue(value: any) {
+  /** Add selected value from model
+   * @private
+   * @param {*} value - checkbox's value
+   */
+  private addValue(value: any): void {
     this.model.push(value);
   }
 
-  private removeValue(value: any) {
+  /**
+   * Remove selected value from model
+   * @private
+   * @param {*} value - checkbox's value
+   */
+  private removeValue(value: any): void {
     const index = this.findValueIndex(value);
-    if (index >= 0) {
-      this.model.splice(index, 1);
-    }
+    index >= 0 && this.model.splice(index, 1);
   }
 
-  private findValueIndex(value: any) {
-    let index: number = -1;
-    if (this.model) {
-      for (let i = 0; i < this.model.length; i++) {
-        if (this.model[i] === value) {
-          index = i;
-          break;
-        }
-      }
-    }
-    return index;
+  /**
+   * Find the index of selected value from model, for the use of push or splice
+   * @private
+   * @param {*} value - checkbox's value
+   * @returns {number} - the index of checkbox's value from model
+   */
+  private findValueIndex(value: any): number {
+    let index: number;
+    return this.model ? index = this.model.findIndex((item: any) => item === value) : -1;
   }
-}
 
-@NgModule({
-  imports: [CommonModule, UIRippleModule],
-  exports: [UICheckbox],
-  declarations: [UICheckbox],
-  providers: [],
-})
+  /**
+   * Return element to ripple so that ripple knows which radio to use effect
+   * @returns {HTMLElement}
+   */
+  private getRippleElement(): HTMLElement {
+    return this.elementRef.nativeElement;
+  }
 
-export class UICheckboxModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: UICheckboxModule,
-    };
+  /**
+   * Change the color of radio according to properties color
+   * @param {string} value - color name
+   * @param {boolean} isAdd - new class to tag
+   */
+  private setCheckboxColor(value: string, isAdd: boolean): void {
+    this.renderer.setElementClass(this.elementRef.nativeElement, `${value}`, isAdd);
   }
 }

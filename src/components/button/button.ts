@@ -125,7 +125,7 @@ export class UIButton {
   }
 
   /**
-   * Setting whether ripple effect's background is dark or not
+   * Sets whether ripple effect's background is dark or not
    * @returns {boolean}
    */
   public isRippleDark(): boolean {
@@ -135,13 +135,17 @@ export class UIButton {
   }
 
   /**
-   * Setting whether to use ripple effect
+   * Sets whether to use ripple effect
    * @returns  {boolean}
    */
   public isRippleDisabled(): boolean {
     return this._rippleDisabled || this._disabled;
   }
 
+  /**
+   * Sets whether to use ripple circle effect, for icon button and fab button
+   * @returns {boolean}
+   */
   public isRoundBtn(): boolean {
     return this.getRippleElement().hasAttribute('icon');
   }

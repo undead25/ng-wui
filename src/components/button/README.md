@@ -53,11 +53,3 @@ Properties:
 | `disabled` | boolean | 是否禁用按钮 | `false` |
 | `disableRipple` | boolean | 是否禁用按钮ripple效果 | `false` |
 
-## TODO
-1. 按钮大小
-2. 组合按钮 (!MD)
-3. 块状按钮 
-4. 图标按钮
-5. 线框按钮 (!MD)
-6. FAB按钮
-7. 圆角按钮 (!MD)

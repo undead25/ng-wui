@@ -5,7 +5,8 @@ import {
   Output,
   NgModule,
   ModuleWithProviders,
-  OnInit
+  OnInit,
+  ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { coerceBoolean, coerceNumber, KeyCodes } from '../util';
@@ -13,7 +14,9 @@ import { UIInputModule } from '../input';
 
 @Component({
   selector: 'ui-pagination',
-  templateUrl: 'pagination.html'
+  templateUrl: 'pagination.html',
+  styleUrls: ['./pagination.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class UIPagination implements OnInit {

@@ -1,0 +1,29 @@
+
+.ui-overlay-container {
+  position: fixed;
+  z-index: $zindex-overlay;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  pointer-events: none;
+
+  .ui-overlay-backdrop {
+    background: rgba(0, 0, 0, .6);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    will-change: opacity;
+    position: absolute;
+    opacity: 0;
+    transition: opacity .45s cubic-bezier(.25, .8, .25, 1);
+    pointer-events: auto;
+
+    &.active {
+      opacity: .48;
+    }
+  }
+}
+

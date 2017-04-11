@@ -50,23 +50,15 @@
     {{labelText}}
   </label>
   
-  <div
-    *ngIf="_hasPlaceholder"
-    class="input-placeholder"
-    [class.active]="_isPlaceholderActive"
-  >
+  <div *ngIf="_hasPlaceholder" class="input-placeholder" [class.active]="_isPlaceholderActive">
     {{_placeholder}}
   </div>
   
-  <div *ngIf="help != '' && error == ''"
-    class="input-hint"
-  >
+  <div *ngIf="help != '' && error == ''" class="input-hint">
     {{help}}
   </div>
-  <div *ngIf="error != ''"
-    class="input-hint"
-  >
+  
+  <div *ngIf="error != ''" class="input-hint">
     {{error}}
   </div>
-  <ng-content></ng-content>
 </div>

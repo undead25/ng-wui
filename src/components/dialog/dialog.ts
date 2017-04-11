@@ -8,6 +8,7 @@ import {
   Injectable,
   ComponentRef,
   Renderer,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   animate,
@@ -94,6 +95,7 @@ export class UIDialogService {
 @Component({
   selector: 'ui-dialog',
   templateUrl: './dialog.html',
+  styleUrls: ['./dialog.scss'],
   animations: [
     trigger('state', [
       state('void', style({ transform: 'scale(0.2)', opacity: '0' })),
@@ -103,7 +105,8 @@ export class UIDialogService {
       transition('* => visible', animate('.4s cubic-bezier(0.25, 0.8, 0.25, 1)')),
       transition('* => hidden', animate('.4s cubic-bezier(0.25, 0.8, 0.25, 1)')),
     ])
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class UIDialog implements AfterViewInit {
   /** 配置参数 */
@@ -143,10 +146,10 @@ export class UIDialog implements AfterViewInit {
   public close(): void {
     this.visibility = 'hidden';
     this.closed.next();
-    this.dialogElement = this.elementRef.nativeElement;
-    if (this.dialogElement && this.dialogElement.parentNode !== null) {
-      this.dialogElement.parentNode.removeChild(this.dialogElement);
+    const dialogElement = this.elementRef.nativeElement;
+    if (dialogElement && dialogElement.parentNode !== null) {
       document.removeEventListener('keydown');
+      dialogElement.parentNode.removeChild(dialogElement);
     }
   }
 

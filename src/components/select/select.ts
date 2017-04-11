@@ -11,7 +11,8 @@ import {
   TemplateRef,
   NgModule,
   ModuleWithProviders,
-  AfterContentInit
+  AfterContentInit,
+  ViewEncapsulation
 } from '@angular/core';
 // import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -23,7 +24,8 @@ import { coerceBoolean } from '../util';
 @Component({
   selector: 'ui-select',
   templateUrl: 'select.html',
-  styleUrls: ['./select.scss']
+  styleUrls: ['./select.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class UISelect implements AfterContentInit {
   public isPanelOpen: boolean = false;

@@ -1,0 +1,168 @@
+@import '../style/variables';
+@import '../style/mixins';
+
+.input-container {
+  position: relative;
+
+  display: inline-block;
+
+  width: 100%;
+  margin: $input-height 0;
+
+  .input-line {
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: 2px;
+
+    transition: transform .45s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: scaleX(0);
+
+    border-bottom: 2px solid $brand;
+
+    will-change: transform;
+  }
+
+  // 分隔线
+  .input-border {
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: 1px;
+
+    border-bottom: 1px solid $input-border-color;
+
+    &.disabled {
+      border-bottom-color: transparent; 
+      background-image: linear-gradient(to right, $gray-light 0%, $gray-light 33%, transparent 0%);
+      background-repeat: repeat-x;
+
+      background-position: bottom -1px left 0;
+      background-size: 4px 1px;
+    }
+  }
+
+  .input-required {
+    &:after {
+      content: ' *';
+      vertical-align: top;
+
+      color: map-get($color-map, red);
+
+      font-size: rem(13px);
+    }
+  }
+
+  // placeholder 反显
+  .input-placeholder {
+    position: absolute;
+    bottom: 4px;
+
+    padding: 2px;
+
+    transition: opacity .45s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+
+    color: $gray-light;
+
+    will-change: opacity;
+
+    // 设置隐藏
+    &.active {
+      opacity: 0;
+    }
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: $input-padding;
+
+    border: none;
+    border-radius: 0;
+    outline: none;
+    background-color: transparent;
+    box-shadow: none;
+
+    font-family: inherit;
+    font-size: $font-size-base;
+
+    
+    // 禁用
+    &[disabled],
+    &[readonly] {
+      cursor: not-allowed;
+
+      color: $input-disabled-color;
+    }
+    
+    // 激活横线
+    &:focus:not([readonly]) + label + .input-line, &:focus:not([readonly]) + .input-line{
+      transform: scaleX(1);
+    }
+
+    // 激活label
+    &:focus:not([readonly]) ~ label {
+      color: $brand;
+    }
+  }
+
+  input {
+    height: $input-height;
+  }
+
+  textarea {
+    overflow: hidden;
+
+    resize: none;
+  }
+
+  // 标签文字
+  label {
+    position: absolute;
+    top: .5rem;
+    left: 0;
+
+    margin: 0;
+
+    cursor: text;
+    transition: transform .4s cubic-bezier(.25,.8,.25,1);
+    transform: scale(1);
+    transform-origin: left top 0;
+    pointer-events: none;
+
+    color: $gray-light;
+
+    font-size: $font-size-base;
+    font-weight: normal;
+
+    &.active {
+      transform: translateY(-100%) scale(.75);
+    }
+  }
+
+  // 底部提示文字
+  .input-hint {
+    position: absolute;
+
+    margin-top: 8px;
+
+    color: $gray;
+
+    font-size: $input-hint-font-size;
+    line-height: 1;
+  }
+
+  &.invalid {
+    .input-border {
+      border-bottom: 2px solid map-get($color-map, red);
+    }
+    .input-hint, label, input:focus:not([readonly]) ~ label {
+      color: map-get($color-map, red);
+    }
+    .input-line {
+      border-bottom-color: map-get($color-map, red);
+    }
+  }
+}

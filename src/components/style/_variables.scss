@@ -157,6 +157,10 @@ $acceleration-curve: cubic-bezier(0.4, 0.0, 1, 1) !default; // ease-in
 $standard-curve: cubic-bezier(0.4, 0.0, 0.2, 1) !default; // ease-in-out
 $sharp-curve: cubic-bezier(0.4, 0.0, 0.6, 1) !default; // ease-in-out
 
+$swift-ease-out-duration: .4s !default;
+$swift-ease-out-timing-function: cubic-bezier(.25, .8, .25, 1) !default;
+$swift-ease-out: all $swift-ease-out-duration $swift-ease-out-timing-function !default;
+
 // ============================================================================
 // Tooltip 工具提示
 // ============================================================================

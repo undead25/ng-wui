@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, OnDestroy, SimpleChanges, NgZone } from '@angular/core';
 
 /**
  * Directive Ripple
@@ -40,13 +40,14 @@ export class UIRipple implements OnDestroy, OnChanges {
   /**
    * Creates an instance of UIRipple.
    * @param {ElementRef} elementRef
-   * @memberOf UIRipple
+   * @param {NgZone} ngZone
    */
-  constructor(elementRef: ElementRef) {
+
+  constructor(private elementRef: ElementRef, private ngZone: NgZone) {
     this.rippleContainer = elementRef.nativeElement;
-    this.eventHandlers.set('mousedown', this.handleMouseDown.bind(this));
-    this.eventHandlers.set('mouseup', this.handleMouseUp.bind(this));
-    this.eventHandlers.set('mouseleave', this.handleMouseLeave.bind(this));
+    this.eventHandlers.set('mousedown', this.onMouseDown.bind(this));
+    this.eventHandlers.set('mouseup', this.onMouseUp.bind(this));
+    this.eventHandlers.set('mouseleave', this.onMouseLeave.bind(this));
   }
 
   /**
@@ -77,12 +78,13 @@ export class UIRipple implements OnDestroy, OnChanges {
     }
     // then add event listener of trigger element
     if (element) {
-      this.eventHandlers.forEach((eventHandler, eventName) => element.addEventListener(eventName, eventHandler));
+      this.ngZone.runOutsideAngular(()=> {
+        this.eventHandlers.forEach((eventHandler, eventName) => element.addEventListener(eventName, eventHandler));
+      });
     }
     // at last set trigger element to be param element
     this.triggerElement = element;
   }
-
 
   /**
    * Create ripple and appended to DOM
@@ -97,19 +99,18 @@ export class UIRipple implements OnDestroy, OnChanges {
     this.rippleElement = rippleElement;
 
     // get ripple size and ripple position according to the trigger element
-    // circle ripple has no need to set size and position
+    const rippleSize = Math.max(this.triggerElement.offsetWidth, this.triggerElement.offsetHeight);
     if (!this.isRoundRipple) {
-      const rippleSize = Math.max(this.triggerElement.offsetWidth, this.triggerElement.offsetHeight);
       const ripplePositionTop = this.triggerElement.offsetTop;
       const ripplePositionLeft = this.triggerElement.offsetLeft;
 
       const rippleY = pageY - ripplePositionTop - rippleSize / 2;
       const rippleX = pageX - ripplePositionLeft - rippleSize / 2;
 
-      rippleElement.style.width = `${rippleSize}px`;
-      rippleElement.style.height = `${rippleSize}px`;
       rippleElement.style.top = `${rippleY}px`;
       rippleElement.style.left = `${rippleX}px`;
+      rippleElement.style.width = `${rippleSize}px`;
+      rippleElement.style.height = `${rippleSize}px`;
     }
 
     // set dark ripple effect
@@ -123,7 +124,7 @@ export class UIRipple implements OnDestroy, OnChanges {
    * @private
    * @param {MouseEvent} event
    */
-  private handleMouseDown(event: MouseEvent): void {
+  private onMouseDown(event: MouseEvent): void {
     this.isMouseDown = true;
     this.cerateRipple(event.pageX, event.pageY);
   }
@@ -133,7 +134,7 @@ export class UIRipple implements OnDestroy, OnChanges {
    * @private
    * @param {MouseEvent} event
    */
-  private handleMouseUp(event: MouseEvent): void {
+  private onMouseUp(event: MouseEvent): void {
     this.isMouseDown = false;
     this.triggerElement && this.rippleRemove();
   }
@@ -143,8 +144,8 @@ export class UIRipple implements OnDestroy, OnChanges {
   * @private
   * @param {MouseEvent} event
   */
-  private handleMouseLeave(event: MouseEvent) {
-    this.isMouseDown && this.handleMouseUp(event);
+  private onMouseLeave(event: MouseEvent) {
+    this.isMouseDown && this.onMouseUp(event);
   }
 
   /**
@@ -152,10 +153,14 @@ export class UIRipple implements OnDestroy, OnChanges {
    * @private
    */
   private rippleRemove(): void {
+    // cache ripple element if this.rippleElement changed
+    const rippleElement = this.rippleElement;
     // transitionend has multi propertyName, so choose one to activate dom remove action
-    if (this.rippleElement) {
-      this.rippleElement.addEventListener('transitionend', (event: TransitionEvent) => {
-        event.propertyName === 'transform' && this.rippleElement.parentNode.removeChild(this.rippleElement);
+    if (rippleElement) {
+      rippleElement.addEventListener('transitionend', (event: TransitionEvent) => {
+        if (event.propertyName === 'transform' && rippleElement) {
+          rippleElement.parentNode.removeChild(rippleElement);
+        }
       });
     }
   }
