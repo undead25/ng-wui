@@ -3,9 +3,7 @@ import { Component } from '@angular/core';
   selector: 'app',
   styles: ['li {display: inline-block; padding: 10px; margin-bottom: 20px;}'],
   template: `
-    
     <div style="width: 1000px; margin: 0 auto;">
-      
       <ul>
         <li><a routerLink="/button">按钮</a></li>
         <li><a routerLink="/dialog">弹出框</a></li>
@@ -16,10 +14,10 @@ import { Component } from '@angular/core';
         <li><a routerLink="/radio">单选框</a></li>
         <li><a routerLink="/tooltip">工具提示</a></li>
         <li><a routerLink="/select">选择框</a></li>
+        <li><a routerLink="/switch">滑块</a></li>
       </ul>
       <router-outlet></router-outlet>
     </div>
-    
   `,
 })
 

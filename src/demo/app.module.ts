@@ -17,6 +17,7 @@ import { CheckboxDemo } from './checkbox/checkbox-demo';
 import { RadioDemo } from './radio/radio-demo';
 import { TooltipDemo } from './tooltip/tooltip-demo';
 import { SelectDemo } from './select/select-demo';
+import { SwitchDemo } from './switch/switch-demo';
 
 import '../components/style/style.scss';
 
@@ -40,7 +41,8 @@ import '../components/style/style.scss';
     CheckboxDemo,
     RadioDemo,
     TooltipDemo,
-    SelectDemo
+    SelectDemo,
+    SwitchDemo
   ],
   entryComponents: [DemoModal],
   bootstrap: [AppComponent]

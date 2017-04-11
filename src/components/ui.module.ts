@@ -9,6 +9,7 @@ import { UICheckboxModule } from './checkbox';
 import { UIRadioModule } from './radio';
 import { UITooltipModule } from './tooltip';
 import { UISelectModule } from './select';
+import { UISwitchModule } from './switch';
 
 // import './style/style.scss';
 
@@ -22,6 +23,7 @@ const MODULES = [
   UIRadioModule,
   UITooltipModule,
   UISelectModule,
+  UISwitchModule
 ];
 
 @NgModule({

@@ -10,6 +10,7 @@ import { CheckboxDemo } from './checkbox/checkbox-demo';
 import { RadioDemo } from './radio/radio-demo';
 import { TooltipDemo } from './tooltip/tooltip-demo';
 import { SelectDemo } from './select/select-demo';
+import { SwitchDemo } from './switch/switch-demo';
 
 
 export const ROUTES: Routes = [
@@ -25,4 +26,5 @@ export const ROUTES: Routes = [
   { path: 'radio', component: RadioDemo },
   { path: 'tooltip', component: TooltipDemo },
   { path: 'select', component: SelectDemo },
+  { path: 'switch', component: SwitchDemo },
 ];
