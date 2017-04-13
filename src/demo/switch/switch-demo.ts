@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 })
 
 export class SwitchDemo {
+  public binding: string = 'female';
 
   public testOnChange(event: any) {
     console.log(event);

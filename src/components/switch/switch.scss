@@ -3,6 +3,10 @@
 @import '../ripple/ripple';
 
 .ui-switch {
+  height: auto;
+  display: flex;
+  position: relative;
+  margin: 1rem 0;
 
   input[type="checkbox"] {
     width: 100%;
@@ -13,6 +17,19 @@
     opacity: 0;
     margin: 0;
     padding: 0;
+    z-index: 2;
+  }
+
+  &.checked {
+    .switch-bar {
+      background-color: rgba($brand, .5);
+    }
+
+    .switch-thumb {
+      left: 100%;
+      margin-left: -$switch-thumb-size;
+      background-color: $brand;
+    }
   }
 }
 
@@ -22,6 +39,37 @@
   height: 100%;
 
   label {
-    
+    float: left;
+    display: block;
+  }
+
+  .switch {
+    width: $switch-width;
+    height: $switch-height;
+    margin-left: $switch-gutter;
+    transition: all .45s $ease-out-func;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .switch-bar {
+    width: 100%;
+    border-radius: 30px;
+    height: $switch-bar-height;
+    background-color: $switch-bar-bg;
+    transition: all .45s $ease-out-func;
+  }
+
+  .switch-thumb {
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    margin-top: -($switch-thumb-size/2);
+    border-radius: 50%;
+    background-color: $switch-thumb-bg;
+    transition: all .45s $ease-out-func;
+    @include elevation(1);
+    @include square($switch-thumb-size);
   }
 }

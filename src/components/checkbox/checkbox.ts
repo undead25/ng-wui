@@ -1,4 +1,4 @@
-import { Component, Input, Output, ElementRef, Renderer, EventEmitter, forwardRef, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, ElementRef, Renderer, EventEmitter, forwardRef, ViewEncapsulation, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { coerceBoolean, setUid } from '../util';
 

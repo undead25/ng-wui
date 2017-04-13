@@ -1,2 +1,30 @@
+<input type="checkbox"
+  [id]="inputID"
+  [disabled]="_disabled"
+  [name]="name"
+  [checked]="checked"
+  (change)="_onChange($event)"
+  (click)="_onClick($event)"
+>
+<div class="switch-container">
+  <label>{{label}}</label>
+  <div class="switch">
+    <div class="switch-bar"></div>
+    <div class="switch-thumb">
+      <!--<div class="switch-focus-effect">
+        <div class="effect"></div>
+      </div>-->
+      <div
+        *ngIf="!rippleDisabled && !disabled"
+        ui-ripple
+        class="ripple-container"
+        [trigger]="getRippleElement()"
+        isDark="true"
+        isCircleRipple="true"
+      >
+      </div>
+    </div>
+  </div>
+</div>
 
-<input type="checkbox">
+  

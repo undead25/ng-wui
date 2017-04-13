@@ -6,55 +6,50 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  
-  &.ripple-circle .ripple.active {
-    transform: scale(1);
-    transition: opacity 2s cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 1s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-  }
 }
 
 .ripple-container .ripple {
   position: absolute;
   user-select: none;
-  transition: transform .5s linear, opacity .5s linear;
   transform: scale(0);
-  background-color: rgba(255, 255, 255, .4);
+  background-color: rgb(255, 255, 255);
   border-radius: 50%;
+  opacity: 0.1;
+  transition: opacity 2s cubic-bezier(0.23, 1, 0.32, 1) 0ms, transform 1s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   @include square(100%);
 
   &.active {
-    transform: scale(2.4);
+    transform: scale(1);
+  }
+
+  &.fade {
     opacity: 0;
   }
 
   &.ripple-dark {
-    background-color: rgba(0, 0, 0, .2);
+    background-color: $dark;
   }
-}
-
-%circle-ripple {
-  overflow: visible;
-  .ripple {
-    @include square(24px);
-    top: 50%;
-    margin-top: -12px;
-  }
-}
-
-%circle-ripple-position {
-  right: 0;
-  left: auto;
 }
 
 .ui-checkbox .ripple-container,
 .ui-radio .ripple-container {
-  @extend %circle-ripple;
+  top: -($checkbox-size / 2);
+  left: -($checkbox-size / 2);
+  @include square(200%);
 }
 
-.ui-checkbox .reverse+.ripple-container .ripple {
-  @extend %circle-ripple-position;
+.ui-switch .ripple-container {
+  top: -($switch-thumb-size) /2;
+  left: -($switch-thumb-size) /2;
+  @include square(200%);
 }
 
-.ui-radio .reverse+.ripple-container .ripple {
-  @extend %circle-ripple-position;
-}
+
+
+// .ui-checkbox .reverse+.ripple-container .ripple {
+//   @extend %circle-ripple-position;
+// }
+
+// .ui-radio .reverse+.ripple-container .ripple {
+//   @extend %circle-ripple-position;
+// }

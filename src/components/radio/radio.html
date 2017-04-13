@@ -12,24 +12,24 @@
     (change)="_onChange($event)"
     (click)="_onClick($event)"
   >
-  <div #svg class="svg-wrapper">
+  <div class="svg-wrapper">
     <svg viewBox="0 0 24 24" class="unchecked">
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
     </svg>
     <svg viewBox="0 0 24 24" class="checked">
       <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
     </svg>
+    <div
+      *ngIf="!rippleDisabled && !disabled"
+      ui-ripple
+      class="ripple-container"
+      [trigger]="getRippleElement()"
+      isDark="true"
+      isCircleRipple="true"
+    >
+    </div>
   </div>
   <div class="radio-label">
     <ng-content></ng-content>
   </div>
 </label>
-<div
-  *ngIf="!rippleDisabled && !disabled"
-  ui-ripple
-  class="ripple-container"
-  [trigger]="getRippleElement()"
-  isDark="true"
-  isRoundRipple="true"
->
-</div>

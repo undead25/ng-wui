@@ -49,6 +49,7 @@
   }
 
   .svg-wrapper {
+    position: relative;
     @include square($checkbox-size);
   }
 

@@ -20,7 +20,7 @@ export class UIRipple implements OnDestroy, OnChanges {
   @Input('isDark') isDark: boolean;
 
   /** Whether use round ripple effect */
-  @Input('isRoundRipple') isRoundRipple: boolean;
+  @Input('isCircleRipple') isCircleRipple: boolean = false;
 
   /** Ripple's container HTMLElement */
   private rippleContainer: HTMLElement;
@@ -78,7 +78,7 @@ export class UIRipple implements OnDestroy, OnChanges {
     }
     // then add event listener of trigger element
     if (element) {
-      this.ngZone.runOutsideAngular(()=> {
+      this.ngZone.runOutsideAngular(() => {
         this.eventHandlers.forEach((eventHandler, eventName) => element.addEventListener(eventName, eventHandler));
       });
     }
@@ -89,30 +89,22 @@ export class UIRipple implements OnDestroy, OnChanges {
   /**
    * Create ripple and appended to DOM
    * @private
-   * @param {number} pageX - element event's pageX
-   * @param {number} pageY - element event's pageY
+   * @param {Event} event
    */
-  private cerateRipple(pageX: number, pageY: number) {
+  private cerateRipple(event: Event) {
     const rippleElement = document.createElement('div');
     rippleElement.classList.add('ripple');
     this.rippleContainer.appendChild(rippleElement);
     this.rippleElement = rippleElement;
-
-    // get ripple size and ripple position according to the trigger element
     const rippleSize = Math.max(this.triggerElement.offsetWidth, this.triggerElement.offsetHeight);
-    if (!this.isRoundRipple) {
-      const ripplePositionTop = this.triggerElement.offsetTop;
-      const ripplePositionLeft = this.triggerElement.offsetLeft;
-
-      const rippleY = pageY - ripplePositionTop - rippleSize / 2;
-      const rippleX = pageX - ripplePositionLeft - rippleSize / 2;
-
-      rippleElement.style.top = `${rippleY}px`;
-      rippleElement.style.left = `${rippleX}px`;
-      rippleElement.style.width = `${rippleSize}px`;
-      rippleElement.style.height = `${rippleSize}px`;
+    // get ripple size and ripple position according to the trigger element
+    if (!this.isCircleRipple) {
+      const ripplePosition = this.setRipplePosition(event);
+      rippleElement.style.width = ripplePosition.rippleSize + 'px';
+      rippleElement.style.height = ripplePosition.rippleSize + 'px';
+      rippleElement.style.top = ripplePosition.rippleTop + 'px';
+      rippleElement.style.left = ripplePosition.rippleLeft + 'px';
     }
-
     // set dark ripple effect
     this.isDark && rippleElement.classList.add(`ripple-dark`);
     // activate ripple animation
@@ -120,13 +112,53 @@ export class UIRipple implements OnDestroy, OnChanges {
   }
 
   /**
+   * Set ripple's size and position
+   * @private
+   * @param {Event} event
+   * @returns {{rippleSize, rippleLeft, rippleTop}}
+   */
+  private setRipplePosition(event: Event): {rippleSize, rippleLeft, rippleTop} {
+    const isTouchEvent = (event as TouchEvent).touches && (event as TouchEvent).touches.length;
+    const pageX = isTouchEvent ? (event as TouchEvent).touches[0].pageX : (event as MouseEvent).pageX;
+    const pageY = isTouchEvent ? (event as TouchEvent).touches[0].pageY : (event as MouseEvent).pageY;
+    const pointerX = pageX - this.offset(this.rippleContainer).left;
+    const pointerY = pageY - this.offset(this.rippleContainer).top;
+    const topLeftDiag = this.calcDiag(pointerX, pointerY);
+    const topRightDiag = this.calcDiag(this.rippleContainer.offsetWidth - pointerX, pointerY);
+    const botRightDiag = this.calcDiag(this.rippleContainer.offsetWidth - pointerX, this.rippleContainer.offsetLeft - pointerY);
+    const botLeftDiag = this.calcDiag(pointerX, this.rippleContainer.offsetLeft - pointerY);
+    const rippleRadius = Math.max(topLeftDiag, topRightDiag, botRightDiag, botLeftDiag);
+    const rippleSize = rippleRadius * 2;
+    const rippleLeft = pointerX - rippleRadius;
+    const rippleTop = pointerY - rippleRadius;
+
+    return {
+      rippleSize,
+      rippleLeft,
+      rippleTop
+    };
+  }
+
+  private offset(el: HTMLElement): { top, left } {
+    const rect = el.getBoundingClientRect();
+    return {
+      top: rect.top + document.body.scrollTop,
+      left: rect.left + document.body.scrollLeft,
+    };
+  }
+
+  private calcDiag(a: number, b: number) {
+    return Math.sqrt((a * a) + (b * b));
+  }
+
+  /**
    * Listener mousedown event
    * @private
    * @param {MouseEvent} event
    */
-  private onMouseDown(event: MouseEvent): void {
+  private onMouseDown(event: Event): void {
     this.isMouseDown = true;
-    this.cerateRipple(event.pageX, event.pageY);
+    this.cerateRipple(event);
   }
 
   /**
@@ -155,13 +187,18 @@ export class UIRipple implements OnDestroy, OnChanges {
   private rippleRemove(): void {
     // cache ripple element if this.rippleElement changed
     const rippleElement = this.rippleElement;
-    // transitionend has multi propertyName, so choose one to activate dom remove action
+
     if (rippleElement) {
-      rippleElement.addEventListener('transitionend', (event: TransitionEvent) => {
-        if (event.propertyName === 'transform' && rippleElement) {
-          rippleElement.parentNode.removeChild(rippleElement);
-        }
-      });
+      setTimeout(() => {
+        rippleElement.classList.add('fade');
+
+        // transitionend has multi propertyName, so choose one to activate dom remove action
+        rippleElement.addEventListener('transitionend', (event: TransitionEvent) => {
+          if (event.propertyName === 'opacity' && rippleElement) {
+            rippleElement.parentNode.removeChild(rippleElement);
+          }
+        });
+      }, 0);
     }
   }
 }

@@ -141,7 +141,7 @@ $pagination-go-width: rem(44px) !default;
 // ============================================================================
 // Checkbox 复选框
 // ============================================================================
-$checkbox-size: rem(24px) !default;
+$checkbox-size: 24px !default;
 $checkbox-border-color: $gray;
 $checkbox-disabled-color: rgba(0, 0, 0, .26) !default;
 $checkbox-label-margin: 0 .5rem !default;
@@ -160,6 +160,10 @@ $sharp-curve: cubic-bezier(0.4, 0.0, 0.6, 1) !default; // ease-in-out
 $swift-ease-out-duration: .4s !default;
 $swift-ease-out-timing-function: cubic-bezier(.25, .8, .25, 1) !default;
 $swift-ease-out: all $swift-ease-out-duration $swift-ease-out-timing-function !default;
+
+$swift-linear-duration: 80ms !default;
+$swift-linear-timing-function: linear !default;
+$swift-linear: all $swift-linear-duration $swift-linear-timing-function !default;
 
 // ============================================================================
 // Tooltip 工具提示
@@ -185,4 +189,13 @@ $select-option-padding: 0 1rem !default;
 // Switch 滑块
 // ============================================================================
 $switch-width: rem(36px) !default;
+$switch-height: rem(24px) !default;
 $switch-gutter: rem(8px) !default;
+
+$switch-bar-height: rem(14px) !default;
+$switch-bar-bg: $gray-light !default;
+
+$switch-thumb-size: 20px !default;
+$switch-thumb-bg: #fafafa;
+
+
