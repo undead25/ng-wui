@@ -8,7 +8,9 @@ import {
   Injectable,
   ComponentRef,
   Renderer,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Optional,
+  SkipSelf
 } from '@angular/core';
 import {
   animate,
@@ -20,10 +22,10 @@ import {
 } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
-import { merge, InjectionService, coerceBoolean } from '../util';
-import { UIButtonModule } from '../button';
+import { merge, InjectionService, coerceBoolean, ESCAPE } from '../util';
 import { Overlay } from '../overlay';
 import { Observable } from 'rxjs/Observable';
+import { UIButtonModule } from '../button';
 
 /**
  * 弹框配置类
@@ -51,15 +53,18 @@ export class DialogConfig {
 @Injectable()
 export class UIDialogService {
   public componentRef: ComponentRef<any>;
-  public dialogComponent: any;
-  public openedDialogs: any[] = [];
+  private openedDialogs: any[] = [];
+  private bindKeydown = this.handleKeydown.bind(this);
 
   /**
    * 弹框组件服务构造函数.
    * @param {Overlay} overlay
    * @param {InjectionService} injection
    */
-  constructor(public overlay: Overlay, private injection: InjectionService) { }
+  constructor(
+    public overlay: Overlay,
+    private injection: InjectionService,
+    @Optional() @SkipSelf() private parentDialog: UIDialogService) { }
 
   /**
    * 打开弹框
@@ -74,16 +79,41 @@ export class UIDialogService {
     let overlayRef = this.overlay.create(true);
     this.componentRef = this.injection.appendComponent(component, { config: config }, overlayRef.createOverlay(true, true));
     let componentInstance = this.componentRef.instance;
-    config.isModal ? this.dialogComponent = componentInstance.dialogComponent : this.dialogComponent = componentInstance;
-    this.dialogComponent.afterClosed().subscribe(() => {
+    let dialogComponent: any = null;
+    config.isModal ? dialogComponent = componentInstance.dialogComponent :
+      dialogComponent = componentInstance;
+    dialogComponent.afterClosed().subscribe(() => {
+      this.remove(dialogComponent);
       overlayRef.removeOverlay(true);
       this.componentRef.destroy();
     });
-    this.dialogComponent.visibility = 'visible';
+    dialogComponent.visibility = 'visible';
     if (!config.disableBackdropClose) {
-      overlayRef.backdropClick().first().subscribe(() => this.dialogComponent.close());
+      overlayRef.backdropClick().first().subscribe(() => dialogComponent.close());
     }
+
+    if (!this.openedDialogs.length && !this.parentDialog) {
+      document.addEventListener('keydown', this.bindKeydown);
+    }
+
+    this.openedDialogs.push(dialogComponent);
     return componentInstance;
+  }
+
+  private remove(dialogComponent: any) {
+    let dialogIndex: number = this.openedDialogs.indexOf(dialogComponent);
+    if (dialogIndex > -1) {
+      this.openedDialogs.splice(dialogIndex, 1);
+
+      if (!this.openedDialogs.length) {
+        document.removeEventListener('keydown', this.bindKeydown);
+      }
+    }
+  }
+
+  private handleKeydown(event: KeyboardEvent): void {
+    let topDialog = this.openedDialogs[this.openedDialogs.length - 1];
+    if (event.keyCode === ESCAPE && topDialog) topDialog.close();
   }
 }
 
@@ -108,7 +138,7 @@ export class UIDialogService {
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class UIDialog implements AfterViewInit {
+export class UIDialog {
   /** 配置参数 */
   public _config: DialogConfig;
   public visibility: string = 'initial';
@@ -148,7 +178,6 @@ export class UIDialog implements AfterViewInit {
     this.closed.next();
     const dialogElement = this.elementRef.nativeElement;
     if (dialogElement && dialogElement.parentNode !== null) {
-      document.removeEventListener('keydown');
       dialogElement.parentNode.removeChild(dialogElement);
     }
   }
@@ -201,18 +230,6 @@ export class UIDialog implements AfterViewInit {
    */
   public afterClosed(): Observable<void> {
     return this.closed.asObservable();
-  }
-
-  // 绑定esc keydown事件
-  ngAfterViewInit() {
-    // 失去焦点, body聚焦
-    const focusElement = (document.activeElement) as HTMLElement;
-    focusElement.blur();
-    if (this._config.escClose) {
-      document.addEventListener('keydown', (event: KeyboardEvent) => {
-        if (event.which === 27) this.handleCancel();
-      });
-    }
   }
 }
 

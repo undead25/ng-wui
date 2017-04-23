@@ -9,7 +9,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { coerceBoolean, coerceNumber, KeyCodes } from '../util';
+import { coerceBoolean, coerceNumber, ENTER } from '../util';
 import { UIInputModule } from '../input';
 
 @Component({
@@ -190,7 +190,7 @@ export class UIPagination implements OnInit {
     }
     this.inputValue = value;
 
-    if (event.keyCode === KeyCodes.ENTER) this.pageChange(this.inputValue);
+    if (event.keyCode === ENTER) this.pageChange(this.inputValue);
   }
 
   /**
@@ -205,7 +205,7 @@ export class UIPagination implements OnInit {
     let value = coerceNumber(target.value);
     this._pageSize = value;
     this.inputPageSize = value;
-    if (event.keyCode === KeyCodes.ENTER) this.pageChange(1);
+    if (event.keyCode === ENTER) this.pageChange(1);
   }
 
   onPageSize() {
