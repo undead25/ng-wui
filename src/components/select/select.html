@@ -1,11 +1,9 @@
-<div class="ui-select" (click)="open()">
-  <span class="select-label" [class.active]="selected.length">{{label}}</span>
-  <span class="select-value" *ngFor="let option of selected">{{option.viewValue}}</span>
-  <svg width="24" height="24" viewBox="0 0 24 24">
-    <path d="M7 10l5 5 5-5z" />
-  </svg>
-  <div class="select-line" [class.active]="isPanelOpen"></div>
-</div>
+<span class="select-label" [class.active]="selected.length">{{label}}</span>
+<span class="select-value" *ngFor="let option of selected">{{option.viewValue}}</span>
+<svg width="24" height="24" viewBox="0 0 24 24">
+  <path d="M7 10l5 5 5-5z" />
+</svg>
+<div class="select-line" [class.active]="isPanelOpen"></div>
 
 <ng-template #optionPanel>
   <div class="select-option-container" [ngStyle]="setPanelStyles()" [class.active]="isPanelOpen">

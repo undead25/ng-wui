@@ -12,7 +12,8 @@ import {
   NgModule,
   ModuleWithProviders,
   AfterContentInit,
-  ViewEncapsulation
+  ViewEncapsulation,
+  OnDestroy
 } from '@angular/core';
 // import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -20,30 +21,37 @@ import { Subscription } from 'rxjs/Subscription';
 import { UISelectOption } from './option';
 import { Overlay, OverlayRef } from '../overlay';
 import { coerceBoolean } from '../util';
+import 'rxjs/add/operator/startWith';
 
 @Component({
   selector: 'ui-select',
   templateUrl: 'select.html',
   styleUrls: ['./select.scss'],
+  host: {
+    '[class.ui-select]': 'true',
+    '(click)': 'open()'
+  },
   encapsulation: ViewEncapsulation.None
 })
-export class UISelect implements AfterContentInit {
+export class UISelect implements AfterContentInit, OnDestroy {
+  /** Whether ths options panel is open or not */
   public isPanelOpen: boolean = false;
-  /** label 入参，标签文字 */
+
+  /** Label text of the select */
   @Input() label: string = '';
 
   @Input()
-  set multiple(value: any) {
-    this.isMultiple = coerceBoolean(value);
-  }
+  get multiple() { return this.isMultiple; }
+  set multiple(value: any) { this.isMultiple = coerceBoolean(value); }
 
   @ViewChild('optionPanel') optionPanel: TemplateRef<any>;
   @ContentChildren(UISelectOption) options: QueryList<UISelectOption>;
 
   private selected: Array<UISelectOption> = [];
-  private nativeElement: HTMLElement;
   private overlayRef: OverlayRef;
-  private _changeSubscription: Subscription;
+  private changeSubscription: Subscription;
+  private optionSubscription: Subscription;
+
   private isMultiple: boolean = false;
 
   constructor(
@@ -52,11 +60,10 @@ export class UISelect implements AfterContentInit {
     private elementRef: ElementRef,
     private renderer: Renderer
   ) {
-    this.nativeElement = this.elementRef.nativeElement;
   }
 
   /**
-   * 展示选项面板
+   * Open options panel for select
    */
   public open(): void {
     let viewRef = this.viewContainerRef.createEmbeddedView(this.optionPanel);
@@ -70,7 +77,7 @@ export class UISelect implements AfterContentInit {
   }
 
   /**
-   * 关闭并移除选项面板
+   * Close options panel and remove it from DOM
    */
   public close(): void {
     if (this.isPanelOpen) {
@@ -80,35 +87,58 @@ export class UISelect implements AfterContentInit {
   }
 
   /**
-   * 根据组件位置设置选项面板位置
-   * @returns {Object} - 返回样式对象
+   * Sets options panel's postion & size according to the select component
+   * @returns {{top: string; left: string; width: string;}}
    */
-  public setPanelStyles(): Object {
-    const boundingClientRect: ClientRect = this.nativeElement.getBoundingClientRect();
+  public setPanelStyles(): { top: string; left: string; width: string; } {
+    const boundingClientRect: ClientRect = this.elementRef.nativeElement.getBoundingClientRect();
 
     let styles = {
-      'top': boundingClientRect.top + 'px',
-      'left': boundingClientRect.left + 'px',
-      'width': boundingClientRect.width + 'px'
+      top: boundingClientRect.top + 'px',
+      left: boundingClientRect.left + 'px',
+      width: boundingClientRect.width + 'px'
     };
     return styles;
   }
 
   public ngAfterContentInit(): void {
-    this.updateOptions();
+    this.changeSubscription = this.options.changes.startWith(null).subscribe(() => {
+      this.resetOptions();
+    });
   }
 
-  public updateOptions(): void {
+  public ngOnDestroy(): void {
+    if (this.changeSubscription) {
+      this.changeSubscription.unsubscribe();
+    }
+  }
+
+  public resetOptions(): void {
     this.options.forEach((option: UISelectOption) => {
       option.onSelect.subscribe((item: UISelectOption) => {
-        if (this.isMultiple) {
-          let idx = this.selected.indexOf(item);
-          idx < 0 ? this.selected.push(item) : this.selected.slice(idx, 1);
-        } else {
-          this.selected[0] = item;
-          this.close();
-        }
+        this.hanleSelect(item);
+        if (!this.isMultiple) this.close();
       });
+    });
+
+  }
+
+  private hanleSelect(option: UISelectOption): void {
+    const isThisOptionSelected = this.selected.indexOf(option) > -1;
+    if (this.isMultiple) {
+      let idx = this.selected.indexOf(option);
+      idx < 0 ? this.selected.push(option) : this.selected.splice(idx, 1);
+    } else {
+      this.clearSelection(option);
+      this.selected[0] = option;
+    }
+  }
+
+  private clearSelection(option: UISelectOption) {
+    this.selected.forEach((selectedOption: UISelectOption) => {
+      if (selectedOption !== option) {
+        selectedOption.handleDeselect();
+      }
     });
   }
 }

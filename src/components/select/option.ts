@@ -4,11 +4,13 @@ import { Component, Output, EventEmitter, ElementRef, Input } from '@angular/cor
   selector: 'ui-select-option',
   template: '<ng-content></ng-content>',
   host: {
-    '(click)': 'handleSelect()'
+    '(click)': 'handleSelect()',
+    '[class.active]': 'selected'
   }
 })
 export class UISelectOption {
 
+  public isMultiple: boolean = false;
   @Input() value: any;
   @Output() onSelect: EventEmitter<any> = new EventEmitter();
 
@@ -28,8 +30,13 @@ export class UISelectOption {
 
   public handleSelect() {
     if (!this._disabled) {
-      this._selected = true;
+      this._selected = this.isMultiple ? !this._selected : true;
       this.onSelect.emit(this);
     }
+  }
+
+  public handleDeselect() {
+    this._selected = false;
+    this.onSelect.emit(this);
   }
 }
